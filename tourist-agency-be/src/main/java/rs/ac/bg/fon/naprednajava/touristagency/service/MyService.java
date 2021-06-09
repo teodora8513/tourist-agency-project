@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.MyDto;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 
 
 public interface MyService<DTO extends MyDto, ID> {
@@ -16,11 +18,11 @@ public interface MyService<DTO extends MyDto, ID> {
 
 	List<DTO> getAll();
 
-	DTO save(DTO dto);
+	DTO save(DTO dto) throws MyEntityAlreadyexists, MyEntityDoesntExist;
 
-	void delete(ID id);
+	void delete(ID id) throws MyEntityDoesntExist;
 
-	Optional<DTO> update(DTO dto);
+	Optional<DTO> update(DTO dto) throws  MyEntityDoesntExist, MyEntityAlreadyexists;
 
 	Page<DTO> findByPage(Pageable pageable);
 	
