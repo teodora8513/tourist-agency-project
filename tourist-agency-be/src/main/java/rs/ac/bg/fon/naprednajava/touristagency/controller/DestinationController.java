@@ -45,7 +45,7 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 
 	@GetMapping(path="/{id}")
 	@Override
-	public ResponseEntity<Object> findById(Long ID) {
+	public ResponseEntity<Object> findById(@PathVariable Long ID) {
 		Optional<DestinationDto> dto = destinationService.findById(ID);
 		if (dto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(dto.get());
