@@ -4,6 +4,7 @@ import java.util.Date;
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.TransportationEntity;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 
 public class ReservationDto implements MyDto {
