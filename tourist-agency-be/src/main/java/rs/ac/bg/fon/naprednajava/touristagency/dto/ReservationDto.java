@@ -4,13 +4,11 @@ import java.util.Date;
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.TransportationEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 
 public class ReservationDto implements MyDto {
 
 	private Long id;
-	private UserEntity user;
 	private Date dateFrom;
 	private Date dateTo;
 	private int numberOfNights;
@@ -24,11 +22,11 @@ public class ReservationDto implements MyDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReservationDto(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights, int numberOfRooms,
+	public ReservationDto(Long id,  Date dateFrom, Date dateTo, int numberOfNights, int numberOfRooms,
 			Meals meals, HotelEntity hotel, TransportationEntity transportation) {
 		super();
 		this.id = id;
-		this.user = user;
+		
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.numberOfNights = numberOfNights;
@@ -46,13 +44,7 @@ public class ReservationDto implements MyDto {
 		this.id = id;
 	}
 
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
+	
 
 	public Date getDateFrom() {
 		return dateFrom;
