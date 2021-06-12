@@ -14,13 +14,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.RoomType;
 
 /**
@@ -46,6 +49,7 @@ public class RoomEntity implements MyEntity{
         
     private String description;
 
+    
     @Column(name = "price_per_night")
     private BigDecimal pricePerNight;
     
@@ -53,6 +57,36 @@ public class RoomEntity implements MyEntity{
     private RoomType roomType;
     
     private boolean available;
+    
+    @ManyToOne
+    @JoinColumn(name="reservation_id")
+    private ReservationEntity reservation;
+
+	public BigDecimal getPricePerNight() {
+		return pricePerNight;
+	}
+
+	public void setPricePerNight(BigDecimal pricePerNight) {
+		this.pricePerNight = pricePerNight;
+	}
+
+	public ReservationEntity getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(ReservationEntity reservation) {
+		this.reservation = reservation;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 
     
 }

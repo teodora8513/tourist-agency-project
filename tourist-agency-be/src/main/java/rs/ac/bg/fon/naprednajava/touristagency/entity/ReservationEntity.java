@@ -1,6 +1,8 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 
-//@Entity
-//@Table(name="reservation")
+@Entity
+@Table(name="reservation")
 public class ReservationEntity implements MyEntity {
-/*
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,14 +40,14 @@ public class ReservationEntity implements MyEntity {
 	@Column(name="num_of_nights")
 	private int numberOfNights;
 	
-	@Column(name="num_of_rooms")
-	private int numberOfRooms;
+	@OneToMany(mappedBy = "reservation")
+	private List<RoomEntity> rooms;
 	
 	@Enumerated(EnumType.STRING)
 	private Meals meals;
 	
 	@ManyToOne
-	@Column(name="hotel_id")
+	@JoinColumn(name="hotel_id")
 	private HotelEntity hotel;
 	
 	@ManyToOne
@@ -52,6 +56,8 @@ public class ReservationEntity implements MyEntity {
 	
 	@Column(name="total_price")
 	private double totalPrice;
+	
+	private int people;
 
 	public ReservationEntity() {
 		super();
@@ -59,17 +65,18 @@ public class ReservationEntity implements MyEntity {
 	}
 
 	public ReservationEntity(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
-			int numberOfRooms, Meals meals, TransportationEntity transportation) {
+			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.numberOfNights = numberOfNights;
-		this.numberOfRooms = numberOfRooms;
+		this.rooms = rooms;
 		this.meals = meals;
 		this.transportation = transportation;
 		this.totalPrice = getTotalPrice();
+		this.people = people;
 	}
 
 	public Long getId() {
@@ -112,12 +119,30 @@ public class ReservationEntity implements MyEntity {
 		this.numberOfNights = numberOfNights;
 	}
 
-	public int getNumberOfRooms() {
-		return numberOfRooms;
+	public List<RoomEntity> getRooms() {
+		return rooms;
 	}
 
-	public void setNumberOfRooms(int numberOfRooms) {
-		this.numberOfRooms = numberOfRooms;
+	public void setRooms(List<RoomEntity> rooms) {
+		this.rooms = rooms;
+	}
+
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
+	}
+
+	
+
+	public HotelEntity getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(HotelEntity hotel) {
+		this.hotel = hotel;
 	}
 
 	public Meals getMeals() {
@@ -137,13 +162,16 @@ public class ReservationEntity implements MyEntity {
 	}
 
 	public double getTotalPrice() {
-		//TODO uvrstiti cenu sobe iz hotela u jednacinu umesto 100
-		int accommodation = numberOfNights * numberOfRooms * 100;
-		//TODO na osnovu tipa sobe broj 1 promeniti
+		int roomPrice = 0;
+		
+		for (RoomEntity roomEntity : rooms) {
+			roomPrice += roomEntity.getPricePerNight().intValue();
+		}
+		
+		int accommodation = numberOfNights * roomPrice;
 		int meal = priceOfMeals(meals);
-		int meals = numberOfNights * 1 * meal;
-		//TODO zameniti 1 s brojem osoba 
-		double transport = transportation.getPrice() * 1;
+		int meals = numberOfNights * people * meal;
+		double transport = transportation.getPrice() * people;
 		return accommodation + meals + transport;
 	}
 
@@ -177,5 +205,5 @@ public class ReservationEntity implements MyEntity {
 		return mealPrice;
 	}
 	
-	*/
+	
 }

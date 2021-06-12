@@ -1,8 +1,11 @@
 package rs.ac.bg.fon.naprednajava.touristagency.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.TransportationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
@@ -10,31 +13,47 @@ import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 public class ReservationDto implements MyDto {
 
 	private Long id;
+
+	private UserEntity user;
+
 	private Date dateFrom;
+
 	private Date dateTo;
+
 	private int numberOfNights;
-	private int numberOfRooms;
+
+	private List<RoomEntity> rooms;
+
 	private Meals meals;
+
 	private HotelEntity hotel;
+
 	private TransportationEntity transportation;
+
+	private double totalPrice;
+
+	private int people;
 
 	public ReservationDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReservationDto(Long id,  Date dateFrom, Date dateTo, int numberOfNights, int numberOfRooms,
-			Meals meals, HotelEntity hotel, TransportationEntity transportation) {
+	public ReservationDto(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
+			List<RoomEntity> rooms, Meals meals, HotelEntity hotel, TransportationEntity transportation,
+			double totalPrice, int people) {
 		super();
 		this.id = id;
-		
+		this.user = user;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.numberOfNights = numberOfNights;
-		this.numberOfRooms = numberOfRooms;
+		this.rooms = rooms;
 		this.meals = meals;
 		this.hotel = hotel;
 		this.transportation = transportation;
+		this.totalPrice = totalPrice;
+		this.people = people;
 	}
 
 	public Long getId() {
@@ -45,7 +64,13 @@ public class ReservationDto implements MyDto {
 		this.id = id;
 	}
 
-	
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 
 	public Date getDateFrom() {
 		return dateFrom;
@@ -71,12 +96,12 @@ public class ReservationDto implements MyDto {
 		this.numberOfNights = numberOfNights;
 	}
 
-	public int getNumberOfRooms() {
-		return numberOfRooms;
+	public List<RoomEntity> getRooms() {
+		return rooms;
 	}
 
-	public void setNumberOfRooms(int numberOfRooms) {
-		this.numberOfRooms = numberOfRooms;
+	public void setRooms(List<RoomEntity> rooms) {
+		this.rooms = rooms;
 	}
 
 	public Meals getMeals() {
@@ -101,6 +126,22 @@ public class ReservationDto implements MyDto {
 
 	public void setTransportation(TransportationEntity transportation) {
 		this.transportation = transportation;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
 	}
 
 }
