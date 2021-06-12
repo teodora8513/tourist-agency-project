@@ -31,9 +31,3 @@ insert into transportation (type, price, season, start, end) values ("BUS", 50, 
 insert into transportation (type, price, season, start, end) values ("MINI_BUS", 100, "WINTER", 2,4);
 insert into transportation (type, price, season, start, end) values ("CAR", 0, "SPRING", 3,4);
 insert into transportation (type, price, season, start, end) values ("PLANE", 150, "SUMMER", 4,5);
-
-/*Insert HOTEL values*/
-insert into hotel (name, address, rating, destination_id) values ("Rosa Grand", "Piazza Fontana, 3", 5, 1);
-
-/*Insert ROOM values*/
-insert into room (room_number, description, price_per_night, room_type, available, hotel_id) values ("1A", "A standard king bed room has one standard size king bed and a pull out sofa bed with one bathroom and a small area with a coffee maker. It comes with a television and cable box.", 40, "king_room", TRUE, 1);
