@@ -48,7 +48,7 @@ public class UserEntity implements UserDetails, MyEntity {
 
     /** Flag whether user is enabled **/
     @Setter
-    private boolean enabled;
+    private boolean enabled = true;
 
     /** Methods from the implemented interface **/
 
@@ -57,7 +57,7 @@ public class UserEntity implements UserDetails, MyEntity {
      * @return User roles/gorups
      */
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<RoleEntity> getAuthorities() {
         return this.authorities;
     }
 
