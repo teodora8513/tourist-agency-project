@@ -10,6 +10,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.mapper.authority.UserCreateMapper
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.authority.UserViewMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.authority.UserRepository;
 import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.CreateUserRequest;
+import rs.ac.bg.fon.naprednajava.touristagency.service.RoleService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
@@ -39,6 +40,9 @@ public class DefaultUserService implements UserService {
     /** User Create Mapper **/
     private final UserCreateMapper userCreateMapper;
 
+    /** Role Service **/
+    private final RoleService roleService;
+
     /**
      * Creates user
      * @param createUserRequest userRequest to save
@@ -60,6 +64,8 @@ public class DefaultUserService implements UserService {
         userEntity.setPassword(this.passwordEncoder.encode(userEntity.getPassword()));
 
         userEntity = this.userRepository.save(userEntity);
+
+        userEntity = this.roleService.addUserToRole(userEntity.getId(), RoleService.ROLE_USER);
 
         return this.userViewMapper.toDto(userEntity);
     }
@@ -92,4 +98,5 @@ public class DefaultUserService implements UserService {
         return this.userRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("User with that id does not exists"));
     }
+
 }

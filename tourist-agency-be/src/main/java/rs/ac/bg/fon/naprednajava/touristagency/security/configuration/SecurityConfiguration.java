@@ -2,6 +2,7 @@ package rs.ac.bg.fon.naprednajava.touristagency.security.configuration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,7 @@ import static java.lang.String.format;
 
 /**
  * Security configuration for the application
+ *
  * @author mdjukanovic
  */
 @EnableWebSecurity
@@ -71,12 +73,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             e.getMessage()
                     );
                 }).and();
-
         // Set permissions on endpoints
 
-      //  http.authorizeRequests().antMatchers("/").permitAll();
-        http.authorizeRequests().antMatchers("api/public/**").permitAll()
-                .anyRequest().authenticated();
+         http.authorizeRequests().antMatchers("/").permitAll();
+//        http.authorizeRequests().antMatchers("api/public/**").permitAll()
+//                .anyRequest().authenticated();
 
         // Add jwt token filter
         http.addFilterBefore(
@@ -94,4 +95,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }
