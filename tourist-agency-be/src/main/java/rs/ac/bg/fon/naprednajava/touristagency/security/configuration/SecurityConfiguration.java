@@ -19,6 +19,7 @@ import static java.lang.String.format;
 
 /**
  * Security configuration for the application
+ *
  * @author mdjukanovic
  */
 @EnableWebSecurity
@@ -71,10 +72,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             e.getMessage()
                     );
                 }).and();
-
         // Set permissions on endpoints
 
-      //  http.authorizeRequests().antMatchers("/").permitAll();
+        //  http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("api/public/**").permitAll()
                 .anyRequest().authenticated();
 

@@ -20,6 +20,7 @@ import java.io.IOException;
 
 /**
  *  Filter for accessing the users identity
+ *
  * @author mdjukanovic
  */
 @Component
