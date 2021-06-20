@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.MyEntity;
 
 import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Table(name = "roles")
-public class RoleEntity  {
+public class RoleEntity implements GrantedAuthority, MyEntity {
 
     /** Role ID **/
     @Id
@@ -28,5 +29,4 @@ public class RoleEntity  {
     @Column(nullable = false, unique = true)
     @Getter @Setter
     private String displayName;
-
 }
