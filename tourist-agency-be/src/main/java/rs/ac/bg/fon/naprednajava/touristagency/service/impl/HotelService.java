@@ -18,6 +18,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.HotelMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.HotelRepository;
+import rs.ac.bg.fon.naprednajava.touristagency.repository.RoomRepository;
 import rs.ac.bg.fon.naprednajava.touristagency.service.MyService;
 
 @Service
@@ -26,11 +27,13 @@ public class HotelService implements MyService<HotelDto, Long>{
 
 	private HotelMapper mapper;
 	private HotelRepository repository;
+	private RoomRepository roomRepository;
 	
 	@Autowired
-	public HotelService(HotelMapper mapper, HotelRepository repository) {
+	public HotelService(HotelMapper mapper, HotelRepository repository, RoomRepository roomRepository) {
 		this.mapper = mapper;
 		this.repository = repository;
+		this.roomRepository = roomRepository;
 	}
 	
 	@Override
@@ -58,10 +61,21 @@ public class HotelService implements MyService<HotelDto, Long>{
 					" at address " + entity.get().getAddress() + 
 					" already exists in the system!");
 		}
-		else {
+		/*else {
 			repository.save(mapper.toEntity(dto));
-			return dto;
-		}
+			for (RoomEntity room : dto.getRooms()) {
+					Optional<RoomEntity> roomEntity = roomRepository.findById(room.getId());
+				if(roomEntity.isPresent()) {
+					throw new MyEntityAlreadyexists("Room with id: " + room.getId() + " already exists!");
+				}
+				else {
+					room.setHotel(mapper.toEntity(dto));
+				}
+			}
+			
+		}*/
+	
+		return dto;
 	}
 
 	@Override
@@ -94,3 +108,4 @@ public class HotelService implements MyService<HotelDto, Long>{
 	}
 
 }
+
