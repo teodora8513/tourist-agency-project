@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
@@ -22,7 +23,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.MyService;
 
 @Service
 @Transactional
-public class RoomService implements MyService<RoomDto, Long>{
+public class RoomService implements MyService<RoomDto, RoomIdentity>{
 
 	private RoomMapper mapper;
 	private RoomRepository repository;
@@ -34,7 +35,7 @@ public class RoomService implements MyService<RoomDto, Long>{
 	}
 	
 	@Override
-	public Optional<RoomDto> findById(Long id) {
+	public Optional<RoomDto> findById(RoomIdentity id) {
 		Optional<RoomEntity> entity = repository.findById(id);
 		if(entity.isPresent()) {
 			return Optional.of(mapper.toDto(entity.get()));
@@ -55,7 +56,6 @@ public class RoomService implements MyService<RoomDto, Long>{
 		Optional<RoomEntity> entity = repository.findById(dto.getId());
 		if(entity.isPresent()) {
 			throw new MyEntityAlreadyexists("Room " + entity.get().getId() + 
-					" at the hotel" + entity.get().getHotel().getName() + 
 					" already exists in the system!");
 		}
 		else {
@@ -65,7 +65,7 @@ public class RoomService implements MyService<RoomDto, Long>{
 	}
 
 	@Override
-	public void delete(Long id) throws MyEntityDoesntExist {
+	public void delete(RoomIdentity id) throws MyEntityDoesntExist {
 		Optional<RoomEntity> entity = repository.findById(id);
 		if(entity.isPresent()) {
 			repository.deleteById(id);
@@ -83,7 +83,7 @@ public class RoomService implements MyService<RoomDto, Long>{
 			return Optional.of(dto);
 		}
 		else {
-			throw new MyEntityDoesntExist("Room " + dto.getId() + " at hotel" + dto.getHotel().getName() + " doesn't exist!");
+			throw new MyEntityDoesntExist("Room " + dto.getId()  + " doesn't exist!");
 		}
 	}
 
