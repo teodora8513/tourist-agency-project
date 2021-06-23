@@ -7,18 +7,17 @@ package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -36,57 +35,61 @@ import rs.ac.bg.fon.naprednajava.touristagency.enumeration.RoomType;
 @Data
 public class RoomEntity implements MyEntity{
     
+	@EmbeddedId
+	private RoomIdentity id;
+	
+	/* Hotel 
+	@Id 
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="hotel_id", referencedColumnName="id")
-	//@JoinColumn(name="hotel_id") 
-    private HotelEntity hotel;            
+	@PrimaryKeyJoinColumn(name="hotel_id", referencedColumnName="id") 
+	@Getter
+    private HotelEntity hotel;  */         
+	
+	/* Room Id */
+	
+	/*
+	@Id
+    @Column(name="hotel_id")
+    private Long hotel_id;
+	
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+	@Getter @Setter
+    private Long id;*/
 	
-	private String room_number;
-        
+	/* Number 
+	
+	@Id
+	@Getter @Setter
+	private String room_number;*/
+	
+	
+	@MapsId("hotel_id")
+	@ManyToOne
+	private HotelEntity hotel;
+
+	
+	/* Description */
     private String description;
 
-    
+    /* Price per night */
     @Column(name = "price_per_night")
     private BigDecimal pricePerNight;
     
+    /* Room type */
+    @Column(name = "room_type")
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
     
+    /* Is it available? */
     private boolean available;
     
-    @ManyToOne
+    /* Reservation */
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="reservation_id")
     private ReservationEntity reservation;
 
-	public BigDecimal getPricePerNight() {
-		return pricePerNight;
-	}
 
-	public void setPricePerNight(BigDecimal pricePerNight) {
-		this.pricePerNight = pricePerNight;
-	}
-
-	public ReservationEntity getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(ReservationEntity reservation) {
-		this.reservation = reservation;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
-
-    
 }
+
