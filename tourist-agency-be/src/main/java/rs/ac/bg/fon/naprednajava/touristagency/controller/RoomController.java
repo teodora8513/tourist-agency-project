@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.RoomService;
@@ -25,7 +26,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.impl.RoomService;
 @RestController
 @RequestMapping(path = "/room")
 @CrossOrigin("*")
-public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.controller.RestController<RoomDto, Long>{
+public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.controller.RestRoomController<RoomDto, RoomIdentity>{
 
 	private RoomService service;
 	
@@ -42,12 +43,13 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 
 	@GetMapping(path = "/{id}")
 	@Override
-	public ResponseEntity<Object> findById(Long ID) {
+	public ResponseEntity<Object> findById(RoomIdentity ID) {
 		Optional<RoomDto> dto = service.findById(ID);
 		if (dto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(dto.get());
 		} else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id: " + ID + " was not found!");
+		
 	}
 
 	@PostMapping
@@ -63,13 +65,14 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 
 	@DeleteMapping(path="/{id}")
 	@Override
-	public ResponseEntity<Object> deleteById(Long ID) {
+	public ResponseEntity<Object> deleteById(RoomIdentity ID) {
 		try {
 			service.delete(ID);
 			return ResponseEntity.status(HttpStatus.OK).body("Room with id " +  ID + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
+		
 	}
 
 	@PutMapping(path="/{id}")
@@ -89,3 +92,4 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	}
 
 }
+
