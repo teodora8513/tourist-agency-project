@@ -1,0 +1,22 @@
+<div *ngFor="let arrangement of arrangements">
+<div class="card bg-light mb-3 border-info" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Arrangement image">
+  <div class="card-body">
+    <h5 class="card-title">naziv destinacije iz hotela</h5>
+    <p class="card-text">
+      Termin ovog aranzmana je od {{arrangement.dateFrom}}
+      do {{arrangement.dateTo}}. Aranzman obuhvata
+      {{arrangement.numberOfNights}} nocenja u odabranom smestaju.
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Hotel: {{arrangement.hotel}}</li>
+    <li class="list-group-item">Vrsta transporta: {{arrangement.transportation.type}}</li>
+    <li class="list-group-item">Max osoba: {{arrangement.people}}</li>
+    <li class="list-group-item">Ukupna cena: {{arrangement.totalPrice}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Reserve</a>
+  </div>
+</div>
+</div>

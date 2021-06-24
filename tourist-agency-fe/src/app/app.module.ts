@@ -20,6 +20,8 @@ import { BaseRegisterComponent } from './common/components/base-register/base-re
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
+import { ReservationsComponent } from './pages/reservations/reservations/reservations.component';
+import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {HttpClientModule} from "@angular/common/http";
     BasicLayoutComponent,
     LoginComponent,
     RegisterComponent,
-    BaseRegisterComponent
+    BaseRegisterComponent,
+    ReservationsComponent,
+    AddReservationComponent
   ],
   imports: [
     BrowserModule,

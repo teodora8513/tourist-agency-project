@@ -33,6 +33,8 @@ public class ReservationDto implements MyDto {
 	private double totalPrice;
 
 	private int people;
+	
+	private DestinationDto destination;
 
 	public ReservationDto() {
 		super();
@@ -41,7 +43,7 @@ public class ReservationDto implements MyDto {
 
 	public ReservationDto(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
 			List<RoomEntity> rooms, Meals meals, HotelEntity hotel, TransportationEntity transportation,
-			double totalPrice, int people) {
+			double totalPrice, int people, DestinationDto destination) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -54,6 +56,7 @@ public class ReservationDto implements MyDto {
 		this.transportation = transportation;
 		this.totalPrice = totalPrice;
 		this.people = people;
+		this.destination = destination;
 	}
 
 	public Long getId() {
