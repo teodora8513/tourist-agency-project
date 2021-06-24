@@ -23,9 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor
 @Table(name="hotel")
-@Data
 //@JsonIgnoreProperties({"hibernateLazyInitializer","handler", "rooms"})
 public class HotelEntity implements MyEntity {
 
@@ -54,6 +52,62 @@ public class HotelEntity implements MyEntity {
     @ManyToOne
     @JoinColumn(name = "destination_id")
     private DestinationEntity destination;
+    
+    public HotelEntity() {
+    	
+    	
+    }
+
+	public HotelEntity(Long id, String name, String address, int rating, DestinationEntity destination) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.rating = rating;
+		this.destination = destination;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public DestinationEntity getDestination() {
+		return destination;
+	}
+
+	public void setDestination(DestinationEntity destination) {
+		this.destination = destination;
+	}
+    
+    
     
         
 }

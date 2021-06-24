@@ -9,8 +9,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.RoomType;
 
-@AllArgsConstructor @NoArgsConstructor
-@Data
+
 public class RoomDto implements MyDto{
 
 	private RoomIdentity id;
@@ -19,5 +18,71 @@ public class RoomDto implements MyDto{
 	private RoomType roomType;
 	private boolean available;
 	private HotelEntity hotel;
+	
+	public RoomDto() {
+		
+		
+	}
+	
+	public RoomDto(RoomIdentity id, String description, BigDecimal pricePerNight, RoomType roomType, boolean available,
+			HotelEntity hotel) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.pricePerNight = pricePerNight;
+		this.roomType = roomType;
+		this.available = available;
+		this.hotel = hotel;
+	}
+
+	public RoomIdentity getId() {
+		return id;
+	}
+
+	public void setId(RoomIdentity id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public BigDecimal getPricePerNight() {
+		return pricePerNight;
+	}
+
+	public void setPricePerNight(BigDecimal pricePerNight) {
+		this.pricePerNight = pricePerNight;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public HotelEntity getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(HotelEntity hotel) {
+		this.hotel = hotel;
+	}
+	
+	
 }
 
