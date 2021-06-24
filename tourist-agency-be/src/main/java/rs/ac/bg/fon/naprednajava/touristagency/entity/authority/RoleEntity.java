@@ -1,32 +1,58 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.MyEntity;
 
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor
 @Table(name = "roles")
 public class RoleEntity implements GrantedAuthority, MyEntity {
+
+    public RoleEntity() {
+    }
+
+    public RoleEntity(Long id, String authority, String displayName) {
+        this.id = id;
+        this.authority = authority;
+        this.displayName = displayName;
+    }
 
     /** Role ID **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
     /** Authority **/
     @Column(nullable = false, unique = true)
-    @Getter @Setter
     private String authority;
 
     /** Display name of role **/
     @Column(nullable = false, unique = true)
-    @Getter @Setter
     private String displayName;
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String getAuthority() {
+        return authority;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 }

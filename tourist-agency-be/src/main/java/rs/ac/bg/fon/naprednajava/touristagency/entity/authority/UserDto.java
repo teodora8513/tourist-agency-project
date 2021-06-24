@@ -1,11 +1,9 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
-import lombok.Data;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.MyDto;
 
 import java.util.Set;
 
-@Data
 public class UserDto implements MyDto {
 
     /** User id **/
@@ -22,4 +20,44 @@ public class UserDto implements MyDto {
 
     /** User roles/groups **/
     private Set<RoleEntity> authorities;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Set<RoleEntity> getAuthorities() {
+        return authorities;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAuthorities(Set<RoleEntity> authorities) {
+        this.authorities = authorities;
+    }
 }

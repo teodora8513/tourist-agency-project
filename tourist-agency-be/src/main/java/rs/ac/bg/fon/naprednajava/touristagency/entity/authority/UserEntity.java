@@ -1,7 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.MyEntity;
 
@@ -17,37 +15,74 @@ public class UserEntity implements UserDetails, MyEntity {
     /** User id **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
     private Long id;
 
     /** User username **/
     @Column(nullable = false)
-    @Setter
     private String username;
 
     /** User lastname **/
     @Column(nullable = false)
-    @Getter @Setter
     private String password;
 
     /** User firstname **/
     @Column(name = "first_name", nullable = false)
-    @Getter @Setter
     private String firstName;
 
     /** User lastname **/
     @Column(name = "last_name", nullable = false)
-    @Getter @Setter
     private String lastName;
 
     /** User authorities/roles **/
     @ManyToMany(fetch = FetchType.EAGER)
-    @Setter
     private Set<RoleEntity> authorities = new HashSet<>();
 
     /** Flag whether user is enabled **/
-    @Setter
     private boolean enabled = true;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAuthorities(Set<RoleEntity> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 
     /** Methods from the implemented interface **/
 

@@ -1,6 +1,6 @@
 package rs.ac.bg.fon.naprednajava.touristagency.security.filter;
 
-import lombok.AllArgsConstructor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +24,6 @@ import java.io.IOException;
  * @author mdjukanovic
  */
 @Component
-@AllArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     /** JWT Token Util **/
@@ -33,6 +32,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     private final String HEADER_BEARER = "Bearer ";
+
+    public JwtTokenFilter(JwtTokenUtil jwtTokenUtil, UserRepository userRepository) {
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userRepository = userRepository;
+    }
 
     /**
      * {@inheritDoc}

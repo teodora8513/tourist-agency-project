@@ -1,6 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.controller.authority;
 
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,6 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.UserService;
 import javax.validation.Valid;
 
 @RestController @RequestMapping("auth")
-@AllArgsConstructor
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -33,6 +31,14 @@ public class AuthController {
     private final UserViewMapper userViewMapper;
 
     private final UserService userService;
+
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtTokenUtil jwtTokenUtil, UserViewMapper userViewMapper, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userViewMapper = userViewMapper;
+        this.userService = userService;
+    }
 
     @PostMapping("login")
     public ResponseEntity<UserDto> login(@RequestBody @Valid AuthUserRequest authUserRequest) {

@@ -1,6 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.bootstrap;
 
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,25 +13,21 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.RoleService;
 @Component
 public class DefaultAdminBootstrap implements CommandLineRunner {
 
-    @Autowired @Setter
+    @Autowired
     private UserRepository userRepository;
 
-    @Autowired @Setter
+    @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired @Setter
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Setter
     private String defaultUsername = "admin@admin.com";
 
-    @Setter
     private String defaultPassword = "admin@123";
 
-    @Setter
     private String defaultFirstName = "admin";
 
-    @Setter
     private String defaultLastName = "admin";
 
     @Override
@@ -73,5 +68,33 @@ public class DefaultAdminBootstrap implements CommandLineRunner {
         }
 
         return adminRole;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void setDefaultUsername(String defaultUsername) {
+        this.defaultUsername = defaultUsername;
+    }
+
+    public void setDefaultPassword(String defaultPassword) {
+        this.defaultPassword = defaultPassword;
+    }
+
+    public void setDefaultFirstName(String defaultFirstName) {
+        this.defaultFirstName = defaultFirstName;
+    }
+
+    public void setDefaultLastName(String defaultLastName) {
+        this.defaultLastName = defaultLastName;
     }
 }
