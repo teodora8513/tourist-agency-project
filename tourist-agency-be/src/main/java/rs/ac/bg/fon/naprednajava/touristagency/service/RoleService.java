@@ -16,5 +16,8 @@ public interface RoleService {
     /** Display name for admin role **/
     String DISPLAY_NAME_ADMIN = "Admin";
 
+    /** Role prefix **/
+    String PREFIX = "ROLE_";
+
     UserEntity addUserToRole(Long userId, String role);
 }

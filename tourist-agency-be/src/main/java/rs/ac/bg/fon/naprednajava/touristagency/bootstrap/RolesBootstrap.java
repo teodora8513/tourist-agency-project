@@ -1,5 +1,6 @@
 package rs.ac.bg.fon.naprednajava.touristagency.bootstrap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,10 @@ public class RolesBootstrap implements CommandLineRunner {
     }
 
     private void createIfNotExists(String authority, String displayName) {
+        if(!StringUtils.startsWith(authority, RoleService.PREFIX)) {
+            authority = RoleService.PREFIX + authority;
+        }
+
         RoleEntity roleEntity = this.roleRepository.findByAuthority(authority).orElse(null);
         if(roleEntity == null) {
             roleEntity = new RoleEntity();

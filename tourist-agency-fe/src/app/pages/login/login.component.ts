@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators} from "@angular/forms";
+import {Validators} from '@angular/forms';
+import {AuthService} from '../../services/authority/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -10,13 +13,24 @@ export class LoginComponent implements OnInit {
 
   public formConfiguration: any;
   public error: string;
-  constructor() { }
+  private returnUrl!: string;
+
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initializeFormConfiguration();
   }
 
   public onSubmit($event: any): void {
+    const user = $event.values;
+    this.authService.login(user).pipe(first()).subscribe(
+      data => {
+        const url = this.returnUrl ? this.returnUrl : '/';
+        this.router.navigate([url]);
+      }, error => {
+        this.error = error.statusText;
+      }
+    );
   }
 
   private initializeFormConfiguration(): void {

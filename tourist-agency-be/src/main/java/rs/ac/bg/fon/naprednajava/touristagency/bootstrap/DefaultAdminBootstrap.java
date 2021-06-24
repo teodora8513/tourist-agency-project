@@ -62,10 +62,11 @@ public class DefaultAdminBootstrap implements CommandLineRunner {
     }
 
     private RoleEntity getOrCreateAdminRole() {
-        RoleEntity adminRole = this.roleRepository.findByAuthority(RoleService.ROLE_ADMIN).orElse(null);
+        String adminAuthority = RoleService.PREFIX + RoleService.ROLE_ADMIN;
+        RoleEntity adminRole = this.roleRepository.findByAuthority(adminAuthority).orElse(null);
         if(adminRole == null) {
             adminRole = new RoleEntity();
-            adminRole.setAuthority(RoleService.ROLE_ADMIN);
+            adminRole.setAuthority(adminAuthority);
             adminRole.setDisplayName(RoleService.DISPLAY_NAME_ADMIN);
 
             adminRole = this.roleRepository.save(adminRole);

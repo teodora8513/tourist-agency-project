@@ -19,6 +19,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { BaseRegisterComponent } from './common/components/base-register/base-register.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MatInputModule} from "@angular/material/input";
     MatListModule,
     MatButtonModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

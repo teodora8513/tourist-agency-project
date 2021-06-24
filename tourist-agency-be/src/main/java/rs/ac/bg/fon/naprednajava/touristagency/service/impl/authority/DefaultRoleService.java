@@ -1,6 +1,7 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service.impl.authority;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.RoleEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
@@ -29,6 +30,10 @@ public class DefaultRoleService implements RoleService {
     public UserEntity addUserToRole(Long userId, String role) {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(role);
+
+        if(!StringUtils.startsWith(role, PREFIX)) {
+            role = PREFIX + role;
+        }
 
         UserEntity userEntity = this.userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find user with that id"));

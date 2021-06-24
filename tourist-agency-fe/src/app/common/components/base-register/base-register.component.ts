@@ -51,7 +51,6 @@ export class BaseRegisterComponent implements OnInit {
     if (this.registrationForm.invalid) {
       return;
     }
-
     const formValues = this.getFormValues();
     this.formSubmitted.emit({values: formValues});
   }
@@ -65,7 +64,7 @@ export class BaseRegisterComponent implements OnInit {
     const formControlKeys = Object.keys(formControls);
 
     const formValues: {[key: string]: string} = {};
-    for (let i; i < formControlKeys.length; i++) {
+    for (let i = 0; i < formControlKeys.length; i++) {
       const formKey = formControlKeys[i];
       const formControl = formControls[formKey];
       formValues[formKey] = formControl.value;
