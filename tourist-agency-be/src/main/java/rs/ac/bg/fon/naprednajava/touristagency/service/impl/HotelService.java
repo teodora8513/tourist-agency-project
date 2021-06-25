@@ -74,7 +74,7 @@ public class HotelService implements MyService<HotelDto, Long>{
 			}
 			
 		}*/
-	
+		repository.save(mapper.toEntity(dto));
 		return dto;
 	}
 

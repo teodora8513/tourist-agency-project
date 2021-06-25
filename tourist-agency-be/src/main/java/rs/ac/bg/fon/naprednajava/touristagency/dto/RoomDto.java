@@ -17,7 +17,8 @@ public class RoomDto implements MyDto{
 	private BigDecimal pricePerNight;
 	private RoomType roomType;
 	private boolean available;
-	private HotelEntity hotel;
+	// private HotelDto hotel;
+	private HotelDto hotel;
 	
 	public RoomDto() {
 		
@@ -25,7 +26,7 @@ public class RoomDto implements MyDto{
 	}
 	
 	public RoomDto(RoomIdentity id, String description, BigDecimal pricePerNight, RoomType roomType, boolean available,
-			HotelEntity hotel) {
+			HotelDto hotel) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -75,13 +76,15 @@ public class RoomDto implements MyDto{
 		this.available = available;
 	}
 
-	public HotelEntity getHotel() {
+	public HotelDto getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(HotelEntity hotel) {
+	public void setHotel(HotelDto hotel) {
 		this.hotel = hotel;
 	}
+
+	
 	
 	
 }

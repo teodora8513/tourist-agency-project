@@ -51,9 +51,8 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(HotelDto dto) {
-		try {
-			service.save(dto);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Hotel " + dto.getName() + " is created!");
+		try {	
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
