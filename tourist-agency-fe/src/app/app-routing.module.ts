@@ -8,6 +8,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import { ReservationsComponent } from './pages/reservations/reservations/reservations.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
+import { HotelsComponent } from './pages/hotels/hotels.component';
 
 const routes: Routes = [
   { path: '', component: HeaderComponent, children: [
@@ -23,6 +24,7 @@ const routes: Routes = [
   },
   {path: 'reservations', component: ReservationsComponent, pathMatch: 'full'},
   {path: 'add-reservation', component: AddReservationComponent, pathMatch: 'full'},
+  {path: 'hotels', component: HotelsComponent, pathMatch: 'full'},
   {path: '**', redirectTo: 'home'}
 ];
 

@@ -1,0 +1,27 @@
+<div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let hotel of hotels" class="col-md-6 col-xl-3">
+       <div class="card m-b-30">
+          <div class="card-body row">
+             <div class="col-6">
+                <a href=""><img src="https://www.kindpng.com/picc/m/284-2844300_hotel-building-clipart-png-hotel-clipart-png-transparent.png" alt="" class="img-fluid rounded-circle w-60"></a>
+             </div>
+             <div class="col-6 card-title align-self-center mb-0">
+                <h5 ><i class="fa fa-star" style="color:yellow"></i>{{hotel?.rating}}</h5>
+                <h3>{{hotel?.name}}</h3>
+
+             </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-plane float-right"></i>{{hotel?.destination.name}}, {{hotel?.destination.state.name}}</li>
+            <li class="list-group-item"><i class="fa fa-hotel float-right"></i>{{hotel?.address}}</li>
+          </ul>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
