@@ -22,6 +22,8 @@ import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import { ReservationsComponent } from './pages/reservations/reservations/reservations.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
+import { HotelService } from './services/hotel/hotel.service';
+import { HotelsComponent } from './pages/hotels/hotels.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { AddReservationComponent } from './pages/add-reservation/add-reservation
     RegisterComponent,
     BaseRegisterComponent,
     ReservationsComponent,
-    AddReservationComponent
+    AddReservationComponent,
+    HotelsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,7 @@ import { AddReservationComponent } from './pages/add-reservation/add-reservation
     MatInputModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [HotelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
