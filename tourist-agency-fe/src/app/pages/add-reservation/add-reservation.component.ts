@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class AddReservationComponent implements OnInit {
     private modalService: NgbModal) { }
 
   arrangements: Arrangement[];
-
+  //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
+  images = [1057,944,108, 1011,100,1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   ngOnInit(): void {
     this.loadArrangements();
   }
@@ -28,5 +30,6 @@ export class AddReservationComponent implements OnInit {
       }
     )
   }
+
 
 }
