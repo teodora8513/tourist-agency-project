@@ -15,7 +15,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.RoomMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.RoomRepository;
@@ -52,10 +52,10 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 	}
 
 	@Override
-	public RoomDto save(RoomDto dto) throws MyEntityAlreadyexists {
+	public RoomDto save(RoomDto dto) throws MyEntityAlreadyExists {
 		Optional<RoomEntity> entity = repository.findById(dto.getId());
 		if(entity.isPresent()) {
-			throw new MyEntityAlreadyexists("Room " + entity.get().getId() + 
+			throw new MyEntityAlreadyExists("Room " + entity.get().getId() + 
 					" already exists in the system!");
 		}
 		else {

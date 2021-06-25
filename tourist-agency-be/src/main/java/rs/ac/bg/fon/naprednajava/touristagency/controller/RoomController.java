@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.RoomService;
 
@@ -58,7 +57,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		try {
 			service.save(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Room " + dto.getId() + " is created!");
-		} catch (MyEntityAlreadyexists e) {
+		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}

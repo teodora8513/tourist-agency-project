@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.ReservationService;
 
@@ -60,7 +59,7 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 	public ResponseEntity<Object> save(ReservationDto dto) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(reservationService.save(dto));
-		} catch (MyEntityAlreadyexists e) {
+		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

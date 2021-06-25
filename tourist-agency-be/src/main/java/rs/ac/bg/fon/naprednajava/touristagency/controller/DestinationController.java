@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.DestinationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.DestinationService;
 
@@ -59,7 +59,7 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 		try {
 			destinationService.save(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Destination " + dto.getName() + " is created!");
-		} catch (MyEntityAlreadyexists | MyEntityDoesntExist e) {
+		} catch (MyEntityAlreadyExists | MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
@@ -87,7 +87,7 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 		try {
 			destinationService.update(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Destination : "  + dto.getName()+ " is updated!");
-		} catch (MyEntityAlreadyexists | MyEntityDoesntExist e) {
+		} catch (MyEntityAlreadyExists | MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}

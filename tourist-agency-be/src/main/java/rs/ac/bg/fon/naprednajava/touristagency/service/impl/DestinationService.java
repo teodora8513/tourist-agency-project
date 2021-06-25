@@ -10,11 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import rs.ac.bg.fon.naprednajava.touristagency.dto.DestinationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.DestinationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.DestinationMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.DestinationRepository;
@@ -56,10 +55,10 @@ public class DestinationService implements MyService<DestinationDto, Long> {
 	}
 
 	@Override
-	public DestinationDto save(DestinationDto dto) throws MyEntityAlreadyexists, MyEntityDoesntExist {
+	public DestinationDto save(DestinationDto dto) throws MyEntityAlreadyExists, MyEntityDoesntExist {
 		Optional<DestinationEntity> destinationEntity = destinationRepository.findById(dto.getId());
 		if(destinationEntity.isPresent()) {
-			throw new MyEntityAlreadyexists("Destination " + dto.getName() + " already exist!");
+			throw new MyEntityAlreadyExists("Destination " + dto.getName() + " already exist!");
 		}
 		else {
 			Optional<StateEntity> stateEntity = stateRespository.findById(dto.getState().getId());
@@ -86,7 +85,7 @@ public class DestinationService implements MyService<DestinationDto, Long> {
 	}
 
 	@Override
-	public Optional<DestinationDto> update(DestinationDto dto) throws MyEntityDoesntExist, MyEntityAlreadyexists {
+	public Optional<DestinationDto> update(DestinationDto dto) throws MyEntityDoesntExist, MyEntityAlreadyExists {
 		Optional<DestinationEntity> destinationEntity = destinationRepository.findById(dto.getId());
 		if(destinationEntity.isPresent()) {
 			Optional<StateEntity> state = stateRespository.findById(dto.getId());
@@ -99,7 +98,7 @@ public class DestinationService implements MyService<DestinationDto, Long> {
 				}
 			}
 		else {
-			throw new MyEntityAlreadyexists("State " + dto.getName() + " doesn't exist!");
+			throw new MyEntityAlreadyExists("State " + dto.getName() + " doesn't exist!");
 		}
 	}
 
