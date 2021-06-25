@@ -13,7 +13,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.ReservationMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.HotelRepository;
@@ -58,7 +58,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
 	}
 
 	@Override
-	public ReservationDto save(ReservationDto dto) throws MyEntityAlreadyexists, MyEntityDoesntExist {
+	public ReservationDto save(ReservationDto dto) throws MyEntityAlreadyExists, MyEntityDoesntExist {
 		Optional<ReservationEntity> resEntity = reservationRepository.findById(dto.getId());
 		if(resEntity.isEmpty()) {
 			Optional<HotelEntity> hotelEntity = hotelRepository.findById(dto.getHotel().getId());
@@ -80,7 +80,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
 			}
 		}
 		else {
-			throw new MyEntityAlreadyexists("Reservation with id " + dto.getId() + " already exist!");
+			throw new MyEntityAlreadyExists("Reservation with id " + dto.getId() + " already exist!");
 		}
 		
 	}
@@ -97,7 +97,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
 	}
 
 	@Override
-	public Optional<ReservationDto> update(ReservationDto dto) throws MyEntityDoesntExist, MyEntityAlreadyexists {
+	public Optional<ReservationDto> update(ReservationDto dto) throws MyEntityDoesntExist, MyEntityAlreadyExists {
 		// TODO Auto-generated method stub
 		return null;
 	}

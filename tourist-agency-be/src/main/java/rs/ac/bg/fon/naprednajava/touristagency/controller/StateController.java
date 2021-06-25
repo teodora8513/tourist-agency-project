@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.DestinationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.StateService;
 
@@ -60,7 +59,7 @@ public class StateController implements rs.ac.bg.fon.naprednajava.touristagency.
 		try {
 			stateService.save(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body("State " + dto.getName() + " is created!");
-		} catch (MyEntityAlreadyexists e) {
+		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 

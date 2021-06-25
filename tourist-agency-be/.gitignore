@@ -48,7 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-<<<<<<< HEAD
 *.class
 
 # IntelliJ and Spring boot
@@ -147,5 +146,7 @@ tools/gulp-tasks/cldr/cldr-data/
 
 # Husky
 .husky/_
-=======
->>>>>>> branch 'master' of https://teodora8513@bitbucket.org/teodora8513/teodora-jevtic.git
+
+
+# Dev Data
+/dev_data/**

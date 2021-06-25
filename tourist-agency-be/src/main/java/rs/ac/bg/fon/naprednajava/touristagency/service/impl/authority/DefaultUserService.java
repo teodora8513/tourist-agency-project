@@ -1,6 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service.impl.authority;
 
-import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import java.util.Objects;
  */
 @Service
 @Transactional
-@AllArgsConstructor
 public class DefaultUserService implements UserService {
 
     /** User Repository **/
@@ -42,6 +40,16 @@ public class DefaultUserService implements UserService {
 
     /** Role Service **/
     private final RoleService roleService;
+
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                              UserViewMapper userViewMapper, UserCreateMapper userCreateMapper,
+                              RoleService roleService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userViewMapper = userViewMapper;
+        this.userCreateMapper = userCreateMapper;
+        this.roleService = roleService;
+    }
 
     /**
      * Creates user

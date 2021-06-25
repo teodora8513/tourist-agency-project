@@ -1,6 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.security.configuration;
 
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,7 +23,6 @@ import static java.lang.String.format;
  * @author mdjukanovic
  */
 @EnableWebSecurity
-@AllArgsConstructor
 @EnableGlobalMethodSecurity(
         securedEnabled = true,
         jsr250Enabled = true,
@@ -37,6 +35,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /** JWT token filter **/
     private final JwtTokenFilter jwtTokenFilter;
+
+    public SecurityConfiguration(UserRepository userRepository, JwtTokenFilter jwtTokenFilter) {
+        this.userRepository = userRepository;
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
     /**
      * Checking if the user with username exists

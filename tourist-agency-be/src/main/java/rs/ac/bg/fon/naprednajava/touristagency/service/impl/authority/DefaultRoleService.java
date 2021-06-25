@@ -1,6 +1,6 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service.impl.authority;
 
-import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.RoleEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
@@ -17,18 +17,25 @@ import java.util.Objects;
  * @author mdjukanovic
  */
 @Service
-@AllArgsConstructor
 public class DefaultRoleService implements RoleService {
 
     private final RoleRepository roleRepository;
 
     private final UserRepository userRepository;
 
+    public DefaultRoleService(RoleRepository roleRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserEntity addUserToRole(Long userId, String role) {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(role);
+
+        if(!StringUtils.startsWith(role, PREFIX)) {
+            role = PREFIX + role;
+        }
 
         UserEntity userEntity = this.userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Could not find user with that id"));

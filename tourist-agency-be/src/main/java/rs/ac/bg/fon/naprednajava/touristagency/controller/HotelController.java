@@ -2,7 +2,6 @@ package rs.ac.bg.fon.naprednajava.touristagency.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import rs.ac.bg.fon.naprednajava.touristagency.dto.HotelDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.HotelService;
 
@@ -56,7 +54,7 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 		try {
 			service.save(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Hotel " + dto.getName() + " is created!");
-		} catch (MyEntityAlreadyexists e) {
+		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}

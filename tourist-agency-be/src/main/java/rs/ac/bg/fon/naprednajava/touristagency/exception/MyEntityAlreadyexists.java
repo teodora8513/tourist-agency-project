@@ -1,8 +1,8 @@
 package rs.ac.bg.fon.naprednajava.touristagency.exception;
 
-public class MyEntityAlreadyexists extends MyException {
+public class MyEntityAlreadyExists extends MyException {
 
-	public MyEntityAlreadyexists(String message) {
+	public MyEntityAlreadyExists(String message) {
 		super(message);
 	}
 

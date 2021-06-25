@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.StateMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.StateRepository;
@@ -50,10 +50,10 @@ public class StateService implements MyService<StateDto, Long> {
 	}
 
 	@Override
-	public StateDto save(StateDto dto) throws MyEntityAlreadyexists {
+	public StateDto save(StateDto dto) throws MyEntityAlreadyExists {
 		Optional<StateEntity> entity = repository.findById(dto.getId());
 		if(entity.isPresent()) {
-			throw new MyEntityAlreadyexists("State " + entity.get().getName() + " already exists in the system!");
+			throw new MyEntityAlreadyExists("State " + entity.get().getName() + " already exists in the system!");
 		}
 		else {
 			repository.save(mapper.toEntity(dto));

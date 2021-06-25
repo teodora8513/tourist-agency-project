@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.HotelDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyexists;
+import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.HotelMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.HotelRepository;
@@ -54,10 +54,10 @@ public class HotelService implements MyService<HotelDto, Long>{
 	}
 
 	@Override
-	public HotelDto save(HotelDto dto) throws MyEntityAlreadyexists {
+	public HotelDto save(HotelDto dto) throws MyEntityAlreadyExists{
 		Optional<HotelEntity> entity = repository.findById(dto.getId());
 		if(entity.isPresent()) {
-			throw new MyEntityAlreadyexists("Hotel " + entity.get().getName() + 
+			throw new MyEntityAlreadyExists("Hotel " + entity.get().getName() + 
 					" at address " + entity.get().getAddress() + 
 					" already exists in the system!");
 		}

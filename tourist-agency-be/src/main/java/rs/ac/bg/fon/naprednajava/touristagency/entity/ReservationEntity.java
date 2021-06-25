@@ -59,13 +59,15 @@ public class ReservationEntity implements MyEntity {
 	
 	private int people;
 
+	private DestinationEntity destination;
+	
 	public ReservationEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public ReservationEntity(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
-			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation) {
+			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation, DestinationEntity destination) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -77,6 +79,7 @@ public class ReservationEntity implements MyEntity {
 		this.transportation = transportation;
 		this.totalPrice = getTotalPrice();
 		this.people = people;
+		this.destination = destination;
 	}
 
 	public Long getId() {
@@ -203,6 +206,14 @@ public class ReservationEntity implements MyEntity {
 			break;
 		}
 		return mealPrice;
+	}
+
+	public DestinationEntity getDestination() {
+		return destination;
+	}
+
+	public void setDestination(DestinationEntity destination) {
+		this.destination = destination;
 	}
 	
 	

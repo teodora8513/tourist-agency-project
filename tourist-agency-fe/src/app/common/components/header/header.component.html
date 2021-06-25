@@ -8,8 +8,15 @@
 <mat-sidenav-container class="sidenav-content">
   <mat-sidenav #sidenav mode="over">
     <mat-nav-list>
-      <a mat-list-item routerLink="/home" (click)="sidenav.toggle()">
+      <!-- Milena pogledaj do koje komponente treba da vodi ova komponenta
+        <a mat-list-item routerLink="/home" (click)="sidenav.toggle()">
         <mat-icon>hotel</mat-icon><span class="nav-caption">Reserve</span>
+      </a>-->
+      <a mat-list-item routerLink="/reservations" (click)="sidenav.toggle()">
+        <mat-icon>event_available</mat-icon><span  (click)=this.goToReservations() class="nav-caption">My reservations</span>
+      </a>
+      <a mat-list-item routerLink="/add-reservation" (click)="sidenav.toggle()">
+        <mat-icon>airplanemode_active</mat-icon><span  (click)=this.goToAddReservation() class="nav-caption">Add reservation</span>
       </a>
       <a mat-list-item (click)="sidenav.toggle()">
         <mat-icon>logout</mat-icon><span (click)="this.logout()" class="nav-caption">Logout</span>
