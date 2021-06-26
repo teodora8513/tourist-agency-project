@@ -66,10 +66,10 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 
 	@DeleteMapping(path="/{id}")
 	@Override
-	public ResponseEntity<Object> deleteById(@PathVariable Long ID) {
+	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		try {
-			destinationService.delete(ID);
-			return ResponseEntity.status(HttpStatus.OK).body("Destination with id " +  ID + " is deleted!");
+			destinationService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Destination with id " +  id + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

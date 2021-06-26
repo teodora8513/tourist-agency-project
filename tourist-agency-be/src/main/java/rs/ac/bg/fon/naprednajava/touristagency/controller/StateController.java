@@ -67,10 +67,10 @@ public class StateController implements rs.ac.bg.fon.naprednajava.touristagency.
 
 	@DeleteMapping(path="/{id}")
 	@Override
-	public ResponseEntity<Object> deleteById(@PathVariable Long ID) {
+	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		try {
-			stateService.delete(ID);
-			return ResponseEntity.status(HttpStatus.OK).body("State with id " +  ID + " is deleted!");
+			stateService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("State with id " +  id + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

@@ -24,6 +24,11 @@ import { ReservationsComponent } from './pages/reservations/reservations/reserva
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 import { HotelService } from './services/hotel/hotel.service';
 import { HotelsComponent } from './pages/hotels/hotels.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -37,6 +42,7 @@ import { HotelsComponent } from './pages/hotels/hotels.component';
     ReservationsComponent,
     AddReservationComponent,
     HotelsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,9 @@ import { HotelsComponent } from './pages/hotels/hotels.component';
     MatCardModule,
     MatInputModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
+
   ],
   providers: [HotelService],
   bootstrap: [AppComponent]

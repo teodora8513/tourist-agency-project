@@ -68,10 +68,10 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 
 	@DeleteMapping(path= "/{id}")
 	@Override
-	public ResponseEntity<Object> deleteById(@PathVariable Long ID) {
+	public ResponseEntity<Object> deleteById(@PathVariable Long id) {
 		try {
-			reservationService.delete(ID);
-			return ResponseEntity.status(HttpStatus.OK).body("Reservation with id : " + ID + " is deleted!");
+			reservationService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Reservation with id : " + id + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -84,6 +84,11 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 		return null;
 	}
 
+	@GetMapping(path="/myReservations/{id}")
+	public ResponseEntity<List<ReservationDto>> getReservationById(@PathVariable Long id){
+		return ResponseEntity.status(HttpStatus.OK).body(reservationService.getReservationsById(id));
+	}
+	
 	@Override
 	public ResponseEntity<Page<ReservationDto>> getByPage(Pageable pageable) {
 		// TODO Auto-generated method stub
