@@ -55,27 +55,18 @@ public class HotelService implements MyService<HotelDto, Long>{
 
 	@Override
 	public HotelDto save(HotelDto dto) throws MyEntityAlreadyExists{
-		Optional<HotelEntity> entity = repository.findById(dto.getId());
-		if(entity.isPresent()) {
-			throw new MyEntityAlreadyExists("Hotel " + entity.get().getName() + 
-					" at address " + entity.get().getAddress() + 
-					" already exists in the system!");
+		Optional<HotelEntity> hotelEntity = repository.findHotelByAddress(dto.getAddress());
+		if(hotelEntity.isPresent()) {
+			throw new MyEntityAlreadyExists("Hotel " + 
+					" at address " + hotelEntity.get().getAddress() + 
+					" already exists!");
 		}
-		/*else {
-			repository.save(mapper.toEntity(dto));
-			for (RoomEntity room : dto.getRooms()) {
-					Optional<RoomEntity> roomEntity = roomRepository.findById(room.getId());
-				if(roomEntity.isPresent()) {
-					throw new MyEntityAlreadyexists("Room with id: " + room.getId() + " already exists!");
-				}
-				else {
-					room.setHotel(mapper.toEntity(dto));
-				}
-			}
+		else {
+			HotelEntity entity = mapper.toEntity(dto);
+			repository.save(entity);
+			return mapper.toDto(entity);
 			
-		}*/
-		repository.save(mapper.toEntity(dto));
-		return dto;
+		}	
 	}
 
 	@Override

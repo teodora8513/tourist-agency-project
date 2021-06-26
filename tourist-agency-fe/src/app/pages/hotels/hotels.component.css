@@ -60,3 +60,20 @@ color: white;
 li {
   color:black;
 }
+
+.row {
+  padding: 15px;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.btn btn-primary{
+  position: absolute;
+  top: 50%;
+}
+
+.form {
+  padding: 15px;
+}

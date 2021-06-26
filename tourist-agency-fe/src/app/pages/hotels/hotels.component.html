@@ -1,4 +1,16 @@
 <div class="container" id="main-container">
+
+  <div class="wrapper">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addHotelModal">
+      Add Hotel
+    </button>
+    <form class="form">
+      <input type="search"  #key="ngModel" ngModel
+       name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search hotels..." required>
+   </form>
+  </div>
+
+
   <div class="row">
     <div *ngFor="let hotel of hotels" class="col-md-6 col-xl-3">
        <div class="card m-b-30">
@@ -14,14 +26,125 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-plane float-right"></i>{{hotel?.destination.name}}, {{hotel?.destination.state.name}}</li>
-            <li class="list-group-item"><i class="fa fa-hotel float-right"></i>{{hotel?.address}}</li>
+            <li class="list-group-item"><i class="fa fa-street-view float-right"></i>{{hotel?.address}}</li>
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-                <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                <a (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                <a (click)="onOpenModal(hotel, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(hotel, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
              </div>
           </div>
        </div>
     </div>
+
+    <!-- Add Hotel Modal -->
+<div class="modal fade" id="addHotelModal" tabindex="-1" role="dialog" aria-labelledby="addHotelModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addHotelModalLabel">Add Hotel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddHotel(addForm)">
+          <div class="form-group">
+             <label for="name">Name</label>
+             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+             <label for="address">Address</label>
+             <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address" required>
+          </div>
+          <div class="form-group">
+             <label for="rating">Rating</label>
+             <input type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Rating" required>
+          </div>
+          <!---
+          <div class="form-group">
+             <label for="phone">Image URL</label>
+             <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+          </div>
+          -->
+          <div class="modal-footer">
+             <button type="button" id="add-hotel-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save</button>
+          </div>
+          </form>
+       </div>
+    </div>
   </div>
+  </div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateHotelModal" tabindex="-1" role="dialog" aria-labelledby="hotelEditModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateHotelModalLabel">Edit Hotel {{editHotel?.name}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="name">Name</label>
+                 <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Name">
+              </div>
+              <input type="hidden" ngModel="{{editHotel?.id}}" name="id" class="form-control" id="id" placeholder="Id">
+              <div class="form-group">
+                 <label for="address">Address</label>
+                 <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Address">
+              </div>
+              <div class="form-group">
+                 <label for="phone">Rating</label>
+                 <input type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating">
+              </div>
+              <!--
+              <div class="form-group">
+                 <label for="phone">Image URL</label>
+                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+              </div>
+              -->
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateHotel(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteHotelModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Delete Hotel</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Are you sure you want to delete hotel {{deleteHotel?.name}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteHotel(deleteHotel?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+</div>
+
+<!-- Notification for no hotels -->
+<div *ngIf="hotels?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+<div class="alert alert-info" role="alert">
+  <h4 class="alert-heading">NO HOTELS!</h4>
+  <p>No Hotels were found.</p>
+</div>
+
+</div>
