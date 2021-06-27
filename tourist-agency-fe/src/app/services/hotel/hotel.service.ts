@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel } from 'src/app/common/components/model';
@@ -24,6 +24,9 @@ export class HotelService {
   }
 
   public deleteHotel(hotelId: number): Observable<any> {
-    return this.httpClient.delete<void>(`${environment.baseHttpURL}/hotel/${hotelId}`);
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    return this.httpClient.delete<any>(`${environment.baseHttpURL}/hotel/${hotelId}`, { headers, responseType: 'text' as 'json'});
   }
+
+
 }
