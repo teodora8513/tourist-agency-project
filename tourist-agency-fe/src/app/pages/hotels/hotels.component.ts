@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Destination, Hotel } from 'src/app/common/components/model';
 import { DestinationService } from 'src/app/services/destination/destination.service';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
@@ -17,7 +18,9 @@ export class HotelsComponent implements OnInit {
   public editHotel: Hotel;
   public deleteHotel: Hotel;
 
-  constructor(private hotelService: HotelService, private destinationService: DestinationService){}
+  constructor(private hotelService: HotelService,
+    private destinationService: DestinationService,
+    private router: Router){}
 
   ngOnInit() {
     this.getHotels();
@@ -93,6 +96,10 @@ export class HotelsComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  public hotelDetails(id: number){
+    this.router.navigate(['details', id]);
   }
 
   public onOpenModal(hotel: Hotel, mode: string): void {

@@ -24,6 +24,7 @@ import { ReservationsComponent } from './pages/reservations/reservations/reserva
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 import { HotelService } from './services/hotel/hotel.service';
 import { HotelsComponent } from './pages/hotels/hotels.component';
+import { HotelDetailsComponent } from './pages/hotel-details/hotel-details/hotel-details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { HotelsComponent } from './pages/hotels/hotels.component';
     BaseRegisterComponent,
     ReservationsComponent,
     AddReservationComponent,
-    HotelsComponent
+    HotelsComponent,
+    HotelDetailsComponent,
+
   ],
   imports: [
     BrowserModule,
