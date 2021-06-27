@@ -10,7 +10,6 @@ import { HotelService } from 'src/app/services/hotel/hotel.service';
   styleUrls: ['./hotel-details.component.css']
 })
 export class HotelDetailsComponent implements OnInit {
-
   id: number;
   hotel: Hotel;
 
@@ -37,5 +36,6 @@ export class HotelDetailsComponent implements OnInit {
   public back(){
     this.router.navigate(['hotels']);
   }
+
 
 }
