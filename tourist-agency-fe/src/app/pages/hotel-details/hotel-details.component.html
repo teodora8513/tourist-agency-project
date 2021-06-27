@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card" *ngIf="hotel">
+      <img class="card-img-top" src="https://image.flyinstatic.com/f/500x330,q85/http://images.flyinstatic.com/ebtranet-images/46961/00.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h3 class="card-title align-items-center d-flex justify-content-center">{{hotel.name}}</h3>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Destination: {{hotel.destination.name}}, {{hotel.destination.state.name}}</li>
+        <li class="list-group-item">Hotel address is {{hotel.address}}</li>
+        <li class="list-group-item">{{hotel.name}} has {{hotel.rating}} stars</li>
+      </ul>
+      <div class="card-body align-items-center d-flex justify-content-center">
+        <button (click)="back()" class="btn btn-secondary">Go back</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,14 +26,15 @@
             <!-- </div>-->
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><i class="fa fa-star float-right" style="color:yellow"></i>Rating: {{hotel?.rating}}</li>
+            <li class="list-group-item"><i class="fa fa-star float-right"></i>{{hotel?.rating}} stars</li>
             <li class="list-group-item"><i class="fa fa-plane float-right"></i>{{hotel?.destination.name}}, {{hotel?.destination.state.name}}</li>
             <li class="list-group-item"><i class="fa fa-street-view float-right"></i>{{hotel?.address}}</li>
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-                <a (click)="onOpenModal(hotel, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                <a (click)="onOpenModal(hotel, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+              <span title="Click to see details for the hotel"><a (click)="hotelDetails(hotel.id)" class="btn btn-warning tooltips" data-placement="top" data-original-title="Details"><i class="fa fa-info"></i></a></span>
+              <span title="Click to edit hotel"><a (click)="onOpenModal(hotel, 'edit')" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a></span>
+                <span title="Click to delete hotel"><a (click)="onOpenModal(hotel, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a></span>
              </div>
           </div>
        </div>

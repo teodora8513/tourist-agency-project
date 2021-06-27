@@ -28,5 +28,9 @@ export class HotelService {
     return this.httpClient.delete<any>(`${environment.baseHttpURL}/hotel/${hotelId}`, { headers, responseType: 'text' as 'json'});
   }
 
+  public getHotelById(hotelId: number): Observable<Hotel> {
+    return this.httpClient.get<Hotel>(`${environment.baseHttpURL}/hotel/${hotelId}`);
+  }
+
 
 }
