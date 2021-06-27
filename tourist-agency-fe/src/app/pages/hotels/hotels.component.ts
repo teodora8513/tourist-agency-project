@@ -82,6 +82,7 @@ export class HotelsComponent implements OnInit {
   }
 
   public onUpdateHotel(hotel: Hotel): void {
+    console.log(hotel);
     this.hotelService.updateHotel(hotel).subscribe(
       (response: Hotel) => {
         console.log(response);

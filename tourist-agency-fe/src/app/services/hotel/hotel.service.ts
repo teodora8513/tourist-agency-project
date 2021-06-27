@@ -20,7 +20,7 @@ export class HotelService {
   }
 
   public updateHotel(hotel: Hotel): Observable<Hotel> {
-    return this.httpClient.put<Hotel>(`${environment.baseHttpURL}/hotel`, hotel);
+    return this.httpClient.put<Hotel>(`${environment.baseHttpURL}/hotel/${hotel.id}`, hotel);
   }
 
   public deleteHotel(hotelId: number): Observable<any> {
