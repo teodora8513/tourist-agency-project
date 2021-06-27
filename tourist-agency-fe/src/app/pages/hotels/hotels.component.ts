@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Destination, Hotel } from 'src/app/common/components/model';
@@ -70,8 +70,9 @@ export class HotelsComponent implements OnInit {
   }
 
   public onDeleteHotel(hotelId: number): void {
+
     this.hotelService.deleteHotel(hotelId).subscribe(
-      (response: void) => {
+      (response: String) => {
         console.log(response);
         this.getHotels();
       },
@@ -111,5 +112,23 @@ export class HotelsComponent implements OnInit {
     }
     container.appendChild(button);
     button.click();
+  }
+
+  public searchHotels(key: string): void {
+    console.log(key);
+    const results: Hotel[] = [];
+    for (const hotel of this.hotels) {
+      if ((hotel.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+      || (hotel.address.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+      || (hotel.destination.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+      || (hotel.destination.state.name.toLowerCase().indexOf(key.toLowerCase()) !== -1))
+      {
+        results.push(hotel);
+      }
+    }
+    this.hotels = results;
+    if (results.length === 0 || !key) {
+      this.getHotels();
+    }
   }
 }

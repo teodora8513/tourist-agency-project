@@ -5,7 +5,7 @@
       Add Hotel
     </button>
     <form class="form">
-      <input type="search"  #key="ngModel" ngModel
+      <input type="search"  (ngModelChange)="searchHotels(key.value)" #key="ngModel" ngModel
        name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search hotels..." required>
    </form>
   </div>
