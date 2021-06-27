@@ -11,6 +11,7 @@ import { AddReservationComponent } from './pages/add-reservation/add-reservation
 import { HotelsComponent } from './pages/hotels/hotels.component';
 import { HotelDetailsComponent } from './pages/hotel-details/hotel-details.component';
 
+
 const routes: Routes = [
   { path: '', component: HeaderComponent, children: [
       {path: 'home', component: HomeComponent},

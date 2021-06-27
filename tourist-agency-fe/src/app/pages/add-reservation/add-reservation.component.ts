@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Arrangement } from 'src/app/common/components/model';
 import { ArrangementsService } from 'src/app/services/arrangement/arrangements.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-add-reservation',
@@ -14,7 +17,8 @@ import { ArrangementsService } from 'src/app/services/arrangement/arrangements.s
 export class AddReservationComponent implements OnInit {
 
   constructor(private router: Router, private service: ArrangementsService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private _snackBar: MatSnackBar) { }
 
   arrangements: Arrangement[];
   //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
@@ -31,5 +35,17 @@ export class AddReservationComponent implements OnInit {
     )
   }
 
+  reserveArrangement(){
+    this.openSnackBar();
+
+
+  }
+  openSnackBar() {
+    const message= "You have successfuly made your reservation"
+    this._snackBar.open(message.toString(), '',
+      {duration : 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'});
+  }
 
 }

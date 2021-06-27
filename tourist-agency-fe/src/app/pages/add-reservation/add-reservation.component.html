@@ -40,8 +40,8 @@
 
   <div class="card-body">
     <p class="card-text">
-      Termin ovog aranzmana je od {{arrangement.dateFrom}}
-      do {{arrangement.dateTo}}. Aranzman obuhvata
+      Termin ovog aranzmana je od {{arrangement.dateFrom | date: 'short'}}
+      do {{arrangement.dateTo | date: 'short'}}. Aranzman obuhvata
       {{arrangement.numberOfNights}} nocenja u odabranom smestaju.
     </p>
   </div>
@@ -52,8 +52,15 @@
     <li class="list-group-item">Ukupna cena: {{arrangement.totalPrice}} $</li>
   </ul>
   <div class="card-body">
-    <a href="#" class="card-link">Reserve</a>
+
+
+    <button mat-stroked-button (click)="reserveArrangement()"
+     aria-label="Show an example snack-bar">
+      Reserve
+     </button>
+
   </div>
+
 </div>
 </div>
 </div>

@@ -107,5 +107,11 @@ public class ReservationService implements MyService<ReservationDto, Long> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<ReservationDto> getReservationsById(Long id){
+		List <ReservationEntity> entities = reservationRepository.reservationsById(id);
+		return entities.stream().map(el -> reservationMapper.toDto(el)).collect(Collectors.toList());
+
+	}
 
 }
