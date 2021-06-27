@@ -77,3 +77,11 @@ li {
 .form {
   padding: 15px;
 }
+
+.form-label {
+  color:#050505;
+}
+
+.modal-title {
+  font-size: 20px;
+}

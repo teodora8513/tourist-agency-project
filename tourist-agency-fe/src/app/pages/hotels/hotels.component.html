@@ -19,7 +19,7 @@
                 <a href=""><img src="https://www.kindpng.com/picc/m/284-2844300_hotel-building-clipart-png-hotel-clipart-png-transparent.png" alt="" class="img-fluid rounded-circle w-60"></a>
              </div>
              <div class="col-6 card-title align-self-center mb-0">
-                <h5 ><i class="fa fa-star" style="color:yellow"></i>{{hotel?.rating}}</h5>
+                <h5 ><i class="fa fa-star" style="color:yellow"></i> Rating: {{hotel?.rating}}</h5>
                 <h3>{{hotel?.name}}</h3>
 
              </div>
@@ -44,23 +44,29 @@
        <div class="modal-header">
           <h5 class="modal-title" id="addHotelModalLabel">Add Hotel</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+         <span aria-hidden="true">&times;</span>
           </button>
        </div>
        <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddHotel(addForm)">
           <div class="form-group">
-             <label for="name">Name</label>
+             <label for="name" class="form-label">Name</label>
              <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
           </div>
           <div class="form-group">
-             <label for="address">Address</label>
+             <label for="address" class="form-label">Address</label>
              <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address" required>
           </div>
           <div class="form-group">
-             <label for="rating">Rating</label>
+             <label for="rating" class="form-label">Rating</label>
              <input type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Rating" required>
           </div>
+          <div class="form-group">
+            <label for="destination" class="form-label">Destination</label>
+            <select ngModel name="destination" class="form-control" id="destination" placeholder="Destination" required>
+              <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.name}}</option>
+            </select>
+         </div>
           <!---
           <div class="form-group">
              <label for="phone">Image URL</label>
@@ -69,13 +75,14 @@
           -->
           <div class="modal-footer">
              <button type="button" id="add-hotel-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save</button>
-          </div>
+             <button  type="submit" class="btn btn-primary" >Save</button>
+          <!-- [disabled]="addForm.invalid" -->
+            </div>
           </form>
        </div>
     </div>
   </div>
-  </div>
+</div>
 
 <!-- Edit Modal -->
 <div class="modal fade" id="updateHotelModal" tabindex="-1" role="dialog" aria-labelledby="hotelEditModalLabel" aria-hidden="true" data-backdrop="false">
@@ -90,16 +97,16 @@
         <div class="modal-body">
            <form #editForm="ngForm">
               <div class="form-group">
-                 <label for="name">Name</label>
+                 <label for="name" class="form-label">Name</label>
                  <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Name">
               </div>
               <input type="hidden" ngModel="{{editHotel?.id}}" name="id" class="form-control" id="id" placeholder="Id">
               <div class="form-group">
-                 <label for="address">Address</label>
+                 <label for="address" class="form-label">Address</label>
                  <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Address">
               </div>
               <div class="form-group">
-                 <label for="phone">Rating</label>
+                 <label for="phone" class="form-label">Rating</label>
                  <input type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating">
               </div>
               <!--
