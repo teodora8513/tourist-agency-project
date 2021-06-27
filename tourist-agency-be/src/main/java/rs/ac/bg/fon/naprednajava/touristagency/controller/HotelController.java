@@ -60,10 +60,10 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 
 	@DeleteMapping(path="/{id}")
 	@Override
-	public ResponseEntity<Object> deleteById(Long ID) {
+	public ResponseEntity<Object> deleteById(Long id) {
 		try {
-			service.delete(ID);
-			return ResponseEntity.status(HttpStatus.OK).body("Hotel with id " +  ID + " is deleted!");
+			service.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Hotel with id " +  id + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

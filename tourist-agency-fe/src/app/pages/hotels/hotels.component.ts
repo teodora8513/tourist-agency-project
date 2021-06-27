@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Hotel } from 'src/app/common/components/model';
+import { Destination, Hotel } from 'src/app/common/components/model';
+import { DestinationService } from 'src/app/services/destination/destination.service';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 
 @Component({
@@ -12,17 +13,31 @@ import { HotelService } from 'src/app/services/hotel/hotel.service';
 export class HotelsComponent implements OnInit {
 
   public hotels: Hotel[];
+  public destinations: Destination[];
   public editHotel: Hotel;
   public deleteHotel: Hotel;
 
-  constructor(private hotelService: HotelService){}
+  constructor(private hotelService: HotelService, private destinationService: DestinationService){}
 
   ngOnInit() {
     this.getHotels();
+    this.getDestinations();
   }
 
   public getRating(hotel: Hotel): number{
     return hotel.rating;
+  }
+
+  public getDestinations(): void {
+    this.destinationService.getDestinations().subscribe(
+      (response: Destination[]) => {
+        this.destinations = response;
+        console.log(this.destinations);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   public getHotels(): void {
@@ -50,6 +65,8 @@ export class HotelsComponent implements OnInit {
         addForm.reset();
       }
     );
+
+    addForm.reset();
   }
 
   public onDeleteHotel(hotelId: number): void {
