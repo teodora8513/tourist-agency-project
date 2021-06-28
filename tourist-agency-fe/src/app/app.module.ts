@@ -32,6 +32,7 @@ import { HotelDetailsComponent } from './pages/hotel-details/hotel-details.compo
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,7 @@ import { HotelDetailsComponent } from './pages/hotel-details/hotel-details.compo
     ReservationsComponent,
     AddReservationComponent,
     HotelsComponent,
-    HotelDetailsComponent
+    HotelDetailsComponent,
 
   ],
   imports: [

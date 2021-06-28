@@ -1,5 +1,7 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,6 +89,15 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 		}
 	}
 
+	
+	public List<RoomDto> findRoomsByHotelId(Long id) {
+		List<RoomEntity> entities = repository.findRoomsByHotelId(id);
+		return entities.stream().map(en -> {
+				return mapper.toDto(en);
+		}).collect(Collectors.toList());
+		
+	}
+	
 	@Override
 	public Page<RoomDto> findByPage(Pageable pageable) {
 		// TODO Auto-generated method stub

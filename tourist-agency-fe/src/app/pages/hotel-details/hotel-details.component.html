@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6 offset-md-3">
+  <div class="col-md-4">
     <div class="card" *ngIf="hotel">
       <img class="card-img-top" src="https://image.flyinstatic.com/f/500x330,q85/http://images.flyinstatic.com/ebtranet-images/46961/00.jpg" alt="Card image cap">
       <div class="card-body">
@@ -11,9 +11,33 @@
         <li class="list-group-item">Hotel address is {{hotel.address}}</li>
         <li class="list-group-item">{{hotel.name}} has {{hotel.rating}} stars</li>
       </ul>
-      <div class="card-body align-items-center d-flex justify-content-center">
-        <button (click)="back()" class="btn btn-secondary">Go back</button>
+      <div class="card-body">
+        <button (click)="back()" class="btn btn-secondary float-left">Go back</button>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-title"><h3>Rooms in hotel {{hotel.name}}</h3></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let room of rooms">
+                <div class="card m-b-30">
+                  <img src="https://www.gannett-cdn.com/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <h5 class="card-title align-items-center d-flex justify-content-center">Room number: {{room?.id.room_number}}</h5>
+                      <p class="card-text">{{room?.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">{{room?.roomType}}</li>
+                      <li class="list-group-item">Price per night: {{room?.pricePerNight}}</li>
+                      <li class="list-group-item">Available: {{room?.available}}</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

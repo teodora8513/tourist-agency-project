@@ -54,16 +54,28 @@
           <form #addForm="ngForm" (ngSubmit)="onAddHotel(addForm)">
           <div class="form-group">
              <label for="name" class="form-label">Name</label>
-             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" #name="ngModel" required>
           </div>
+          <div class="form-group" *ngIf="name.invalid && name.touched">
+            <label for="name" class="error-label" >You need to input name for hotel</label>
+          </div>
+
           <div class="form-group">
              <label for="address" class="form-label">Address</label>
-             <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address" required>
+             <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address" #address="ngModel" required>
           </div>
+          <div class="form-group" *ngIf="address.invalid && address.touched">
+            <label for="address" class="error-label" >You need to input address for hotel</label>
+          </div>
+
           <div class="form-group">
              <label for="rating" class="form-label">Rating</label>
-             <input type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Rating" required>
+             <input pattern="([1-5])" type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Rating"  #rating="ngModel" required>
           </div>
+          <div class="form-group" *ngIf="rating.invalid && rating.touched">
+            <label for="rating" class="error-label" >Rating range is from 1 to 5</label>
+          </div>
+
           <div class="form-group">
             <label for="destination" class="form-label">Destination</label>
             <select ngModel name="destination" class="form-control" id="destination" placeholder="Destination" required>
@@ -78,8 +90,8 @@
           -->
           <div class="modal-footer">
              <button type="button" id="add-hotel-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button  type="submit" class="btn btn-primary" >Save</button>
-          <!-- [disabled]="addForm.invalid" -->
+             <button  type="submit" class="btn btn-primary" [disabled]="addForm.invalid">Save</button>
+          <!--  -->
             </div>
           </form>
        </div>
@@ -101,17 +113,29 @@
            <form #editForm="ngForm">
               <div class="form-group">
                  <label for="name" class="form-label">Name</label>
-                 <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Name">
+                 <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Name" #name="ngModel" required>
               </div>
+              <div class="form-group" *ngIf="name.invalid && name.touched && name.dirty">
+                <label for="name" class="error-label" >You need to input name for hotel</label>
+              </div>
+
               <input type="hidden" ngModel="{{editHotel?.id}}" name="id" class="form-control" id="id" placeholder="Id">
               <div class="form-group">
                  <label for="address" class="form-label">Address</label>
-                 <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Address">
+                 <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Address" #address="ngModel" required>
               </div>
+              <div class="form-group" *ngIf="address.invalid && address.touched && address.dirty">
+                <label for="address" class="error-label" >You need to input address for hotel</label>
+              </div>
+
               <div class="form-group">
-                 <label for="phone" class="form-label">Rating</label>
-                 <input type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating">
+                 <label for="rating" class="form-label">Rating</label>
+                 <input pattern="([1-5])" type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating" #rating="ngModel" required>
               </div>
+              <div class="form-group" *ngIf="rating.invalid && rating.touched && rating.dirty">
+                <label for="rating" class="error-label" >Rating range is from 1 to 5</label>
+              </div>
+
               <div class="form-group">
                 <label for="destination" class="form-label">Destination</label>
                 <select ngModel name="destination" class="form-control" id="destination" placeholder="Destination" required>
@@ -119,7 +143,8 @@
                 <h5></h5>
                 </select>
              </div>
-              <!--
+
+             <!--
               <div class="form-group">
                  <label for="phone">Image URL</label>
                  <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
@@ -127,7 +152,7 @@
               -->
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button (click)="onUpdateHotel(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 <button (click)="onUpdateHotel(editForm.value)" data-dismiss="modal" class="btn btn-primary" [disabled]="editForm.invalid">Save changes</button>
               </div>
            </form>
         </div>
