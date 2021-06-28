@@ -94,3 +94,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.error-label {
+  color:rgba(233, 8, 8, 0.85)
+}
