@@ -17,3 +17,7 @@ li {
 .row {
   padding: 15px;
 }
+
+.card-title{
+  text-align: center;
+}

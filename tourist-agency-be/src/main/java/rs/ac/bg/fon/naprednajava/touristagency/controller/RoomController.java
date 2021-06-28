@@ -42,12 +42,12 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 
 	@GetMapping(path = "/{id}")
 	@Override
-	public ResponseEntity<Object> findById(RoomIdentity ID) {
-		Optional<RoomDto> dto = service.findById(ID);
+	public ResponseEntity<Object> findById(RoomIdentity id) {
+		Optional<RoomDto> dto = service.findById(id);
 		if (dto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(dto.get());
 		} else
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id: " + ID + " was not found!");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id: " + id + " was not found!");
 		
 	}
 
@@ -88,6 +88,13 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	public ResponseEntity<Page<RoomDto>> getByPage(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@GetMapping(path = "/hotel/{id}")
+	@Override
+	public ResponseEntity<List<RoomDto>> findRoomsByHotelId(Long id) {
+		List<RoomDto> dto = service.findRoomsByHotelId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
 	}
 
 }

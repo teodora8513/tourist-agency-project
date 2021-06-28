@@ -133,7 +133,7 @@
                  <input pattern="([1-5])" type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating" #rating="ngModel" required>
               </div>
               <div class="form-group" *ngIf="rating.invalid && rating.touched && rating.dirty">
-                <label for="rating" style="color:red" >Rating range is from 1 to 5</label>
+                <label for="rating" class="error-label" >Rating range is from 1 to 5</label>
               </div>
 
               <div class="form-group">

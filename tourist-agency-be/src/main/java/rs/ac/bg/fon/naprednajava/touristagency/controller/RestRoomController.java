@@ -17,6 +17,8 @@ public interface RestRoomController <DTO extends MyDto, ID>{
 	
 	@ResponseBody ResponseEntity<Object> findById(@PathVariable RoomIdentity ID);
 	
+	@ResponseBody ResponseEntity<List<DTO>> findRoomsByHotelId(@PathVariable Long ID);
+	
 	@ResponseBody ResponseEntity<Object> save(@RequestBody DTO dto);
 	
 	@ResponseBody ResponseEntity<Object> deleteById(@PathVariable RoomIdentity ID);
