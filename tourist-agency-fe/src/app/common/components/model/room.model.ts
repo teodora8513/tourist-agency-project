@@ -15,9 +15,9 @@ export interface RoomIdentity {
 }
 
 export enum RoomType {
-  single_room,
-  double_room,
-  triple_room,
-  quad_room,
-  king_room
+  single_room = "Single room",
+  double_room = "Double room",
+  triple_room = "Triple room",
+  quad_room = "Quad room",
+  king_room = "King room"
 }

@@ -21,3 +21,15 @@ li {
 .card-title{
   text-align: center;
 }
+
+.wrapper {
+  text-align: center;
+}
+
+.form-label {
+  color:#050505;
+}
+
+.error-label {
+  color:rgba(233, 8, 8, 0.85)
+}
