@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Hotel, Room } from 'src/app/common/components/model';
+import { Hotel, Room, RoomIdentity, RoomType } from 'src/app/common/components/model';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { RoomService } from 'src/app/services/room/room.service';
 
@@ -14,10 +15,18 @@ export class HotelDetailsComponent implements OnInit {
   id: number;
   hotel: Hotel;
   rooms: Room[];
+  roomType = RoomType;
+  enumKeys=[];
+  room: Room;
+  roomIdentity: RoomIdentity={};
 
   constructor(private route: ActivatedRoute,private router: Router,
               private hotelService: HotelService,
-              private roomService: RoomService) { }
+              private roomService: RoomService,
+              private fb: FormBuilder)
+              {
+                this.enumKeys=Object.keys(this.roomType);
+              }
 
   ngOnInit(): void {
     //this.hotel = new Hotel();
@@ -57,4 +66,31 @@ export class HotelDetailsComponent implements OnInit {
       }
     );
   }
+
+  public onAddRoom(addForm: NgForm): void {
+
+    this.room = addForm.value;
+    this.roomIdentity.hotel_id = this.id;
+    this.roomIdentity.room_number = addForm.value.room_number;
+    this.room.id = this.roomIdentity;
+    this.room.hotel = this.hotel;
+    this.room.available = true;
+    console.log(this.room);
+
+    document.getElementById('add-room-form').click();
+    this.roomService.addRoom(this.room).subscribe(
+      (response: Room) => {
+        console.log(response);
+        this.getRooms();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );
+
+    addForm.reset();
+  }
+
 }

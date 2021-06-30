@@ -15,4 +15,8 @@ export class RoomService {
   public getRoomsByHotelId(hotelId: number): Observable<Room[]> {
     return this.httpClient.get<Room[]>(`${environment.baseHttpURL}/room/hotel/${hotelId}`);
   }
+
+  public addRoom(room: Room): Observable<Room> {
+    return this.httpClient.post<Room>(`${environment.baseHttpURL}/room`, room);
+  }
 }

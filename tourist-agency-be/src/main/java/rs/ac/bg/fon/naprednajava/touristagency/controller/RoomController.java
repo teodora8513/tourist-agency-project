@@ -55,8 +55,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	@Override
 	public ResponseEntity<Object> save(RoomDto dto) {
 		try {
-			service.save(dto);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Room " + dto.getId() + " is created!");
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 		} catch (MyEntityAlreadyExists e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
