@@ -140,7 +140,6 @@
                 <label for="destination" class="form-label">Destination</label>
                 <select ngModel name="destination" class="form-control" id="destination" placeholder="Destination" required>
                   <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.name}}, {{destination.state.name}}</option>
-                <h5></h5>
                 </select>
              </div>
 
@@ -184,9 +183,9 @@
 
 <!-- Notification for no hotels -->
 <div *ngIf="hotels?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
-<div class="alert alert-info" role="alert">
-  <h4 class="alert-heading">NO HOTELS!</h4>
-  <p>No Hotels were found.</p>
-</div>
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO HOTELS!</h4>
+    <p>No Hotels were found.</p>
+  </div>
 
 </div>

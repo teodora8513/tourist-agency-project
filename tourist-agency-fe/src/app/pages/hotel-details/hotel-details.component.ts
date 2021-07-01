@@ -19,6 +19,8 @@ export class HotelDetailsComponent implements OnInit {
   enumKeys=[];
   room: Room;
   roomIdentity: RoomIdentity={};
+  public editRoom: Room;
+  public deleteRoom: Room;
 
   constructor(private route: ActivatedRoute,private router: Router,
               private hotelService: HotelService,
@@ -91,6 +93,59 @@ export class HotelDetailsComponent implements OnInit {
     );
 
     addForm.reset();
+  }
+
+  public onDeleteRoom(roomId: number): void {
+
+    this.roomService.deleteRoom(roomId).subscribe(
+      (response: String) => {
+        console.log(response);
+        this.getRooms();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onUpdateRoom(room: Room, room_number: string): void {
+
+    this.roomIdentity.hotel_id = this.id;
+    this.roomIdentity.room_number = room_number;
+    room.id = this.roomIdentity;
+    room.hotel = this.hotel;
+    room.available = true;
+
+    console.log(room);
+
+    this.roomService.updateRoom(room).subscribe(
+      (response: Room) => {
+        console.log(response);
+        this.getRooms();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onOpenModal(room: Room, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
+    if (mode === 'edit') {
+      this.editRoom = room;
+      button.setAttribute('data-target', '#updateRoomModal');
+    }
+    if (mode === 'delete') {
+      this.deleteRoom = room;
+      button.setAttribute('data-target', '#deleteRoomModal');
+    }
+    container.appendChild(button);
+    button.click();
   }
 
 }

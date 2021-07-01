@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Room } from 'src/app/common/components/model';
@@ -18,5 +18,14 @@ export class RoomService {
 
   public addRoom(room: Room): Observable<Room> {
     return this.httpClient.post<Room>(`${environment.baseHttpURL}/room`, room);
+  }
+
+  public updateRoom(room: Room): Observable<Room> {
+    return this.httpClient.put<Room>(`${environment.baseHttpURL}/room/${room.id.hotel_id, room.id.room_number}`, room);
+  }
+
+  public deleteRoom(roomId: number): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    return this.httpClient.delete<any>(`${environment.baseHttpURL}/room/${roomId}`, { headers, responseType: 'text' as 'json'});
   }
 }
