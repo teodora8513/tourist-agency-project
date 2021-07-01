@@ -27,10 +27,6 @@ export class HotelsComponent implements OnInit {
     this.getDestinations();
   }
 
-  public getRating(hotel: Hotel): number{
-    return hotel.rating;
-  }
-
   public getDestinations(): void {
     this.destinationService.getDestinations().subscribe(
       (response: Destination[]) => {
