@@ -73,7 +73,7 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 			repository.deleteById(id);
 		}
 		else
-			throw new MyEntityDoesntExist("Room with id: " + id + " doesn't exist!");	
+			throw new MyEntityDoesntExist("Room with id: " + id.getRoom_number() + " doesn't exist!");	
 		
 	}
 
