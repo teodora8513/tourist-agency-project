@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Destination, Hotel } from 'src/app/common/components/model';
 import { DestinationService } from 'src/app/services/destination/destination.service';
@@ -20,7 +21,8 @@ export class HotelsComponent implements OnInit {
 
   constructor(private hotelService: HotelService,
     private destinationService: DestinationService,
-    private router: Router){}
+    private router: Router,
+    private _snackBar: MatSnackBar){}
 
   ngOnInit() {
     this.getHotels();
@@ -57,6 +59,7 @@ export class HotelsComponent implements OnInit {
       (response: Hotel) => {
         console.log(response);
         this.getHotels();
+        this.openSnackBar("Hotels with id: " + response.id + " is successfully added!");
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -74,6 +77,7 @@ export class HotelsComponent implements OnInit {
       (response: String) => {
         console.log(response);
         this.getHotels();
+        this.openSnackBar(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -87,6 +91,7 @@ export class HotelsComponent implements OnInit {
       (response: Hotel) => {
         console.log(response);
         this.getHotels();
+        this.openSnackBar("Hotel with id:  " + response.id + " is successfully updated!");
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -133,5 +138,14 @@ export class HotelsComponent implements OnInit {
     if (results.length === 0 || !key) {
       this.getHotels();
     }
+  }
+
+  public openSnackBar(message: String){
+    this._snackBar.open(message.toString(), '',
+    {
+      duration : 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
   }
 }

@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Room } from 'src/app/common/components/model';
+import { Room, RoomIdentity } from 'src/app/common/components/model';
 import { environment } from 'src/environments/environment';
 import { Hotel } from 'src/app/common/components/model';
 
@@ -24,8 +24,16 @@ export class RoomService {
     return this.httpClient.put<Room>(`${environment.baseHttpURL}/room/${room.id.hotel_id, room.id.room_number}`, room);
   }
 
-  public deleteRoom(roomId: number): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-    return this.httpClient.delete<any>(`${environment.baseHttpURL}/room/${roomId}`, { headers, responseType: 'text' as 'json'});
+  public deleteRoom(roomId: RoomIdentity): Observable<any> {
+    //const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    console.log(roomId);
+
+
+    return this.httpClient.request<any>('DELETE', `${environment.baseHttpURL}/room`,
+            {
+              body: roomId,
+              responseType: 'text' as 'json'
+            }
+    );
   }
 }

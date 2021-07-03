@@ -61,12 +61,13 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		}
 	}
 
-	@DeleteMapping(path="/{id}")
+	//@DeleteMapping(path="/{id}")
+	@DeleteMapping
 	@Override
 	public ResponseEntity<Object> deleteById(RoomIdentity id) {
 		try {
 			service.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Room with id " +  id + " is deleted!");
+			return ResponseEntity.status(HttpStatus.OK).body("Room with id " +  id.getRoom_number() + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

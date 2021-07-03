@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Hotel, Room, RoomIdentity, RoomType } from 'src/app/common/components/model';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
@@ -25,7 +26,8 @@ export class HotelDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,private router: Router,
               private hotelService: HotelService,
               private roomService: RoomService,
-              private fb: FormBuilder)
+              private fb: FormBuilder,
+              private _snackBar: MatSnackBar)
               {
                 this.enumKeys=Object.keys(this.roomType);
               }
@@ -84,6 +86,7 @@ export class HotelDetailsComponent implements OnInit {
       (response: Room) => {
         console.log(response);
         this.getRooms();
+        this.openSnackBar("Room " + response.id.room_number + " is successfully added!");
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -95,12 +98,14 @@ export class HotelDetailsComponent implements OnInit {
     addForm.reset();
   }
 
-  public onDeleteRoom(roomId: number): void {
+  public onDeleteRoom(roomId: RoomIdentity): void {
 
+    console.log(roomId);
     this.roomService.deleteRoom(roomId).subscribe(
       (response: String) => {
         console.log(response);
         this.getRooms();
+        this.openSnackBar(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -122,6 +127,7 @@ export class HotelDetailsComponent implements OnInit {
       (response: Room) => {
         console.log(response);
         this.getRooms();
+        this.openSnackBar("Room " + room.id.room_number + " is successfully updated!");
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -146,6 +152,15 @@ export class HotelDetailsComponent implements OnInit {
     }
     container.appendChild(button);
     button.click();
+  }
+
+  public openSnackBar(message: String){
+    this._snackBar.open(message.toString(), '',
+    {
+      duration : 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
   }
 
 }
