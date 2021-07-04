@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthService} from "../../../services/authority/auth.service";
+import {AuthService} from '../../../services/authority/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +16,5 @@ export class HeaderComponent implements OnInit {
 
   public logout(): void {
     this.authService.logout();
-  }
-
-  public goToReservations(): void {
-    this.router.navigate(['/reservations']);
-  }
-
-  public goToAddReservation(): void {
-    this.router.navigate(['/add-reservation']);
   }
 }

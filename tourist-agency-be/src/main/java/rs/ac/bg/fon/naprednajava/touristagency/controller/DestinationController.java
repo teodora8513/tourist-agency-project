@@ -91,6 +91,4 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-	
-	
 }

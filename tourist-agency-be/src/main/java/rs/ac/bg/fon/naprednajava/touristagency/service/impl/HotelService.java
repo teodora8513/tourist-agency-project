@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.HotelDto;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.DestinationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.HotelMapper;
+import rs.ac.bg.fon.naprednajava.touristagency.repository.DestinationRepository;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.HotelRepository;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.RoomRepository;
 import rs.ac.bg.fon.naprednajava.touristagency.service.MyService;
@@ -28,12 +31,16 @@ public class HotelService implements MyService<HotelDto, Long>{
 	private HotelMapper mapper;
 	private HotelRepository repository;
 	private RoomRepository roomRepository;
+
+	private final DestinationRepository destinationRepository;
 	
 	@Autowired
-	public HotelService(HotelMapper mapper, HotelRepository repository, RoomRepository roomRepository) {
+	public HotelService(HotelMapper mapper, HotelRepository repository, RoomRepository roomRepository,
+						DestinationRepository destinationRepository) {
 		this.mapper = mapper;
 		this.repository = repository;
 		this.roomRepository = roomRepository;
+		this.destinationRepository = destinationRepository;
 	}
 	
 	@Override
@@ -96,6 +103,17 @@ public class HotelService implements MyService<HotelDto, Long>{
 	public Page<HotelDto> findByPage(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<HotelDto> findHotelEntityByDestinationId(Long id) {
+		DestinationEntity destinationEntity = this.destinationRepository.findById(id).orElse(null);
+		if(destinationEntity == null) {
+			throw new EntityNotFoundException("Destination with that id can not be found");
+		}
+		List<HotelEntity> hotels = this.repository.findHotelEntityByDestination(destinationEntity);
+		return hotels.stream().map((hotelEntity -> {
+			return this.mapper.toDto(hotelEntity);
+		})).collect(Collectors.toList());
 	}
 
 }

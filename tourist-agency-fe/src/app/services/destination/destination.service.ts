@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Destination } from 'src/app/common/components/model';
+import { IDestination } from 'src/app/common/components/model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class DestinationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getDestinations(): Observable<Destination[]> {
-    return this.httpClient.get<Destination[]>(`${environment.baseHttpURL}/destination`);
+  public getDestinations(): Observable<IDestination[]> {
+    return this.httpClient.get<IDestination[]>(`${environment.baseHttpURL}/destination`);
   }
 
 }

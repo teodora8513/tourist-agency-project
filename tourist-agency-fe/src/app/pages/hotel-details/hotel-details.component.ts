@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Hotel, Room, RoomIdentity, RoomType } from 'src/app/common/components/model';
+import { IHotel, Room, RoomIdentity, RoomType } from 'src/app/common/components/model';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
 import { RoomService } from 'src/app/services/room/room.service';
 
@@ -14,7 +14,7 @@ import { RoomService } from 'src/app/services/room/room.service';
 })
 export class HotelDetailsComponent implements OnInit {
   id: number;
-  hotel: Hotel;
+  hotel: IHotel;
   rooms: Room[];
   roomType = RoomType;
   enumKeys=[];
@@ -41,7 +41,7 @@ export class HotelDetailsComponent implements OnInit {
 
     this.hotelService.getHotelById(this.id)
       .subscribe(
-        (response: Hotel) => {
+        (response: IHotel) => {
           console.log(response);
           this.hotel = response;
         },

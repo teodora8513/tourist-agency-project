@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Room, RoomIdentity } from 'src/app/common/components/model';
 import { environment } from 'src/environments/environment';
-import { Hotel } from 'src/app/common/components/model';
 
 @Injectable({
   providedIn: 'root'

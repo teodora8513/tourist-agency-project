@@ -3,7 +3,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Arrangement } from 'src/app/common/components/model';
+import { IArrangement } from 'src/app/common/components/model';
 import { ArrangementsService } from 'src/app/services/arrangement/arrangements.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ export class AddReservationComponent implements OnInit {
     private modalService: NgbModal,
     private _snackBar: MatSnackBar) { }
 
-  arrangements: Arrangement[];
+  arrangements: IArrangement[];
   //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
   images = [1057,944,108, 1011,100,1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class AddReservationComponent implements OnInit {
   }
 
   loadArrangements(){
-    this.service.gettAllArrangements().subscribe(
+    this.service.getAllArrangements().subscribe(
       data => {
         this.arrangements = data;
       }

@@ -1,16 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.dto;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.enumeration.RoomType;
-
 public class HotelDto implements MyDto{
 
 	private Long id;
@@ -19,7 +8,7 @@ public class HotelDto implements MyDto{
 	private int rating;
 	private DestinationDto destination;
 	private String imageName;
-	private String imageFile;
+	private String imageType;
 	private byte[] image;
 	//private String extension;
 	
@@ -30,7 +19,7 @@ public class HotelDto implements MyDto{
 	
 	
 	public HotelDto(Long id, String name, String address, int rating, DestinationDto destination, String imageName,
-			String imageFile, byte[] image/*, String extension*/) {
+					String imageType, byte[] image/*, String extension*/) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -38,7 +27,7 @@ public class HotelDto implements MyDto{
 		this.rating = rating;
 		this.destination = destination;
 		this.imageName = imageName;
-		this.imageFile = imageFile;
+		this.imageType = imageType;
 		this.image = image;
 		//this.extension = extension;
 	}
@@ -95,13 +84,13 @@ public class HotelDto implements MyDto{
 	}
 
 
-	public String getImageFile() {
-		return imageFile;
+	public String getImageType() {
+		return imageType;
 	}
 
 
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
 
 

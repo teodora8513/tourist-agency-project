@@ -1,8 +1,5 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,11 +33,11 @@ public class TransportationEntity implements MyEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "start")
-	private DestinationEntity startDestination;
+	private DestinationEntity start;
 	
 	@ManyToOne
 	@JoinColumn(name = "end")
-	private DestinationEntity endDestination;
+	private DestinationEntity end;
 
 	public TransportationEntity() {
 		super();
@@ -54,8 +51,8 @@ public class TransportationEntity implements MyEntity {
 		this.type = type;
 		this.price = price;
 		this.season = season;
-		this.startDestination = startDestination;
-		this.endDestination = endDestination;
+		this.start = startDestination;
+		this.end = endDestination;
 	}
 
 	public Long getId() {
@@ -91,26 +88,26 @@ public class TransportationEntity implements MyEntity {
 	}
 
 	
-	public DestinationEntity getStartDestination() {
-		return startDestination;
+	public DestinationEntity getStart() {
+		return start;
 	}
 
-	public void setStartDestination(DestinationEntity startDestination) {
-		this.startDestination = startDestination;
+	public void setStart(DestinationEntity startDestination) {
+		this.start = startDestination;
 	}
 
-	public DestinationEntity getEndDestination() {
-		return endDestination;
+	public DestinationEntity getEnd() {
+		return end;
 	}
 
-	public void setEndDestination(DestinationEntity endDestination) {
-		this.endDestination = endDestination;
+	public void setEnd(DestinationEntity endDestination) {
+		this.end = endDestination;
 	}
 
 	@Override
 	public String toString() {
 		return "TransportationEntity [id=" + id + ", type=" + type + ", price=" + price + ", season=" + season
-				+ ", startDestination=" + startDestination + ", endDestination=" + endDestination + "]";
+				+ ", startDestination=" + start + ", endDestination=" + end + "]";
 	}
 
 	
