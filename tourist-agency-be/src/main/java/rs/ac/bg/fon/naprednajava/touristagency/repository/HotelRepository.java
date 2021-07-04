@@ -10,4 +10,6 @@ import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 @Repository
 public interface HotelRepository extends JpaRepository<HotelEntity, Long>{
 	Optional<HotelEntity> findHotelByAddress(String address);
+	Optional<HotelEntity> findByImageName(String name);
+
 }

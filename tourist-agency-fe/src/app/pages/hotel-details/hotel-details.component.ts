@@ -35,6 +35,8 @@ export class HotelDetailsComponent implements OnInit {
   ngOnInit(): void {
     //this.hotel = new Hotel();
 
+    console.log(this.enumKeys);
+
     this.id = this.route.snapshot.params['id'];
 
     this.hotelService.getHotelById(this.id)
@@ -81,19 +83,27 @@ export class HotelDetailsComponent implements OnInit {
     this.room.available = true;
     console.log(this.room);
 
+    let flag = this.checkIfExists(this.room);
+    console.log(flag);
     document.getElementById('add-room-form').click();
-    this.roomService.addRoom(this.room).subscribe(
-      (response: Room) => {
-        console.log(response);
-        this.getRooms();
-        this.openSnackBar("Room " + response.id.room_number + " is successfully added!");
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
+    if(flag == true){
+      this.openSnackBar("Room " + this.room.id.room_number + " already exists!");
+
+    }else{
+
+      this.roomService.addRoom(this.room).subscribe(
+        (response: Room) => {
+          console.log(response);
+          this.getRooms();
+          this.openSnackBar("Room " + response.id.room_number + " is successfully added!");
+          addForm.reset();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+          addForm.reset();
+        }
+      );
+    }
 
     addForm.reset();
   }
@@ -161,6 +171,16 @@ export class HotelDetailsComponent implements OnInit {
       verticalPosition: 'top',
       horizontalPosition: 'center'
     });
+  }
+
+  public checkIfExists(room: Room): boolean{
+    for(let index in this.rooms){
+      if((this.rooms[index].id.hotel_id == room.id.hotel_id)
+          && (this.rooms[index].id.room_number== room.id.room_number)){
+        return true;
+      }
+    }
+    return false;
   }
 
 }

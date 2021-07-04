@@ -9,13 +9,17 @@ import { environment } from 'src/environments/environment';
 })
 export class HotelService {
 
+
   constructor(private httpClient: HttpClient) { }
 
   public getHotels(): Observable<Hotel[]> {
     return this.httpClient.get<Hotel[]>(`${environment.baseHttpURL}/hotel`);
   }
 
-  public addHotel(hotel: Hotel): Observable<Hotel> {
+  public addHotel(hotel: FormData): Observable<Hotel> {
+    const HttpUploadOptions = {
+      headers: new HttpHeaders({ "Content-Type": "multipart/form-data" })
+    }
     return this.httpClient.post<Hotel>(`${environment.baseHttpURL}/hotel`, hotel);
   }
 

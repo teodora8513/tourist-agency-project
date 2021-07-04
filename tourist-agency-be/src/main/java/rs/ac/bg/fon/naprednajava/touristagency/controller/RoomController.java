@@ -54,11 +54,18 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(RoomDto dto) {
-		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
-		} catch (MyEntityAlreadyExists e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		RoomIdentity id = dto.getId();
+		Optional<RoomDto> dtoExists = service.findById(id);
+		if(dtoExists.isEmpty()) {
+			try {
+				return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
+			} catch (MyEntityAlreadyExists e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			}
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id:" + id + " already exists!");
 		}
+		
 	}
 
 	//@DeleteMapping(path="/{id}")

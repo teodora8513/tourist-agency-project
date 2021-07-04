@@ -2,6 +2,14 @@
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 
 
+select.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
 a {
   cursor: pointer;
 }
@@ -95,6 +103,3 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.error-label {
-  color:rgba(233, 8, 8, 0.85)
-}
