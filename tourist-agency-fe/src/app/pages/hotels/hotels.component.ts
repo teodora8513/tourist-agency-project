@@ -18,6 +18,14 @@ export class HotelsComponent implements OnInit {
   public destinations: Destination[];
   public editHotel: Hotel;
   public deleteHotel: Hotel;
+  public hotel: Hotel;
+
+  selectedFile: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message: string;
+  imageName: any;
 
   constructor(private hotelService: HotelService,
     private destinationService: DestinationService,
@@ -54,12 +62,25 @@ export class HotelsComponent implements OnInit {
   }
 
   public onAddHotel(addForm: NgForm): void {
+
+    console.log(this.selectedFile);
+    const hotel = new FormData();
+    hotel.append('imageFile', this.selectedFile, this.selectedFile.name);
+    hotel.append('name', addForm.value.name);
+    hotel.append('address', addForm.value.address);
+    hotel.append('rating', addForm.value.rating);
+    hotel.append('destination_name', addForm.value.destination.name);
+
+    hotel.forEach((value,key) => {
+      console.log(key+" "+value)
+    });
+
     document.getElementById('add-hotel-form').click();
-    this.hotelService.addHotel(addForm.value).subscribe(
+    this.hotelService.addHotel(hotel).subscribe(
       (response: Hotel) => {
         console.log(response);
         this.getHotels();
-        this.openSnackBar("Hotels with id: " + response.id + " is successfully added!");
+        this.openSnackBar("Hotel with id: " + response.id + " is successfully added!");
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
@@ -87,6 +108,7 @@ export class HotelsComponent implements OnInit {
 
   public onUpdateHotel(hotel: Hotel): void {
     console.log(hotel);
+
     this.hotelService.updateHotel(hotel).subscribe(
       (response: Hotel) => {
         console.log(response);
@@ -138,6 +160,11 @@ export class HotelsComponent implements OnInit {
     if (results.length === 0 || !key) {
       this.getHotels();
     }
+  }
+
+  //Gets called when the user selects an image
+  public onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
   }
 
   public openSnackBar(message: String){

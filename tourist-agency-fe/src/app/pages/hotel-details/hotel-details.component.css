@@ -1,6 +1,20 @@
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 
+
+select.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+select{
+  color: black;
+  background-color: white;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
 h1,
 h2,
 h3,
@@ -45,3 +59,4 @@ li {
 .error-label {
   color:rgba(233, 8, 8, 0.85)
 }
+

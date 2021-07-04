@@ -1,3 +1,4 @@
+import { Byte } from "@angular/compiler/src/util";
 import { Destination } from "./destination.model";
 
 export interface Hotel {
@@ -5,5 +6,8 @@ export interface Hotel {
   address?: string,
   name?: string,
   rating?: number,
-  destination?: Destination
+  destination?: Destination,
+  imageName?: string,
+	imageFile?: string;
+	image?: Byte[];
 }
