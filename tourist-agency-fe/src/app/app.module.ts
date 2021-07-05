@@ -19,7 +19,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { BaseRegisterComponent } from './common/components/base-register/base-register.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ArrangementComponent } from './pages/arrangement/arrangement/arrangement.component';
 import { AddReservationComponent } from './pages/add-reservation/add-reservation.component';
 import { HotelService } from './services/hotel/hotel.service';
@@ -27,9 +27,11 @@ import { HotelsComponent } from './pages/hotels/hotels.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { HotelDetailsComponent } from './pages/hotel-details/hotel-details.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {JwtInterceptor} from './interceptors/jwt.interceptor';
+import {ErrorInterceptor} from './interceptors/error.interceptor';
 
 
 
@@ -73,7 +75,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatSelectModule
 
   ],
-  providers: [HotelService],
+  providers: [HotelService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

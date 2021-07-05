@@ -4,6 +4,7 @@
       <mat-card-title>Create arrangement</mat-card-title>
     </p>
     <form (ngSubmit)="this.onSubmit()" [formGroup]="this.arrangementForm" class="form-properties">
+
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Enter date from and date to</mat-label>
@@ -17,6 +18,7 @@
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <mat-select (selectionChange)="this.getHotelsForDestination($event);" formControlName="destinations"
@@ -30,6 +32,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <mat-select formControlName="meals" placeholder="Meals">
@@ -42,6 +45,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <mat-select formControlName="hotels" placeholder="Hotels" required>
@@ -57,6 +61,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <mat-select formControlName="transportation" placeholder="Transportation">
@@ -69,6 +74,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <input formControlName="numberOfPeople" matInput min="0" placeholder="Number of people" type="number">
@@ -77,6 +83,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <p>
         <mat-form-field>
           <input formControlName="price" matInput min="0" placeholder="Price" type="number">
@@ -85,6 +92,7 @@
           </mat-error>
         </mat-form-field>
       </p>
+
       <mat-error *ngIf="this.error">
         {{this.error}}
       </mat-error>
