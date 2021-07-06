@@ -8,6 +8,7 @@ import { ArrangementsService } from 'src/app/services/arrangement/arrangements.s
 import { ToastService } from 'src/app/services/toast/toast.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { stringify } from '@angular/compiler/src/util';
+import { AuthService } from 'src/app/services/authority/auth.service';
 
 @Component({
   selector: 'app-add-reservation',
@@ -16,14 +17,18 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class AddReservationComponent implements OnInit {
 
-  constructor(private router: Router, private service: ArrangementsService,
+  constructor(private router: Router, private authService: AuthService,
+     private service: ArrangementsService,
     private modalService: NgbModal,
     private _snackBar: MatSnackBar) { }
 
   arrangements: Arrangement[];
   //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
   images = [1057,944,108, 1011,100,1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  user_id : number;
   ngOnInit(): void {
+    this.user_id = this.authService.getCurrentUserValue().id;
+    console.log(this.user_id);
     this.loadArrangements();
   }
 
@@ -36,6 +41,9 @@ export class AddReservationComponent implements OnInit {
   }
 
   reserveArrangement(){
+    //smanji broj mesta na rezerviaciji
+    //posalje mejl
+    //
     this.openSnackBar();
 
 
