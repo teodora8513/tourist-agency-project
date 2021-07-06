@@ -53,13 +53,13 @@ public class MailService {
 
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
-        helper.setTo("jevtic.teodora@gmail.com");
+        helper.setTo("bratislav.jevtic@tojesoft.co.rs");
 
         helper.setSubject("My traveling reservation");
 
         helper.setText("<h1>Thank you for making your reservation! </h1>", true);
 
-        helper.addAttachment("travel.jpg", new PathResource("tourist-agency-be/src/main/resources/travel.jpg"));
+        helper.addAttachment("my_travel.jpeg", new PathResource("../tourist-agency-be/src/main/resources/travel.jpeg"));
 
         javaMailSender.send(msg);
 
