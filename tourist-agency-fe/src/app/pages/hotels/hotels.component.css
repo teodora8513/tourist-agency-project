@@ -2,6 +2,14 @@
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 
 
+select.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
 a {
   cursor: pointer;
 }
@@ -49,6 +57,7 @@ p {
 a {
   color: #707070;
 }
+
 i {
 color: rgb(15, 15, 15);
 }
@@ -77,3 +86,20 @@ li {
 .form {
   padding: 15px;
 }
+
+.form-label {
+  color:#050505;
+}
+
+.modal-title {
+  font-size: 20px;
+}
+
+
+/* Removes arrows from input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+

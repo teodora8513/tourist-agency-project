@@ -1,39 +1,38 @@
 package rs.ac.bg.fon.naprednajava.touristagency.dto;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
-import rs.ac.bg.fon.naprednajava.touristagency.enumeration.RoomType;
-
 public class HotelDto implements MyDto{
 
 	private Long id;
 	private String name;
 	private String address;
-	//private List<RoomEntity> rooms;
 	private int rating;
 	private DestinationDto destination;
+	private String imageName;
+	private String imageType;
+	private byte[] image;
+	//private String extension;
 	
 	public HotelDto() {
 		
 		
 	}
 	
-	public HotelDto(Long id, String name, String address, int rating, DestinationDto destination) {
+	
+	public HotelDto(Long id, String name, String address, int rating, DestinationDto destination, String imageName,
+					String imageType, byte[] image/*, String extension*/) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.rating = rating;
 		this.destination = destination;
+		this.imageName = imageName;
+		this.imageType = imageType;
+		this.image = image;
+		//this.extension = extension;
 	}
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +72,47 @@ public class HotelDto implements MyDto{
 	public void setDestination(DestinationDto destination) {
 		this.destination = destination;
 	}
-	
+
+
+	public String getImageName() {
+		return imageName;
+	}
+
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+
+	public String getImageType() {
+		return imageType;
+	}
+
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
+	}
+
+
+	public byte[] getImage() {
+		return image;
+	}
+
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+
+	/*
+	public String getExtension() {
+		return extension;
+	}
+
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
+*/
 
 }

@@ -5,7 +5,7 @@
       Add Hotel
     </button>
     <form class="form">
-      <input type="search"  #key="ngModel" ngModel
+      <input type="search"  (ngModelChange)="searchHotels(key.value)" #key="ngModel" ngModel
        name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search hotels..." required>
    </form>
   </div>
@@ -14,68 +14,85 @@
   <div class="row">
     <div *ngFor="let hotel of hotels" class="col-md-6 col-xl-3">
        <div class="card m-b-30">
-          <div class="card-body row">
-             <div class="col-6">
+        <img src="https://image.flyinstatic.com/f/500x330,q85/http://images.flyinstatic.com/ebtranet-images/46961/00.jpg" class="card-img-top" alt="">
+          <div class="card-body align-items-center d-flex justify-content-center">
+             <!--<div class="col-6">
                 <a href=""><img src="https://www.kindpng.com/picc/m/284-2844300_hotel-building-clipart-png-hotel-clipart-png-transparent.png" alt="" class="img-fluid rounded-circle w-60"></a>
-             </div>
-             <div class="col-6 card-title align-self-center mb-0">
-                <h5 ><i class="fa fa-star" style="color:yellow"></i>{{hotel?.rating}}</h5>
-                <h3>{{hotel?.name}}</h3>
+             </div>-->
+             <!--<div class="col-6 card-title align-self-center mb-0">-->
 
-             </div>
+                <h3 class="card-title">{{hotel?.name}}</h3>
+
+            <!-- </div>-->
           </div>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-star float-right"></i>{{hotel?.rating}} stars</li>
             <li class="list-group-item"><i class="fa fa-plane float-right"></i>{{hotel?.destination.name}}, {{hotel?.destination.state.name}}</li>
             <li class="list-group-item"><i class="fa fa-street-view float-right"></i>{{hotel?.address}}</li>
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-                <a (click)="onOpenModal(hotel, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                <a (click)="onOpenModal(hotel, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+              <span title="Click to see details for the hotel"><a (click)="hotelDetails(hotel.id)" class="btn btn-warning tooltips" data-placement="top" data-original-title="Details"><i class="fa fa-info"></i></a></span>
+              <span title="Click to edit hotel"><a (click)="onOpenModal(hotel, 'edit')" class="btn btn-success tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a></span>
+                <span title="Click to delete hotel"><a (click)="onOpenModal(hotel, 'delete')" class="btn btn-danger tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a></span>
              </div>
           </div>
        </div>
     </div>
 
-    <!-- Add Hotel Modal -->
+<!-- Add Hotel Modal -->
 <div class="modal fade" id="addHotelModal" tabindex="-1" role="dialog" aria-labelledby="addHotelModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
        <div class="modal-header">
           <h5 class="modal-title" id="addHotelModalLabel">Add Hotel</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+         <span aria-hidden="true">&times;</span>
           </button>
        </div>
        <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddHotel(addForm)">
           <div class="form-group">
-             <label for="name">Name</label>
-             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+             <label for="name" class="form-label">Name</label>
+             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Input hotel name" #name="ngModel" required>
+             <small class="form-text text-muted" *ngIf="name.invalid && name.touched">You need to input name for hotel</small>
           </div>
+
           <div class="form-group">
-             <label for="address">Address</label>
-             <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address" required>
+             <label for="address" class="form-label">Address</label>
+             <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Input hotel address" #address="ngModel" required>
+             <small class="form-text text-muted" *ngIf="address.invalid && address.touched">You need to input address for hotel</small>
           </div>
+
           <div class="form-group">
-             <label for="rating">Rating</label>
-             <input type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Rating" required>
+             <label for="rating" class="form-label">Rating</label>
+             <input pattern="([1-5])" type="number" ngModel name="rating" class="form-control" id="rating" placeholder="Input hotel rating"  #rating="ngModel" required>
+             <small class="form-text text-muted" *ngIf="rating.invalid && rating.touched">Rating is mandatory field and it's range is from 1 to 5</small>
           </div>
-          <!---
+
           <div class="form-group">
-             <label for="phone">Image URL</label>
-             <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+            <label for="destination" class="form-label">Destination</label>
+            <select ngModel name="destination" class="form-control" id="destination" placeholder="Input destination" #destination="ngModel" required>
+              <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.name}}, {{destination.state.name}}</option>
+            </select>
+            <small class="form-text text-muted" *ngIf="destination.invalid && destination.touched">You need to select destination for hotel</small>
           </div>
-          -->
+
+          <div class="form-group">
+             <label for="image" class="form-label">Hotel Image</label>
+             <input type="file" (change)="onFileChanged($event)" ngModel name="image" class="form-control" id="image" placeholder="Image" required>
+          </div>
+
+
           <div class="modal-footer">
-             <button type="button" id="add-hotel-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save</button>
+            <button type="button" id="add-hotel-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button  type="submit" class="btn btn-primary" [disabled]="addForm.invalid">Save</button>
           </div>
           </form>
        </div>
     </div>
   </div>
-  </div>
+</div>
 
 <!-- Edit Modal -->
 <div class="modal fade" id="updateHotelModal" tabindex="-1" role="dialog" aria-labelledby="hotelEditModalLabel" aria-hidden="true" data-backdrop="false">
@@ -90,27 +107,42 @@
         <div class="modal-body">
            <form #editForm="ngForm">
               <div class="form-group">
-                 <label for="name">Name</label>
-                 <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Name">
+                 <label for="name" class="form-label">Name</label>
+                 <input type="text" ngModel="{{editHotel?.name}}" name="name" class="form-control" id="name"  placeholder="Input hotel name" #edit_name="ngModel" required>
+                 <small class="form-text text-muted" *ngIf="edit_name.invalid && edit_name.touched && edit_name.dirty">You need to input name for hotel</small>
               </div>
+
               <input type="hidden" ngModel="{{editHotel?.id}}" name="id" class="form-control" id="id" placeholder="Id">
+
               <div class="form-group">
-                 <label for="address">Address</label>
-                 <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Address">
+                 <label for="address" class="form-label">Address</label>
+                 <input type="text" ngModel="{{editHotel?.address}}" name="address" class="form-control" id="address" placeholder="Input hotel address" #edit_address="ngModel" required>
+                 <small class="form-text text-muted" *ngIf="edit_address.invalid && edit_address.touched && edit_address.dirty">You need to input address for hotel</small>
               </div>
+
               <div class="form-group">
-                 <label for="phone">Rating</label>
-                 <input type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Rating">
+                 <label for="rating" class="form-label">Rating</label>
+                 <input pattern="([1-5])" type="number" ngModel="{{editHotel?.rating}}" name="rating" class="form-control" id="rating" placeholder="Input hotel rating" #edit_rating="ngModel" required>
+                 <small class="form-text text-muted" *ngIf="edit_rating.invalid && edit_rating.touched && edit_rating.dirty">Rating is mandatory field and it's range is from 1 to 5</small>
               </div>
-              <!--
+
               <div class="form-group">
-                 <label for="phone">Image URL</label>
-                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
-              </div>
-              -->
+                <label for="destination" class="form-label">Destination</label>
+                <select ngModel name="destination" class="form-control" id="destination" placeholder="Input destination" #edit_destination="ngModel" required>
+                  <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.name}}, {{destination.state.name}}</option>
+                </select>
+                <small class="form-text text-muted" *ngIf="edit_destination.invalid && edit_destination.touched && edit_destination.pristine">You need to select destination for hotel</small>
+             </div>
+<!--
+             <div class="form-group">
+                <label for="image" class="form-label">Hotel Image</label>
+                <input type="file"  ngModel name="image" class="form-control" id="image" placeholder="Image" required>
+             </div>
+-->
+
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button (click)="onUpdateHotel(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 <button (click)="onUpdateHotel(editForm.value)" data-dismiss="modal" class="btn btn-primary" [disabled]="editForm.invalid">Save changes</button>
               </div>
            </form>
         </div>
@@ -142,9 +174,9 @@
 
 <!-- Notification for no hotels -->
 <div *ngIf="hotels?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
-<div class="alert alert-info" role="alert">
-  <h4 class="alert-heading">NO HOTELS!</h4>
-  <p>No Hotels were found.</p>
-</div>
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO HOTELS!</h4>
+    <p>No Hotels were found.</p>
+  </div>
 
 </div>

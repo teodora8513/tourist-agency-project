@@ -42,32 +42,39 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 
 	@GetMapping(path = "/{id}")
 	@Override
-	public ResponseEntity<Object> findById(RoomIdentity ID) {
-		Optional<RoomDto> dto = service.findById(ID);
+	public ResponseEntity<Object> findById(RoomIdentity id) {
+		Optional<RoomDto> dto = service.findById(id);
 		if (dto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(dto.get());
 		} else
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id: " + ID + " was not found!");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id: " + id + " was not found!");
 		
 	}
 
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(RoomDto dto) {
-		try {
-			service.save(dto);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Room " + dto.getId() + " is created!");
-		} catch (MyEntityAlreadyExists e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		RoomIdentity id = dto.getId();
+		Optional<RoomDto> dtoExists = service.findById(id);
+		if(dtoExists.isEmpty()) {
+			try {
+				return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
+			} catch (MyEntityAlreadyExists e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			}
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room with id:" + id + " already exists!");
 		}
+		
 	}
 
-	@DeleteMapping(path="/{id}")
+	//@DeleteMapping(path="/{id}")
+	@DeleteMapping
 	@Override
-	public ResponseEntity<Object> deleteById(RoomIdentity ID) {
+	public ResponseEntity<Object> deleteById(RoomIdentity id) {
 		try {
-			service.delete(ID);
-			return ResponseEntity.status(HttpStatus.OK).body("Room with id " +  ID + " is deleted!");
+			service.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Room with id " +  id.getRoom_number() + " is deleted!");
 		} catch (MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
@@ -88,6 +95,13 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	public ResponseEntity<Page<RoomDto>> getByPage(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@GetMapping(path = "/hotel/{id}")
+	@Override
+	public ResponseEntity<List<RoomDto>> findRoomsByHotelId(Long id) {
+		List<RoomDto> dto = service.findRoomsByHotelId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
 	}
 
 }

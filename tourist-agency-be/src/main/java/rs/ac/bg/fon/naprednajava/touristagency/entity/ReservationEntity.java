@@ -59,6 +59,8 @@ public class ReservationEntity implements MyEntity {
 	
 	private int people;
 
+	@ManyToOne
+	@JoinColumn(name = "destination_id")
 	private DestinationEntity destination;
 	
 	public ReservationEntity() {

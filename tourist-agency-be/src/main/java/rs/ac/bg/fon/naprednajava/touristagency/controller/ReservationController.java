@@ -28,7 +28,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.impl.ReservationService;
 @CrossOrigin("*")
 public class ReservationController implements rs.ac.bg.fon.naprednajava.touristagency.controller.RestController<ReservationDto, Long>{
 
-	private ReservationService reservationService;
+	private final ReservationService reservationService;
 	
 	@Autowired
 	public ReservationController(ReservationService reservationService) {
@@ -59,9 +59,7 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 	public ResponseEntity<Object> save(ReservationDto dto) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(reservationService.save(dto));
-		} catch (MyEntityAlreadyExists e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-		} catch (MyEntityDoesntExist e) {
+		} catch (MyEntityAlreadyExists | MyEntityDoesntExist e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}

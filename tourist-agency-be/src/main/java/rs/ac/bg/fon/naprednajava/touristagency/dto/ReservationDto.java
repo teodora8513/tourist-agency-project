@@ -147,4 +147,11 @@ public class ReservationDto implements MyDto {
 		this.people = people;
 	}
 
+	public DestinationDto getDestination() {
+		return destination;
+	}
+
+	public void setDestination(DestinationDto destination) {
+		this.destination = destination;
+	}
 }

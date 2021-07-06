@@ -33,7 +33,8 @@ insert into transportation (type, price, season, start, end) values ("CAR", 0, "
 insert into transportation (type, price, season, start, end) values ("PLANE", 150, "SUMMER", 4,5);
 
 /*Insert HOTEL values*/
-insert into hotel (name, address, rating, destination_id) values ("Rosa Grand", "Piazza Fontana, 3", 5, 1);
+/*insert into hotel (name, address, rating, destination_id) values ("Rosa Grand", "Piazza Fontana 3", 5, 1);*/
+
 
 /*Insert ROOM values*/
-insert into room (room_number, description, price_per_night, room_type, available, hotel_id) values ("1A", "A standard king bed room has one standard size king bed and a pull out sofa bed with one bathroom and a small area with a coffee maker. It comes with a television and cable box.", 40, "king_room", TRUE, 1);
+/*insert into room (room_number, description, price_per_night, room_type, available, hotel_id) values ("1A", "A standard king bed room has one standard size king bed and a pull out sofa bed with one bathroom and a small area with a coffee maker. It comes with a television and cable box.", 40, "king_room", TRUE, 1);*/
