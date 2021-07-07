@@ -16,6 +16,10 @@ export class ArrangementsService {
     return this.httpClient.get<IArrangement[]>(`${environment.baseHttpURL}/reservation`);
   }
 
+  public getArrangementsByUserId(id: number): Observable<IArrangement[]> {
+    return this.httpClient.get<IArrangement[]>(`${environment.baseHttpURL}/auth/reservations/${id}`);
+  }
+
   public createArrangement(arrangement: IArrangement): Observable<any> {
     return this.httpClient.post(`${environment.baseHttpURL}/reservation`, arrangement);
   }
