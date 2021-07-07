@@ -54,22 +54,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * Configuring web security
-     * @param http
+     * @param httpSecurity
      * @throws Exception
      */
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         // Disabled CORS and disable CSRF
-        http = http.cors().disable();
-        http = http.csrf().disable();
+        httpSecurity = httpSecurity.cors().disable();
+        httpSecurity = httpSecurity.csrf().disable();
 
         // Set session manager to stateless
-        http = http.sessionManagement()
+        httpSecurity = httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and();
 
         // Set unauthorized requests exception handler
-        http = http.exceptionHandling().
+        httpSecurity = httpSecurity.exceptionHandling().
                 authenticationEntryPoint((httpServletRequest, httpServletResponse, e) -> {
                     httpServletResponse.sendError(
                             httpServletResponse.SC_UNAUTHORIZED,
@@ -78,12 +78,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 }).and();
         // Set permissions on endpoints
 
-         http.authorizeRequests().antMatchers("/").permitAll();
-//        http.authorizeRequests().antMatchers("api/public/**").permitAll()
-//                .anyRequest().authenticated();
+
+         httpSecurity.authorizeRequests().antMatchers("/").permitAll();
+       // httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
+
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
+     //   httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
+
 
         // Add jwt token filter
-        http.addFilterBefore(
+        httpSecurity.addFilterBefore(
                 this.jwtTokenFilter,
                 UsernamePasswordAuthenticationFilter.class
         );

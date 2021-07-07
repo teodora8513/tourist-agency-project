@@ -11,24 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import rs.ac.bg.fon.naprednajava.touristagency.dto.DestinationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.HotelDto;
-import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.DestinationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.DestinationMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.DestinationRepository;
-import rs.ac.bg.fon.naprednajava.touristagency.service.impl.DestinationService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.HotelService;
 
 @RestController
@@ -121,7 +113,7 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 		
 		dto.setDestination(destinationMapper.toDto(destination));
 		dto.setImageName(imageFile.getOriginalFilename());
-		dto.setImageFile(imageFile.getContentType());
+		dto.setImageType(imageFile.getContentType());
 		dto.setImage(compressBytes(imageFile.getBytes()));
 		//dto.setExtension(extension);
 		
@@ -152,6 +144,11 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
     }
 	
 	
+	@GetMapping("destination")
+	public ResponseEntity<List<HotelDto>> getAllByDestination(@RequestParam Long destinationId) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.service.findHotelEntityByDestinationId(destinationId));
+	}
+
 }
 
 

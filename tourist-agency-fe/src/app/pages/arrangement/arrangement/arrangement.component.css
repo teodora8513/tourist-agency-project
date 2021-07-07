@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 20px;
+  background-color: rgba(49, 48, 48, 0.9);
+}
+
+.form-properties {
+  width: 90%;
+  height: 90%;
+}
+
+mat-form-field {
+  width: 100%;
+  height: 100%;
+}
+
+.save-button {
+  float: right;
+}
+
+@media screen and (max-width: 600px) {
+  mat-form-field{
+  }
+}

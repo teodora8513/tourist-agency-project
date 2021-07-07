@@ -8,7 +8,12 @@ import org.springframework.stereotype.Repository;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.DestinationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 
+import java.util.Optional;
+
 @Repository
 public interface DestinationRepository extends JpaRepository<DestinationEntity, Long> {
+
+    @Override
+    Optional<DestinationEntity> findById(Long id);
 	DestinationEntity findDestinationByName(String name);
 }

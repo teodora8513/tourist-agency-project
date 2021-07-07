@@ -7,6 +7,7 @@ import java.util.List;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.TransportationEntity;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 
@@ -33,8 +34,12 @@ public class ReservationDto implements MyDto {
 	private double totalPrice;
 
 	private int people;
-	
+
 	private DestinationDto destination;
+
+	private int numberOfArrangementsLeft;
+
+	private List<UserDto> usersReservations = new ArrayList<>();
 
 	public ReservationDto() {
 		super();
@@ -43,7 +48,7 @@ public class ReservationDto implements MyDto {
 
 	public ReservationDto(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
 			List<RoomEntity> rooms, Meals meals, HotelEntity hotel, TransportationEntity transportation,
-			double totalPrice, int people, DestinationDto destination) {
+			double totalPrice, int people, DestinationDto destination, int numLeft) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -57,6 +62,7 @@ public class ReservationDto implements MyDto {
 		this.totalPrice = totalPrice;
 		this.people = people;
 		this.destination = destination;
+		this.numberOfArrangementsLeft = numLeft;
 	}
 
 	public Long getId() {
@@ -85,6 +91,14 @@ public class ReservationDto implements MyDto {
 
 	public Date getDateTo() {
 		return dateTo;
+	}
+
+	public List<UserDto> getUsers() {
+		return usersReservations;
+	}
+
+	public void setUsers(List<UserDto> users) {
+		this.usersReservations = users;
 	}
 
 	public void setDateTo(Date dateTo) {
@@ -145,6 +159,22 @@ public class ReservationDto implements MyDto {
 
 	public void setPeople(int people) {
 		this.people = people;
+	}
+
+	public DestinationDto getDestination() {
+		return destination;
+	}
+
+	public void setDestination(DestinationDto destination) {
+		this.destination = destination;
+	}
+
+	public int getNumberOfArrangementsLeft() {
+		return numberOfArrangementsLeft;
+	}
+
+	public void setNumberOfArrangementsLeft(int numberOfArrangementsLeft) {
+		this.numberOfArrangementsLeft = numberOfArrangementsLeft;
 	}
 
 }

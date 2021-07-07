@@ -10,9 +10,14 @@
 }
 
 .sidenav-content {
+  background-image: url("/assets/backgroundImages/travel.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   flex: 1;
 }
 
 .nav-caption {
   margin: 5px;
 }
+
