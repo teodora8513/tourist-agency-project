@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IHotel, Room, RoomIdentity, RoomType } from 'src/app/common/components/model';
 import { HotelService } from 'src/app/services/hotel/hotel.service';
@@ -27,7 +28,8 @@ export class HotelDetailsComponent implements OnInit {
               private hotelService: HotelService,
               private roomService: RoomService,
               private fb: FormBuilder,
-              private _snackBar: MatSnackBar)
+              private _snackBar: MatSnackBar,
+              private domSanitizer: DomSanitizer)
               {
                 this.enumKeys=Object.keys(this.roomType);
               }
@@ -44,6 +46,7 @@ export class HotelDetailsComponent implements OnInit {
         (response: IHotel) => {
           console.log(response);
           this.hotel = response;
+          this.loadImage();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -79,7 +82,13 @@ export class HotelDetailsComponent implements OnInit {
     this.roomIdentity.hotel_id = this.id;
     this.roomIdentity.room_number = addForm.value.room_number;
     this.room.id = this.roomIdentity;
-    this.room.hotel = this.hotel;
+
+    this.room.hotel = {};
+    this.room.hotel.id = this.hotel.id;
+    this.room.hotel.name = this.hotel.name;
+    this.room.hotel.address = this.hotel.address;
+    this.room.hotel.rating = this.hotel.rating;
+    this.room.hotel.destination = this.hotel.destination;
     this.room.available = true;
     console.log(this.room);
 
@@ -128,7 +137,12 @@ export class HotelDetailsComponent implements OnInit {
     this.roomIdentity.hotel_id = this.id;
     this.roomIdentity.room_number = room_number;
     room.id = this.roomIdentity;
-    room.hotel = this.hotel;
+    room.hotel = {};
+    room.hotel.id = this.hotel.id;
+    room.hotel.name = this.hotel.name;
+    room.hotel.address = this.hotel.address;
+    room.hotel.rating = this.hotel.rating;
+    room.hotel.destination = this.hotel.destination;
     room.available = true;
 
     console.log(room);
@@ -181,6 +195,14 @@ export class HotelDetailsComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private loadImage(): void {
+
+      const imageNameParts = this.hotel.imageName.split('.');
+      const imageExtension = imageNameParts[imageNameParts.length - 1];
+      this.hotel.image = 'data:image/' + imageExtension + ';base64,' + this.hotel.image;
+      this.domSanitizer.bypassSecurityTrustResourceUrl(this.hotel.image);
   }
 
 }

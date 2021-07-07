@@ -2,7 +2,6 @@ package rs.ac.bg.fon.naprednajava.touristagency.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
-import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
+import rs.ac.bg.fon.naprednajava.touristagency.service.impl.HotelService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.RoomService;
 
 @RestController
@@ -30,7 +29,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	private RoomService service;
 	
 	@Autowired
-	public RoomController(RoomService service) {
+	public RoomController(RoomService service, HotelService hotelService) {
 		this.service = service;
 	}
 	
@@ -60,6 +59,8 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 			try {
 				return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
 			} catch (MyEntityAlreadyExists e) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+			} catch (MyEntityDoesntExist e) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
 		}else {

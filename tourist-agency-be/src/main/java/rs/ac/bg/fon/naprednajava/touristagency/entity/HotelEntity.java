@@ -38,7 +38,6 @@ public class HotelEntity implements MyEntity {
       
     /* Address */
     @NotNull
-    @Column(unique = true)
     private String address;
 
     /*
@@ -54,14 +53,14 @@ public class HotelEntity implements MyEntity {
     @JoinColumn(name = "destination_id")
     private DestinationEntity destination;
     
-    @Column(name = "image_name"/*, nullable=false*/)
+    @Column(name = "image_name")
     private String imageName;
     
-    @Column(name = "image_file"/*, nullable=false*/)
+    @Column(name = "image_file")
     private String imageType;
     
     @Lob
-    @Column(/*nullable=false,*/ columnDefinition = "BLOB")
+    @Column(columnDefinition = "BLOB")
     private byte[] image;
     
     /*@Column(nullable=false)

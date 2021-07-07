@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,13 +47,19 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 	@GetMapping
 	@Override
 	public ResponseEntity<List<HotelDto>> getAll() {
-		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+		List<HotelDto> hotels = service.getAll();
+		for (HotelDto hotel : hotels) {
+			byte[] image = hotel.getImage();
+			hotel.setImage(decompressBytes(image));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(hotels);
 	}
 
 	@GetMapping(path = "/{id}")
 	@Override
 	public ResponseEntity<Object> findById(Long id) {
 		Optional<HotelDto> dto = service.findById(id);
+
 		if (dto.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(dto.get());
 		} else
@@ -82,7 +90,8 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-
+	
+	
 	@PutMapping(path="/{id}")
 	@Override
 	public ResponseEntity<Object> update(HotelDto dto) {
@@ -92,7 +101,33 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 			return ResponseEntity.status(HttpStatus.OK).body(e.getMessage());
 		}
 	}
-
+	
+	/*
+	@PutMapping(path="/{id}")
+	@Override
+	public ResponseEntity<Object> update(String name, String address, Integer rating, 
+			Long destination_id, MultipartFile imageFile) throws IOException {
+		
+		HotelDto dto = new HotelDto();
+		dto.setName(name);
+		dto.setAddress(address);
+		dto.setRating(rating);
+		
+		DestinationEntity destination = destinationRepo.findDestinationById(destination_id);
+		
+		dto.setDestination(destinationMapper.toDto(destination));
+		dto.setImageName(imageFile.getOriginalFilename());
+		dto.setImageType(imageFile.getContentType());
+		dto.setImage(compressBytes(imageFile.getBytes()));
+		
+		try {
+			return ResponseEntity.status(HttpStatus.CREATED).body(service.update(dto));
+		} catch (MyEntityDoesntExist e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		
+	}
+*/
 	@Override
 	public ResponseEntity<Page<HotelDto>> getByPage(Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -102,14 +137,14 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(String name, String address, Integer rating, 
-			String destination_name, /*String extension,*/ MultipartFile imageFile) throws IOException {
+			Long destination_id, MultipartFile imageFile) throws IOException {
 		
 		HotelDto dto = new HotelDto();
 		dto.setName(name);
 		dto.setAddress(address);
 		dto.setRating(rating);
 		
-		DestinationEntity destination = destinationRepo.findDestinationByName(destination_name);
+		DestinationEntity destination = destinationRepo.findDestinationById(destination_id);
 		
 		dto.setDestination(destinationMapper.toDto(destination));
 		dto.setImageName(imageFile.getOriginalFilename());
@@ -143,6 +178,22 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
         return outputStream.toByteArray();
     }
 	
+	public static byte[] decompressBytes(byte[] data) {
+		Inflater inflater = new Inflater();
+		inflater.setInput(data);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+		byte[] buffer = new byte[1024];
+		try {
+			while (!inflater.finished()) {
+				int count = inflater.inflate(buffer);
+				outputStream.write(buffer, 0, count);
+			} outputStream.close();
+		} catch (IOException ioe) {
+		} catch (DataFormatException e) {
+		}
+		
+		return outputStream.toByteArray();
+	}
 	
 	@GetMapping("destination")
 	public ResponseEntity<List<HotelDto>> getAllByDestination(@RequestParam Long destinationId) {
