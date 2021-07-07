@@ -1,11 +1,12 @@
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 import {Hotel, IDestination, IHotel} from 'src/app/common/components/model';
-import { DestinationService } from 'src/app/services/destination/destination.service';
-import { HotelService } from 'src/app/services/hotel/hotel.service';
+import {DestinationService} from 'src/app/services/destination/destination.service';
+import {HotelService} from 'src/app/services/hotel/hotel.service';
 
 @Component({
   selector: 'app-hotels',
@@ -30,7 +31,9 @@ export class HotelsComponent implements OnInit {
   constructor(private hotelService: HotelService,
               private destinationService: DestinationService,
               private router: Router,
-              private snackBar: MatSnackBar){}
+              private snackBar: MatSnackBar,
+              private domSanitizer: DomSanitizer) {
+  }
 
   ngOnInit(): void {
     this.getHotels();
@@ -54,6 +57,7 @@ export class HotelsComponent implements OnInit {
       (response: IHotel[]) => {
         this.hotels = response;
         console.log(this.hotels);
+        this.loadImages();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -71,8 +75,8 @@ export class HotelsComponent implements OnInit {
     hotel.append('rating', addForm.value.rating);
     hotel.append('destination_name', addForm.value.destination.name);
 
-    hotel.forEach((value,key) => {
-      console.log(key+" "+value)
+    hotel.forEach((value, key) => {
+      console.log(key + ' ' + value);
     });
 
     document.getElementById('add-hotel-form').click();
@@ -113,7 +117,7 @@ export class HotelsComponent implements OnInit {
       (response: IHotel) => {
         console.log(response);
         this.getHotels();
-        this.openSnackBar("Hotel with id:  " + response.id + " is successfully updated!");
+        this.openSnackBar('Hotel with id:  ' + response.id + ' is successfully updated!');
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -121,7 +125,7 @@ export class HotelsComponent implements OnInit {
     );
   }
 
-  public hotelDetails(id: number){
+  public hotelDetails(id: number) {
     this.router.navigate(['details', id]);
   }
 
@@ -149,10 +153,9 @@ export class HotelsComponent implements OnInit {
     const results: IHotel[] = [];
     for (const hotel of this.hotels) {
       if ((hotel.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-      || (hotel.address.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-      || (hotel.destination.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-      || (hotel.destination.state.name.toLowerCase().indexOf(key.toLowerCase()) !== -1))
-      {
+        || (hotel.address.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+        || (hotel.destination.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
+        || (hotel.destination.state.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)) {
         results.push(hotel);
       }
     }
@@ -162,17 +165,26 @@ export class HotelsComponent implements OnInit {
     }
   }
 
-  //Gets called when the user selects an image
+  // Gets called when the user selects an image
   public onFileChanged(event) {
     this.selectedFile = event.target.files[0];
   }
 
-  public openSnackBar(message: String){
+  public openSnackBar(message: String) {
     this.snackBar.open(message.toString(), '',
-    {
-      duration : 3000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'
-    });
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+  }
+
+  private loadImages(): void {
+    for (const hotel of this.hotels) {
+      const imageNameParts = hotel.imageName.split('.');
+      const imageExtension = imageNameParts[imageNameParts.length - 1];
+      hotel.image = 'data:image/' + imageExtension + ';base64,' + hotel.image;
+      this.domSanitizer.bypassSecurityTrustResourceUrl(hotel.image);
+    }
   }
 }

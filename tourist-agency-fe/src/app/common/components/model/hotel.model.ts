@@ -9,12 +9,12 @@ export interface IHotel {
   destination?: IDestination;
   imageName?: string;
   imageFile?: string;
-  image?: Byte[];
+  image?: any;
 }
 
 export class Hotel implements IHotel {
   public constructor(public id: number, public address: string, public rating: number,
                      public destination: IDestination, public imageName: string, public imageFile: string,
-                     public image: Byte[]) {
+                     public image: any) {
   }
 }
