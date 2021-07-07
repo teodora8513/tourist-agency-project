@@ -15,7 +15,11 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-
+/**
+ * Klasu treba izmeniti tako da prima usera
+ * @author Teodora
+ *
+ */
 @Service
 public class MailService {
 

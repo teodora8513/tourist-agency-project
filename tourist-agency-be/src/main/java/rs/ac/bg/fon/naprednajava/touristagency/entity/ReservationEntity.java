@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,9 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
@@ -59,17 +63,31 @@ public class ReservationEntity implements MyEntity {
 	
 	private int people;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "destination_id")
 	private DestinationEntity destination;
 	
+	@Column(name="number_left")
+	private int numberOfArrangementsLeft ;
+	
+	//@ManyToMany(mappedBy="reservations")
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "user_reservation", 
+        joinColumns = { @JoinColumn(name = "reservation_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+	private List<UserEntity> usersReservations = new ArrayList<>();
+	
 	public ReservationEntity() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.numberOfArrangementsLeft = 1;
 	}
 
 	public ReservationEntity(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
-			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation, DestinationEntity destination) {
+			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation, int numLeft,
+			DestinationEntity destination) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -81,7 +99,8 @@ public class ReservationEntity implements MyEntity {
 		this.transportation = transportation;
 		this.totalPrice = getTotalPrice();
 		this.people = people;
-		this.destination = destination;
+		//this.destination = destination;
+		this.numberOfArrangementsLeft = 1;
 	}
 
 	public Long getId() {
@@ -141,6 +160,14 @@ public class ReservationEntity implements MyEntity {
 	}
 
 	
+
+	public List<UserEntity> getUsers() {
+		return usersReservations;
+	}
+
+	public void setUsers(List<UserEntity> users) {
+		this.usersReservations = users;
+	}
 
 	public HotelEntity getHotel() {
 		return hotel;
@@ -218,5 +245,14 @@ public class ReservationEntity implements MyEntity {
 		this.destination = destination;
 	}
 	
+	
+
+	public int getNumberOfArrangementsLeft() {
+		return numberOfArrangementsLeft;
+	}
+
+	public void setNumberOfArrangementsLeft(int numberOfArrangementsLeft) {
+		this.numberOfArrangementsLeft = numberOfArrangementsLeft;
+	}
 	
 }

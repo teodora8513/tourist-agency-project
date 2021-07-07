@@ -54,6 +54,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
     @Override
     public List<ReservationDto> getAll() {
         List<ReservationEntity> entities = reservationRepository.findAll();
+        entities = entities.stream().filter(el -> el.getNumberOfArrangementsLeft()>0).collect(Collectors.toList());
         return entities.stream().map(reservationMapper::toDto).collect(Collectors.toList());
     }
 
