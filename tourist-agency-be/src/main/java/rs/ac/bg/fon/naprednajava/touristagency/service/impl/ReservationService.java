@@ -54,7 +54,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
     @Override
     public List<ReservationDto> getAll() {
         List<ReservationEntity> entities = reservationRepository.findAll();
-        entities = entities.stream().filter(el -> el.getNumberOfArrangementsLeft()>0).collect(Collectors.toList());
+        entities = entities.stream().filter(el -> el.getPeople()>0).collect(Collectors.toList());
         return entities.stream().map(reservationMapper::toDto).collect(Collectors.toList());
     }
 
@@ -77,42 +77,12 @@ public class ReservationService implements MyService<ReservationDto, Long> {
                         dto.getHotel().getId() + " doesn't exist!"));
 
         List<RoomEntity> rooms = this.roomRepository.findRoomsByHotelId(dto.getHotel().getId());
-//        for (RoomEntity room : dto.getRooms()) {
-//            this.roomRepository.findById(room.getId())
-//                    .orElseThrow(() -> new MyEntityDoesntExist("Room with id: " +
-//                            room.getId() + " doesn't exist!"));
-//        }
-
         ReservationEntity reservationEntity = this.reservationMapper.toEntity(dto);
         reservationEntity.setDestination(destinationEntity);
         reservationEntity.setHotel(hotelEntity);
         reservationEntity.setTransportation(transportationEntity);
         this.reservationRepository.save(reservationEntity);
         return dto;
-//		Optional<ReservationEntity> resEntity = reservationRepository.findById(dto.getId());
-//		if(resEntity.isEmpty()) {
-//			Optional<HotelEntity> hotelEntity = hotelRepository.findById(dto.getHotel().getId());
-//			if(hotelEntity.isPresent()) {
-//				for (RoomEntity room : dto.getRooms()) {
-//					Optional<RoomEntity> roomEntity = roomRepository.findById(room.getId());
-//					if(roomEntity.isPresent()) {
-//						continue;
-//					}
-//					else {
-//						throw new MyEntityDoesntExist("Room with id: " + room.getId() + " doesn't exist!");
-//					}
-//				}
-//				reservationRepository.save(reservationMapper.toEntity(dto));
-//				return dto;
-//			}
-//			else {
-//				throw new MyEntityDoesntExist("Hotel with id " + dto.getHotel().getId() + " doesn't exist!");
-//			}
-//		}
-//		else {
-//			throw new MyEntityAlreadyExists("Reservation with id " + dto.getId() + " already exist!");
-//		}
-//
     }
 
     @Override
@@ -123,7 +93,6 @@ public class ReservationService implements MyService<ReservationDto, Long> {
         } else {
             throw new MyEntityDoesntExist("Reservation with id " + id + " does not exist!");
         }
-
     }
 
     @Override
@@ -143,5 +112,4 @@ public class ReservationService implements MyService<ReservationDto, Long> {
         return entities.stream().map(reservationMapper::toDto).collect(Collectors.toList());
 
     }
-
 }

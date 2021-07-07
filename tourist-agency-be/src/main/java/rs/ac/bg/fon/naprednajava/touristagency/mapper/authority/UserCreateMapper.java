@@ -2,6 +2,8 @@ package rs.ac.bg.fon.naprednajava.touristagency.mapper.authority;
 
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.MyMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.ReservationMapper;
@@ -13,4 +15,5 @@ import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.CreateUserRequ
  */
 @Mapper(componentModel = "spring", uses = ReservationMapper.class, builder = @Builder(disableBuilder = true))
 public interface UserCreateMapper extends MyMapper<UserEntity, CreateUserRequest> {
+
 }

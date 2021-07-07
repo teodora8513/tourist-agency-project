@@ -2,8 +2,10 @@ package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
 import rs.ac.bg.fon.naprednajava.touristagency.dto.MyDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,19 +26,18 @@ public class UserDto implements MyDto {
     /** User roles/groups **/
     private Set<RoleEntity> authorities;
     
-    private List<ReservationDto> reservations = new ArrayList<>();
-    
-    
+    private Set<ReservationEntity> reservations = new HashSet<>();
 
-    public List<ReservationDto> getReservations() {
-		return reservations;
-	}
 
-	public void setReservations(List<ReservationDto> reservations) {
-		this.reservations = reservations;
-	}
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
 
-	public Long getId() {
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Long getId() {
         return id;
     }
 

@@ -1,7 +1,11 @@
 package rs.ac.bg.fon.naprednajava.touristagency.requests.authority;
 
+import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
+
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Create user request
@@ -21,6 +25,8 @@ public class CreateUserRequest extends BaseUserRequest{
     @NotBlank
     private String lastName;
 
+    private Set<ReservationDto> reservations = new HashSet<>();
+
     public String getRePassword() {
         return rePassword;
     }
@@ -33,6 +39,10 @@ public class CreateUserRequest extends BaseUserRequest{
         return lastName;
     }
 
+    public Set<ReservationDto> getReservations() {
+        return reservations;
+    }
+
     public void setRePassword(String rePassword) {
         this.rePassword = rePassword;
     }
@@ -43,6 +53,10 @@ public class CreateUserRequest extends BaseUserRequest{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setReservations(Set<ReservationDto> reservations) {
+        this.reservations = reservations;
     }
 
     @Override
