@@ -17,6 +17,7 @@ import {TransportationService} from '../../../services/transportation/transporta
 import {RoomService} from '../../../services/room/room.service';
 import {DestinationService} from '../../../services/destination/destination.service';
 import {ArrangementsService} from '../../../services/arrangement/arrangements.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reservations',
@@ -41,7 +42,8 @@ export class ArrangementComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, private arrangementService: ArrangementsService,
               private hotelService: HotelService, private transportationService: TransportationService,
-              private roomService: RoomService, private destinationService: DestinationService) {
+              private roomService: RoomService, private destinationService: DestinationService,
+              private snackbar: MatSnackBar) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 0, 1);
@@ -80,6 +82,16 @@ export class ArrangementComponent implements OnInit {
       return;
     }
     this.createArrangement();
+  }
+
+  public openSnackBar(): void {
+    const message = 'You have successfully made arrangement';
+    this.snackbar.open(message.toString(), '',
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
   }
 
   private getHotels(): void {
@@ -128,7 +140,7 @@ export class ArrangementComponent implements OnInit {
     this.arrangementService.createArrangement(arrangement).subscribe((data) => {
       console.log('uspjesno');
       this.arrangementForm.reset('');
-      this.arrangementForm.clearValidators();
+      this.openSnackBar();
     });
   }
 
