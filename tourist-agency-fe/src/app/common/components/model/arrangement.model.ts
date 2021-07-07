@@ -17,6 +17,7 @@ export interface IArrangement {
   totalPrice?: number;
   people?: number;
   destination?: IDestination;
+  numOfNightsLeft?: number
 
 }
 

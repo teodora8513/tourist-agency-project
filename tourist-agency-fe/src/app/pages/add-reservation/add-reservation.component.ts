@@ -27,15 +27,20 @@ export class AddReservationComponent implements OnInit {
   images = [1057,944,108, 1011,100,1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   user_id : number;
   ngOnInit(): void {
-    this.user_id = this.authService.getCurrentUserValue().id;
+    //Id je null bez auth?
+    //this.user_id = this.authService.getCurrentUserValue().id;
+    this.user_id = 1;
     console.log(this.user_id);
     this.loadArrangements();
+
   }
 
   loadArrangements(){
     this.service.getAllArrangements().subscribe(
       data => {
         this.arrangements = data;
+        this.arrangements.forEach(el => console.log(el));
+       //filter da ako je user_id vec rezervisao taj aranzman, ne pojavljuje se
       }
     )
   }
