@@ -15,5 +15,5 @@ public interface DestinationRepository extends JpaRepository<DestinationEntity, 
 
     @Override
     Optional<DestinationEntity> findById(Long id);
-	DestinationEntity findDestinationByName(String name);
+	DestinationEntity findDestinationById(Long id);
 }

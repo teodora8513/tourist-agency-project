@@ -25,9 +25,15 @@ public interface RestHotelController<DTO extends MyDto, ID> {
 			@RequestParam("name") String name,
 			@RequestParam("address") String address,
 			@RequestParam("rating") Integer rating,
-			@RequestParam("destination_name") String destination_name,
-			/*@RequestParam("extension") String extension,*/
+			@RequestParam("destination_id") Long destination_id,
 			@RequestParam("imageFile") MultipartFile imageFile) throws IOException;
+	
+	/*@ResponseBody ResponseEntity<Object> update(
+			@RequestParam("name") String name,
+			@RequestParam("address") String address,
+			@RequestParam("rating") Integer rating,
+			@RequestParam("destination_id") Long destination_id,
+			@RequestParam("imageFile") MultipartFile imageFile) throws IOException;*/
 	
 	@ResponseBody ResponseEntity<Object> deleteById(@PathVariable Long ID);
 	
