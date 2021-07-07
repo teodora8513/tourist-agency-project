@@ -14,7 +14,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.email.EmailMessage;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.MailService;
 	
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*"/*, allowedHeaders = "*"*/)
 @RequestMapping("/email")
 public class EmailController {
 
@@ -26,11 +26,11 @@ public class EmailController {
 	    }
 
 	    @PostMapping("/send")
-	    public String sendEmail(@RequestBody EmailMessage emailMessage) throws MessagingException, IOException{
+	    public String sendEmail(@RequestBody String email) throws MessagingException, IOException{
 	        //mailService.sendEmail(emailMessage.getToAddress(), emailMessage.getSubject(), emailMessage.getBodySubject());
-	      mailService.sendEmailWithAttachment();
+	      mailService.sendEmailWithAttachment(email);
 	        
-	        return "\"{\"message\" : \"Email is sent\"}\"";
+	        return "Email was send to " + email;
 	    }
 	    
 	    

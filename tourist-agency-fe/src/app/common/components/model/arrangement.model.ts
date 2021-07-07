@@ -6,7 +6,6 @@ import {IDestination} from './destination.model';
 
 export interface IArrangement {
   id?: number;
-  user?: User;
   dateFrom?: Date;
   dateTo?: Date;
   numberOfNights?: number;
@@ -17,7 +16,8 @@ export interface IArrangement {
   totalPrice?: number;
   people?: number;
   destination?: IDestination;
-  numOfNightsLeft?: number
+  numOfNightsLeft?: number;
+  usersReservations?: User[];
 
 }
 

@@ -3,8 +3,12 @@ package rs.ac.bg.fon.naprednajava.touristagency.service.impl.authority;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
+import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
+import rs.ac.bg.fon.naprednajava.touristagency.mapper.ReservationMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.authority.UserCreateMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.authority.UserViewMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.repository.authority.UserRepository;
@@ -15,7 +19,12 @@ import rs.ac.bg.fon.naprednajava.touristagency.service.UserService;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
+
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the User Service
@@ -38,17 +47,20 @@ public class DefaultUserService implements UserService {
     /** User Create Mapper **/
     private final UserCreateMapper userCreateMapper;
 
+    private final ReservationMapper reservationMapper;
+    
     /** Role Service **/
     private final RoleService roleService;
 
     public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
                               UserViewMapper userViewMapper, UserCreateMapper userCreateMapper,
-                              RoleService roleService) {
+                              RoleService roleService, ReservationMapper reservationMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userViewMapper = userViewMapper;
         this.userCreateMapper = userCreateMapper;
         this.roleService = roleService;
+        this.reservationMapper = reservationMapper;
     }
 
     /**
@@ -107,4 +119,11 @@ public class DefaultUserService implements UserService {
                 new EntityNotFoundException("User with that id does not exists"));
     }
 
+    	@Override
+    	public Set<ReservationDto> getReservationsByUserId(Long userId) {
+    	UserEntity user = findById(userId);
+    	Set<ReservationEntity> reservations = user.getReservations();
+    	return reservations.stream().map(reservationMapper::toDto).collect(Collectors.toSet());
+        
+    }
 }

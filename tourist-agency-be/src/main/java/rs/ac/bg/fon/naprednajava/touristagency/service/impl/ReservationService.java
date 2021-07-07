@@ -107,9 +107,13 @@ public class ReservationService implements MyService<ReservationDto, Long> {
         return null;
     }
 
-    public List<ReservationDto> getReservationsById(Long id) {
-        List<ReservationEntity> entities = reservationRepository.reservationsById(id);
-        return entities.stream().map(reservationMapper::toDto).collect(Collectors.toList());
-
+   
+    
+    /*
+    public void addReservationToUser(ReservationDto dto) {
+    	
     }
+    */
+    
+   
 }

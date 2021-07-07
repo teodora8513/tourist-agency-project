@@ -12,10 +12,10 @@ import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
-
+/*
 	@Query("SELECT res FROM ReservationEntity res "
 			+ "WHERE res.user = (select u from UserEntity u where u.id = id)")
 	List<ReservationEntity> reservationsById(@Param ("id") Long id);
-	
+*/	
 	
 }

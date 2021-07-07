@@ -1,6 +1,10 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import rs.ac.bg.fon.naprednajava.touristagency.entity.MyEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 
@@ -45,6 +49,7 @@ public class UserEntity implements UserDetails, MyEntity {
     private boolean enabled = true;
 
     @ManyToMany(mappedBy="usersReservations")
+    @JsonBackReference
     private Set<ReservationEntity> reservations = new HashSet<>();
 
     public void setId(Long id) {

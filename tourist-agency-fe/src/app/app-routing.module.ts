@@ -9,6 +9,7 @@ import { AddReservationComponent } from './pages/add-reservation/add-reservation
 import { HotelsComponent } from './pages/hotels/hotels.component';
 import { HotelDetailsComponent } from './pages/hotel-details/hotel-details.component';
 import {AuthGuard} from './guards/auth.guard';
+import { MyReservationsComponent } from './pages/my-reservations/my-reservations.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       {path: '', redirectTo: '/home', pathMatch: 'full' },
       {path: 'arrangement', component: ArrangementComponent, pathMatch: 'full'},
       {path: 'add-reservation', component: AddReservationComponent, pathMatch: 'full'},
+      {path: 'my-reservations', component: MyReservationsComponent, pathMatch: 'full'},
       {path: 'hotels', component: HotelsComponent, pathMatch: 'full'},
       {path: 'details/:id', component: HotelDetailsComponent, pathMatch: 'full'},
     ]

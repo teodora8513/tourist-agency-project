@@ -1,5 +1,8 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service;
 
+import java.util.Set;
+
+import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.CreateUserRequest;
@@ -31,4 +34,6 @@ public interface UserService {
      * @return User entity
      */
     UserEntity findById(Long id);
+    
+    Set<ReservationDto> getReservationsByUserId(Long userId);
 }

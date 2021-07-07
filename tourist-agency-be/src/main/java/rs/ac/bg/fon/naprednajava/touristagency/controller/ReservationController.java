@@ -81,12 +81,12 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 	public ResponseEntity<Object> update(ReservationDto dto) {
 		return null;
 	}
-
+/*
 	@GetMapping(path="/myReservations/{id}")
 	public ResponseEntity<List<ReservationDto>> getReservationById(@PathVariable Long id){
 		return ResponseEntity.status(HttpStatus.OK).body(reservationService.getReservationsById(id));
 	}
-	
+	*/
 	@Override
 	public ResponseEntity<Page<ReservationDto>> getByPage(Pageable pageable) {
 		// TODO Auto-generated method stub

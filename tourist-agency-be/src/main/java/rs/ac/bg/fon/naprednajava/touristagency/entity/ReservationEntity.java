@@ -2,7 +2,9 @@ package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
@@ -30,11 +33,11 @@ public class ReservationEntity implements MyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+	/*
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="admin")
 	private UserEntity user;
-	
+	*/
 	@Column(name="date_from")
 	private Date dateFrom;
 	
@@ -78,19 +81,20 @@ public class ReservationEntity implements MyEntity {
         joinColumns = { @JoinColumn(name = "reservation_id") }, 
         inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
-	private List<UserEntity> usersReservations = new ArrayList<>();
+	@JsonBackReference
+	private Set<UserEntity> usersReservations = new HashSet<>();
 	
 	public ReservationEntity() {
 		super();
 		this.numberOfArrangementsLeft = 1;
 	}
 
-	public ReservationEntity(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
+	public ReservationEntity(Long id,/* UserEntity user,*/ Date dateFrom, Date dateTo, int numberOfNights,
 			List<RoomEntity> rooms, int people, Meals meals, TransportationEntity transportation, int numLeft,
 			DestinationEntity destination) {
 		super();
 		this.id = id;
-		this.user = user;
+		//this.user = user;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.numberOfNights = numberOfNights;
@@ -110,7 +114,7 @@ public class ReservationEntity implements MyEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+/*
 	public UserEntity getUser() {
 		return user;
 	}
@@ -118,7 +122,7 @@ public class ReservationEntity implements MyEntity {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-
+*/
 	public Date getDateFrom() {
 		return dateFrom;
 	}
@@ -161,11 +165,11 @@ public class ReservationEntity implements MyEntity {
 
 	
 
-	public List<UserEntity> getUsers() {
+	public Set<UserEntity> getUsers() {
 		return usersReservations;
 	}
 
-	public void setUsers(List<UserEntity> users) {
+	public void setUsers(Set<UserEntity> users) {
 		this.usersReservations = users;
 	}
 
