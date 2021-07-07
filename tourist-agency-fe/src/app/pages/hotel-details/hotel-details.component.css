@@ -6,9 +6,8 @@ select.ng-touched.ng-invalid {
   border: 1px solid red;
 }
 
-select{
-  color: black;
-  background-color: white;
+textarea.ng-touched.ng-invalid{
+  border: 1px solid red;
 }
 
 input.ng-touched.ng-invalid {
@@ -59,4 +58,5 @@ li {
 .error-label {
   color:rgba(233, 8, 8, 0.85)
 }
+
 

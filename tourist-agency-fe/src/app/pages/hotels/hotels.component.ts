@@ -22,11 +22,7 @@ export class HotelsComponent implements OnInit {
   public hotel: Hotel;
 
   selectedFile: File;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message: string;
-  imageName: any;
+
 
   constructor(private hotelService: HotelService,
               private destinationService: DestinationService,
@@ -68,19 +64,20 @@ export class HotelsComponent implements OnInit {
   public onAddHotel(addForm: NgForm): void {
 
     console.log(this.selectedFile);
-    const hotel = new FormData();
-    hotel.append('imageFile', this.selectedFile, this.selectedFile.name);
-    hotel.append('name', addForm.value.name);
-    hotel.append('address', addForm.value.address);
-    hotel.append('rating', addForm.value.rating);
-    hotel.append('destination_name', addForm.value.destination.name);
+    const hotelAdd = new FormData();
+    hotelAdd.append('imageFile', this.selectedFile, this.selectedFile.name);
+    hotelAdd.append('name', addForm.value.name);
+    hotelAdd.append('address', addForm.value.address);
+    hotelAdd.append('rating', addForm.value.rating);
+    hotelAdd.append('destination_id', addForm.value.destination.id);
 
-    hotel.forEach((value, key) => {
+
+    hotelAdd.forEach((value, key) => {
       console.log(key + ' ' + value);
     });
 
     document.getElementById('add-hotel-form').click();
-    this.hotelService.addHotel(hotel).subscribe(
+    this.hotelService.addHotel(hotelAdd).subscribe(
       (response: IHotel) => {
         console.log(response);
         this.getHotels();

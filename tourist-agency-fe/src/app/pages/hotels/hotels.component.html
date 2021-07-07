@@ -132,13 +132,9 @@
                   <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.name}}, {{destination.state.name}}</option>
                 </select>
                 <small class="form-text text-muted" *ngIf="edit_destination.invalid && edit_destination.touched && edit_destination.pristine">You need to select destination for hotel</small>
-             </div>
-<!--
-             <div class="form-group">
-                <label for="image" class="form-label">Hotel Image</label>
-                <input type="file"  ngModel name="image" class="form-control" id="image" placeholder="Image" required>
-             </div>
--->
+              </div>
+
+
 
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
