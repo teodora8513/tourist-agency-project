@@ -121,7 +121,8 @@ export class ArrangementComponent implements OnInit {
       numberOfPeople: ['', Validators.required],
       transportation: ['', Validators.required],
       price: ['', Validators.required],
-      destinations: ['', Validators.required]
+      destinations: ['', Validators.required],
+      numOfArrangements: ['', Validators.required]
     });
   }
 
@@ -132,10 +133,11 @@ export class ArrangementComponent implements OnInit {
     const transportation = new Transportation(this.arrangementForm.controls.transportation.value, null, null, null, null, null);
     const destination = new Destination(this.arrangementForm.controls.destinations.value, null, null, null);
 
-    const arrangement: IArrangement = new Arrangement(null, null, this.arrangementForm.controls.startDate.value,
+    const arrangement: IArrangement = new Arrangement(null, this.arrangementForm.controls.startDate.value,
       this.arrangementForm.controls.endDate.value, numberOfNights,
       this.arrangementForm.controls.meals.value, null, hotel, transportation,
-      this.arrangementForm.controls.price.value, this.arrangementForm.controls.numberOfPeople.value, destination);
+      this.arrangementForm.controls.price.value, this.arrangementForm.controls.numberOfPeople.value,
+      destination, this.arrangementForm.controls.numOfArrangements.value, null);
 
     this.arrangementService.createArrangement(arrangement).subscribe((data) => {
       console.log('uspjesno');
