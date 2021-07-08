@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {IArrangement} from 'src/app/common/components/model';
+import {Arrangement, IArrangement} from 'src/app/common/components/model';
 import {environment} from 'src/environments/environment';
 import {Observable} from 'rxjs';
 
@@ -22,6 +22,14 @@ export class ArrangementsService {
 
   public createArrangement(arrangement: IArrangement): Observable<any> {
     return this.httpClient.post(`${environment.baseHttpURL}/reservation`, arrangement);
+  }
+
+  public addReservationForUser(idReservation: number, idUser: number): Observable<Array<IArrangement>> {
+    return this.httpClient.post<Array<Arrangement>>(`${environment.baseHttpURL}/auth/reservation/${idReservation}/user/${idUser}`, {});
+  }
+
+  public removeReservationForUser(idReservation: number, idUser: number): Observable<Array<IArrangement>> {
+    return this.httpClient.delete<Array<Arrangement>>(`${environment.baseHttpURL}/auth/reservation/${idReservation}/user/${idUser}`);
   }
 
 }

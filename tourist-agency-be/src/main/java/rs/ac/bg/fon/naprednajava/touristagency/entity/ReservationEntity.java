@@ -1,10 +1,6 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -259,5 +255,17 @@ public class ReservationEntity implements MyEntity {
 	public void setNumberOfArrangementsLeft(int numberOfArrangementsLeft) {
 		this.numberOfArrangementsLeft = numberOfArrangementsLeft;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ReservationEntity that = (ReservationEntity) o;
+		return numberOfNights == that.numberOfNights && Double.compare(that.totalPrice, totalPrice) == 0 && people == that.people && numberOfArrangementsLeft == that.numberOfArrangementsLeft && Objects.equals(id, that.id) && Objects.equals(dateFrom, that.dateFrom) && Objects.equals(dateTo, that.dateTo) && Objects.equals(rooms, that.rooms) && meals == that.meals && Objects.equals(hotel, that.hotel) && Objects.equals(transportation, that.transportation) && Objects.equals(destination, that.destination) && Objects.equals(usersReservations, that.usersReservations);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, dateFrom, dateTo, numberOfNights, rooms, meals, hotel, transportation, totalPrice, people, destination, numberOfArrangementsLeft, usersReservations);
+	}
 }

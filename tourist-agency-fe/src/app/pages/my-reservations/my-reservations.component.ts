@@ -14,41 +14,40 @@ import { AuthService } from 'src/app/services/authority/auth.service';
 export class MyReservationsComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService,
-    private service: ArrangementsService,
-    private modalService: NgbModal,
-   private _snackBar: MatSnackBar) { }
+              private arrangementService: ArrangementsService,
+              private modalService: NgbModal,
+              private snackBar: MatSnackBar) { }
 
    arrangements: IArrangement[];
 
-   //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
-
-   user_id :number;
+   userId: number;
    ngOnInit(): void {
-     //Id je null bez auth?
-     //this.user_id = this.authService.getCurrentUserValue().id;
-     this.user_id = 1;
-     console.log(this.user_id);
+     this.userId = this.authService.getCurrentUserValue().id;
+     console.log(this.userId);
      this.loadArrangements();
 
    }
 
-   loadArrangements(){
-     this.service.getArrangementsByUserId(this.user_id).subscribe(
+   public loadArrangements(): void{
+     this.arrangementService.getArrangementsByUserId(this.userId).subscribe(
        data => {
          this.arrangements = data;
          this.arrangements.forEach(el => console.log(el));
 
        }
-     )
+     );
    }
 
-   cancelReservation(){
-    this.openSnackBar();
+   public cancelReservation(arrangementId: number): void{
+     this.arrangementService.removeReservationForUser(arrangementId, this.userId).subscribe((data) => {
+       this.arrangements = data;
+       this.openSnackBar();
+     });
    }
 
-   openSnackBar() {
-     const message= "You canceled your reservation. Please let us know why"
-     this._snackBar.open(message.toString(), '',
+   public openSnackBar(): void {
+     const message = 'You canceled your reservation. Please let us know why';
+     this.snackBar.open(message.toString(), '',
        {duration : 3000,
        verticalPosition: 'top',
        horizontalPosition: 'center'});

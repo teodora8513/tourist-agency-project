@@ -67,21 +67,19 @@ public class AuthController {
     public UserDto register(@RequestBody @Valid CreateUserRequest createUserRequest) {
         return this.userService.createUser(createUserRequest);
     }
-    //nije obradjen error ako ne postoji id
+
     @GetMapping(path="reservations/{id}")
     public ResponseEntity<Set<ReservationDto>> getReservationsByUserId(@PathVariable Long id){
     	return ResponseEntity.status(HttpStatus.OK).body(userService.getReservationsByUserId(id));
     }
     
     @PostMapping("reservation/{idRes}/user/{idUser}")
-    public ResponseEntity<Set<ReservationDto>> addUserToReservation(@PathVariable Long idRes, @PathVariable Long idUser){
-    	userService.addUserToReservation(idUser, idRes);
-    	return getReservationsByUserId(idUser);
+    public Set<ReservationDto> addReservationToUser(@PathVariable Long idRes, @PathVariable Long idUser){
+        return userService.addReservationToUser(idUser, idRes);
     }
     
     @DeleteMapping("reservation/{idRes}/user/{idUser}")
-    public ResponseEntity<Set<ReservationDto>> removeUserFromReservation(@PathVariable Long idRes, @PathVariable Long idUser){
-    	userService.removeUserFromReservation(idUser, idRes);
-    	return getReservationsByUserId(idUser);
+    public Set<ReservationDto> removeUserFromReservation(@PathVariable Long idRes, @PathVariable Long idUser){
+    	return userService.removeReservationForUser(idUser, idRes);
     }
 }

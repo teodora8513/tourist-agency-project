@@ -18,7 +18,7 @@ export class HotelDetailsComponent implements OnInit {
   hotel: IHotel;
   rooms: Room[];
   roomType = RoomType;
-  enumKeys=[];
+  enumKeys =[];
   room: Room;
   roomIdentity: RoomIdentity={};
   public editRoom: Room;

@@ -17,15 +17,14 @@ export interface IArrangement {
   people?: number;
   destination?: IDestination;
   numberOfArrangementsLeft?: number;
-  usersReservations?: User[];
 
 }
 
 export class Arrangement implements IArrangement {
   constructor(public id: number, public dateFrom: Date, public dateTo: Date, public numberOfNights: number,
               public meals: Meals, public rooms: Room[], public hotel: IHotel, public transportation: ITransportation,
-              public totalPrice: number, public people: number, public destination: IDestination, public numberOfArrangementsLeft: number,
-              public usersReservations: User[]) {
+              public totalPrice: number, public people: number, public destination: IDestination,
+              public numberOfArrangementsLeft: number) {
   }
 }
 

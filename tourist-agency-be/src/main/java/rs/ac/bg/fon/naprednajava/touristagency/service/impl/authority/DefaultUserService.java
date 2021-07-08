@@ -16,12 +16,15 @@ import rs.ac.bg.fon.naprednajava.touristagency.repository.authority.UserReposito
 import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.CreateUserRequest;
 import rs.ac.bg.fon.naprednajava.touristagency.service.RoleService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.UserService;
+import rs.ac.bg.fon.naprednajava.touristagency.service.impl.MailService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.ReservationService;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,44 +40,67 @@ import java.util.stream.Collectors;
 @Transactional
 public class DefaultUserService implements UserService {
 
-    /** User Repository **/
+    /**
+     * User Repository
+     **/
     private final UserRepository userRepository;
 
-    /** Password encoder **/
+    /**
+     * Password encoder
+     **/
     private final PasswordEncoder passwordEncoder;
 
-    /** User View Mapper **/
+    /**
+     * User View Mapper
+     **/
     private final UserViewMapper userViewMapper;
 
-    /** User Create Mapper **/
+    /**
+     * User Create Mapper
+     **/
     private final UserCreateMapper userCreateMapper;
 
+    /**
+     * Reservation Mapper
+     */
     private final ReservationMapper reservationMapper;
-    
-    /** Role Service **/
-    private final RoleService roleService;
-    
-    private final ReservationService reservationService;
 
+    /**
+     * Role Service
+     **/
+    private final RoleService roleService;
+
+    /**
+     * Reservation Repository
+     **/
     private final ReservationRepository reservationRepository;
-    
+
+    /**
+     * Authorization Service
+     */
+    private final DefaultAuthorizationService defaultAuthorizationService;
+
+    private final MailService mailService;
+
     public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
                               UserViewMapper userViewMapper, UserCreateMapper userCreateMapper,
                               RoleService roleService, ReservationMapper reservationMapper,
-                              ReservationService resService,
-                              ReservationRepository reservationRepository) {
+                              ReservationRepository reservationRepository, DefaultAuthorizationService defaultAuthorizationService,
+                              MailService mailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userViewMapper = userViewMapper;
         this.userCreateMapper = userCreateMapper;
         this.roleService = roleService;
         this.reservationMapper = reservationMapper;
-        this.reservationService = resService;
         this.reservationRepository = reservationRepository;
+        this.defaultAuthorizationService = defaultAuthorizationService;
+        this.mailService = mailService;
     }
 
     /**
      * Creates user
+     *
      * @param createUserRequest userRequest to save
      * @return User DTO
      */
@@ -82,11 +108,11 @@ public class DefaultUserService implements UserService {
     public UserDto createUser(CreateUserRequest createUserRequest) {
         Objects.requireNonNull(createUserRequest);
 
-        if(this.userRepository.findByUsername(createUserRequest.getUsername()).isPresent()) {
+        if (this.userRepository.findByUsername(createUserRequest.getUsername()).isPresent()) {
             throw new ValidationException("Username exists!");
         }
 
-        if(!StringUtils.equals(createUserRequest.getPassword(), createUserRequest.getRePassword())) {
+        if (!StringUtils.equals(createUserRequest.getPassword(), createUserRequest.getRePassword())) {
             throw new ValidationException("Passwords don't match");
         }
 
@@ -102,6 +128,7 @@ public class DefaultUserService implements UserService {
 
     /**
      * Update User
+     *
      * @param userEntity userEntity to update
      * @return User Entity
      */
@@ -118,6 +145,7 @@ public class DefaultUserService implements UserService {
 
     /**
      * Search users by id
+     *
      * @param id id of the user for search
      * @return User Entity
      */
@@ -129,64 +157,75 @@ public class DefaultUserService implements UserService {
                 new EntityNotFoundException("User with that id does not exists"));
     }
 
-    	@Override
-    	public Set<ReservationDto> getReservationsByUserId(Long userId) {
-    	UserEntity user = findById(userId);
-    	Set<ReservationEntity> reservations = user.getReservations();
-    	return reservations.stream().map(reservationMapper::toDto).collect(Collectors.toSet());
-        
+    @Override
+    public Set<ReservationDto> getReservationsByUserId(Long userId) {
+        UserEntity user = findById(userId);
+        Set<ReservationEntity> reservations = user.getReservations();
+        return reservations.stream().map(reservationMapper::toDto).collect(Collectors.toSet());
+
     }
-    	@Override
-    	public String removeUserFromReservation(Long idUser, Long idRes) {
-    		Optional<UserEntity> user = userRepository.findById(idUser);
-    		
-    		
-    		if(user.isPresent()) {
-    			Optional<ReservationEntity> res = reservationRepository.findById(idRes);
-    			if(res.isPresent()) {
-    			Set<ReservationEntity> reservations = user.get().getReservations();
-    			reservations.remove(res.get());
-    			
-    			user.get().setReservations(reservations);
-    			res.get().setNumberOfArrangementsLeft(res.get().getNumberOfArrangementsLeft()+1);
-    			userRepository.save(user.get());
-    			
-    			
-    			for (ReservationEntity reservationEntity : user.get().getReservations()) {
-    				System.out.println(reservationEntity.getId());
-				}
-    			
-    			
-    			
-    			return "User " + idUser + " removed from reservation " + idRes;
-			}
-			else
-				throw new EntityNotFoundException("Reservation with id " + idRes + " was not found!");
-		}
-		else
-		 throw new EntityNotFoundException("User with id " + idUser + " was not found!");
-    		
-    	}
-    	
-    	@Override
-    	public String addUserToReservation(Long idUser, Long idRes) {
-    		Optional<UserEntity> user = userRepository.findById(idUser);
-    		
-    		
-    		if(user.isPresent()){
-    			Optional<ReservationEntity> res = reservationRepository.findById(idRes);
-    			if(res.isPresent()) {
-    			Set<ReservationEntity> reservations = user.get().getReservations();
-    			//TODO Provera da li user vec ima tu rezervaciju
-    			reservations.remove(res.get());
-    			res.get().setNumberOfArrangementsLeft(res.get().getNumberOfArrangementsLeft()+1);
-    			return "User " + idUser + " added to reservation " + idRes;
-    			}
-    			else
-    				throw new EntityNotFoundException("Reservation with id " + idRes + " was not found!");
-    		}
-    		else
-    		 throw new EntityNotFoundException("User with id " + idUser + " was not found!");
-    		
-    	}
+
+    private UserEntity validateUser(Long idUser) {
+        Objects.requireNonNull(idUser);
+
+        return this.userRepository.findById(idUser)
+                .orElseThrow(() -> new EntityNotFoundException("Not found"));
+    }
+
+    public ReservationEntity validateReservation(Long idReservation) {
+        Objects.requireNonNull(idReservation);
+
+        return  this.reservationRepository.findById(idReservation)
+                .orElseThrow(() -> new EntityNotFoundException("Not found"));
+    }
+
+    @Override
+    public Set<ReservationDto> removeReservationForUser(Long idUser, Long idRes) {
+        UserEntity userEntity = this.validateUser(idUser);
+        ReservationEntity reservationEntity = this.validateReservation(idRes);
+
+        if(!reservationEntity.getUsers().contains(userEntity)){
+            throw new ValidationException("User does not have that reservation");
+        }
+
+        reservationEntity.getUsers().remove(userEntity);
+        reservationEntity.setNumberOfArrangementsLeft(reservationEntity.getNumberOfArrangementsLeft() + 1);
+        this.reservationRepository.save(reservationEntity);
+
+        // Da izbegnemo da opet loadujemo usera posto nisu updatovane rezervacije, rucno cemo dodati na njega ovu sto smo sacuvali
+        userEntity.getReservations().remove(reservationEntity);
+
+        return userEntity.getReservations().stream().map(this.reservationMapper::toDto).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<ReservationDto> addReservationToUser(Long idUser, Long idRes) {
+
+        UserEntity userEntity = this.validateUser(idUser);
+        ReservationEntity reservationEntity = this.validateReservation(idRes);
+
+        if(reservationEntity.getUsers().contains(userEntity)){
+            throw new ValidationException("User already has that reservation");
+        }
+
+        if(reservationEntity.getNumberOfArrangementsLeft() <= 0){
+            throw new ValidationException("Cannot add user to reservation, no arrangements left");
+        }
+
+        reservationEntity.getUsers().add(userEntity);
+        reservationEntity.setNumberOfArrangementsLeft(reservationEntity.getNumberOfArrangementsLeft() - 1);
+        this.reservationRepository.save(reservationEntity);
+
+        // Da izbegnemo da opet loadujemo usera posto nisu updatovane rezervacije, rucno cemo dodati na njega ovu sto smo sacuvali
+        userEntity.getReservations().add(reservationEntity);
+
+        try {
+            this.mailService.sendEmailWithAttachment(userEntity.getUsername());
+        } catch (Exception e) {
+            //#TODO
+        }
+
+        return userEntity.getReservations().stream().map(this.reservationMapper::toDto).collect(Collectors.toSet());
+    }
 }
+

@@ -188,10 +188,9 @@ public class HotelController implements rs.ac.bg.fon.naprednajava.touristagency.
 				int count = inflater.inflate(buffer);
 				outputStream.write(buffer, 0, count);
 			} outputStream.close();
-		} catch (IOException ioe) {
-		} catch (DataFormatException e) {
+		} catch (IOException | DataFormatException ioe) {
 		}
-		
+
 		return outputStream.toByteArray();
 	}
 	

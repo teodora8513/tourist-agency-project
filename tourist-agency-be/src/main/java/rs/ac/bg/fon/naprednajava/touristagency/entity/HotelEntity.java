@@ -60,7 +60,7 @@ public class HotelEntity implements MyEntity {
     private String imageType;
     
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
     
     /*@Column(nullable=false)

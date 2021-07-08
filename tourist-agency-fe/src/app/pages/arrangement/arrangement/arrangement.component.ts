@@ -137,7 +137,7 @@ export class ArrangementComponent implements OnInit {
       this.arrangementForm.controls.endDate.value, numberOfNights,
       this.arrangementForm.controls.meals.value, null, hotel, transportation,
       this.arrangementForm.controls.price.value, this.arrangementForm.controls.numberOfPeople.value,
-      destination, this.arrangementForm.controls.numOfArrangements.value, null);
+      destination, this.arrangementForm.controls.numOfArrangements.value);
 
     this.arrangementService.createArrangement(arrangement).subscribe((data) => {
       console.log('uspjesno');
