@@ -36,4 +36,8 @@ public interface UserService {
     UserEntity findById(Long id);
     
     Set<ReservationDto> getReservationsByUserId(Long userId);
+    
+    String addUserToReservation(Long idUser, Long idRes);
+    
+    String removeUserFromReservation(Long idUser, Long idRes);
 }

@@ -108,12 +108,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
     }
 
    
-    
-    /*
-    public void addReservationToUser(ReservationDto dto) {
-    	
-    }
-    */
+  
     
    
 }

@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -75,7 +76,7 @@ public class ReservationEntity implements MyEntity {
 	private int numberOfArrangementsLeft ;
 	
 	//@ManyToMany(mappedBy="reservations")
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "user_reservation", 
         joinColumns = { @JoinColumn(name = "reservation_id") }, 
