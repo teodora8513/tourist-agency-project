@@ -1,22 +1,22 @@
 /*Insert STATE values*/
-insert into state (name) values ("Italija");
-insert into state (name) values ("Bugarska");
-insert into state (name) values ("Hrvatska");
-insert into state (name) values ("Albanija");
-insert into state (name) values ("Turska");
-insert into state (name) values ("Francuska");
-insert into state (name) values ("Engleska");
-insert into state (name) values ("Srbija");
-insert into state (name) values ("Kipar");
+insert into state (name) values ("Italy");
+insert into state (name) values ("Bulgaria");
+insert into state (name) values ("Croatia");
+insert into state (name) values ("Albania");
+insert into state (name) values ("Turkey");
+insert into state (name) values ("France");
+insert into state (name) values ("England");
+insert into state (name) values ("Serbia");
+insert into state (name) values ("Cyprus");
 
 /*Insert DESTINATION values*/
 /*Italija*/
 insert into destination (postal_code, state_id, name) values (12001, 1, "Milano");
 insert into destination (postal_code, state_id, name) values (12002, 1, "Verona");
-insert into destination (postal_code, state_id, name) values (12003, 1, "Venecija");
+insert into destination (postal_code, state_id, name) values (12003, 1, "Venice");
 /*Bugarska*/
-insert into destination (postal_code, state_id, name) values (12301, 2, "Suncev breg");
-insert into destination (postal_code, state_id, name) values (12302, 2, "Sofija");
+insert into destination (postal_code, state_id, name) values (12301, 2, "Sunny beach");
+insert into destination (postal_code, state_id, name) values (12302, 2, "Sofia");
 /*Hrvatska*/
 insert into destination (postal_code, state_id, name) values (12401, 3, "Pula");
 insert into destination (postal_code, state_id, name) values (12402, 3, "Zagreb");
