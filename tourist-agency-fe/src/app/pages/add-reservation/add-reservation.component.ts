@@ -9,6 +9,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { stringify } from '@angular/compiler/src/util';
 import { AuthService } from 'src/app/services/authority/auth.service';
+import { EmailService } from 'src/app/services/email/email.service';
 
 @Component({
   selector: 'app-add-reservation',
@@ -19,6 +20,7 @@ export class AddReservationComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService,
      private service: ArrangementsService,
+     private email: EmailService,
     private modalService: NgbModal,
     private _snackBar: MatSnackBar) { }
 
@@ -47,8 +49,10 @@ export class AddReservationComponent implements OnInit {
 
   reserveArrangement(){
     //smanji broj mesta na rezerviaciji
-    //posalje mejl
-    //
+    //posalje mejl na email iz usera/username
+    this.email.send("jevtic.teodora@gmail.com").subscribe(
+      
+    );
     this.openSnackBar();
 
 

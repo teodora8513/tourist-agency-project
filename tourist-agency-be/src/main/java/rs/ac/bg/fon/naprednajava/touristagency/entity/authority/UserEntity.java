@@ -1,6 +1,10 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity.authority;
 
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import rs.ac.bg.fon.naprednajava.touristagency.entity.MyEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.ReservationEntity;
 
@@ -43,15 +47,10 @@ public class UserEntity implements UserDetails, MyEntity {
 
     /** Flag whether user is enabled **/
     private boolean enabled = true;
-    
-    /*@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "reservation", 
-        joinColumns = { @JoinColumn(name = "user_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "reservation_id") }
-    )*/
+
     @ManyToMany(mappedBy="usersReservations")
-    private List<ReservationEntity> reservations = new ArrayList<>();
+    @JsonBackReference
+    private Set<ReservationEntity> reservations = new HashSet<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -125,18 +124,16 @@ public class UserEntity implements UserDetails, MyEntity {
     public boolean isAccountNonExpired() {
         return this.enabled;
     }
-    
-    
 
-    public List<ReservationEntity> getReservations() {
-		return reservations;
-	}
+    public Set<ReservationEntity> getReservations() {
+        return reservations;
+    }
 
-	public void setReservations(List<ReservationEntity> reservations) {
-		this.reservations = reservations;
-	}
+    public void setReservations(Set<ReservationEntity> reservations) {
+        this.reservations = reservations;
+    }
 
-	/**
+    /**
      * Checks if the user account is non locked
      * @return true if its non locked, false otherwise
      */

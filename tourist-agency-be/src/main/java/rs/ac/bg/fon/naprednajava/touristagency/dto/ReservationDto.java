@@ -2,7 +2,9 @@ package rs.ac.bg.fon.naprednajava.touristagency.dto;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
@@ -15,7 +17,7 @@ public class ReservationDto implements MyDto {
 
 	private Long id;
 
-	private UserEntity user;
+	//private UserEntity user;
 
 	private Date dateFrom;
 
@@ -39,19 +41,19 @@ public class ReservationDto implements MyDto {
 
 	private int numberOfArrangementsLeft;
 
-	private List<UserDto> usersReservations = new ArrayList<>();
+	private Set<UserDto> usersReservations = new HashSet<>();
 
 	public ReservationDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReservationDto(Long id, UserEntity user, Date dateFrom, Date dateTo, int numberOfNights,
+	public ReservationDto(Long id, /*UserEntity user, */Date dateFrom, Date dateTo, int numberOfNights,
 			List<RoomEntity> rooms, Meals meals, HotelEntity hotel, TransportationEntity transportation,
 			double totalPrice, int people, DestinationDto destination, int numLeft) {
 		super();
 		this.id = id;
-		this.user = user;
+		//this.user = user;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.numberOfNights = numberOfNights;
@@ -72,7 +74,7 @@ public class ReservationDto implements MyDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+/*
 	public UserEntity getUser() {
 		return user;
 	}
@@ -80,7 +82,7 @@ public class ReservationDto implements MyDto {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-
+*/
 	public Date getDateFrom() {
 		return dateFrom;
 	}
@@ -93,11 +95,11 @@ public class ReservationDto implements MyDto {
 		return dateTo;
 	}
 
-	public List<UserDto> getUsers() {
+	public Set<UserDto> getUsers() {
 		return usersReservations;
 	}
 
-	public void setUsers(List<UserDto> users) {
+	public void setUsers(Set<UserDto> users) {
 		this.usersReservations = users;
 	}
 

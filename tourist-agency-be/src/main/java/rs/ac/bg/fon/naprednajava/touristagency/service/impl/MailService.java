@@ -38,7 +38,7 @@ public class MailService {
      * @throws MailException
      */
     public void sendEmail( String toAddress, String subject, String bodyText) throws MailException {
-
+    	
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(toAddress);
         msg.setSubject(subject);
@@ -51,13 +51,13 @@ public class MailService {
      * @throws MessagingException
      * @throws IOException
      */
-    public void sendEmailWithAttachment() throws MessagingException, IOException {
+    public void sendEmailWithAttachment(String email) throws MessagingException, IOException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
-        helper.setTo("bratislav.jevtic@tojesoft.co.rs");
+        helper.setTo(email);
 
         helper.setSubject("My traveling reservation");
 

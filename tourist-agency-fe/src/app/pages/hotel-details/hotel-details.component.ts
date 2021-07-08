@@ -60,10 +60,6 @@ export class HotelDetailsComponent implements OnInit {
     this.router.navigate(['hotels']);
   }
 
-  public manageRooms(){
-    this.router.navigate(['rooms']);
-  }
-
   public getRooms(): void {
     this.roomService.getRoomsByHotelId(this.id).subscribe(
       (response: Room[]) => {

@@ -32,6 +32,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
+import { MyReservationsComponent } from './pages/my-reservations/my-reservations.component';
 
 
 
@@ -51,6 +52,7 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
     AddReservationComponent,
     HotelsComponent,
     HotelDetailsComponent,
+    MyReservationsComponent,
 
   ],
   imports: [

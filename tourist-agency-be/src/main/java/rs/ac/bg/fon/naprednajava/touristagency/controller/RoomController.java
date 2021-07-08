@@ -102,7 +102,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	@Override
 	public ResponseEntity<List<RoomDto>> findRoomsByHotelId(Long id) {
 		List<RoomDto> dto = service.findRoomsByHotelId(id);
-		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+		return ResponseEntity.status(HttpStatus.OK).body(dto);
 	}
 
 }
