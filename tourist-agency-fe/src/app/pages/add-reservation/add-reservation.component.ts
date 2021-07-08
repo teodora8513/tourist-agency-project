@@ -47,8 +47,6 @@ export class AddReservationComponent implements OnInit {
     this.arrangementsService.addReservationForUser(arrangmentId, this.userId).subscribe((data) => {
       this.openSnackBar();
     });
-
-
   }
 
   public openSnackBar(): void{
