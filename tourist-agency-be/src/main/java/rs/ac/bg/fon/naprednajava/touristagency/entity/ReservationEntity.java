@@ -100,7 +100,7 @@ public class ReservationEntity implements MyEntity {
 		this.transportation = transportation;
 		this.totalPrice = getTotalPrice();
 		this.people = people;
-		//this.destination = destination;
+		this.destination = destination;
 		this.numberOfArrangementsLeft = 1;
 	}
 
@@ -111,15 +111,7 @@ public class ReservationEntity implements MyEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-/*
-	public UserEntity getUser() {
-		return user;
-	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-*/
 	public Date getDateFrom() {
 		return dateFrom;
 	}
@@ -159,8 +151,6 @@ public class ReservationEntity implements MyEntity {
 	public void setPeople(int people) {
 		this.people = people;
 	}
-
-	
 
 	public Set<UserEntity> getUsers() {
 		return usersReservations;
@@ -212,7 +202,6 @@ public class ReservationEntity implements MyEntity {
 		this.totalPrice = totalPrice;
 	}
 	
-	
 	private int priceOfMeals(Meals meal) {
 		int mealPrice;
 		switch (meal) {
@@ -245,8 +234,6 @@ public class ReservationEntity implements MyEntity {
 	public void setDestination(DestinationEntity destination) {
 		this.destination = destination;
 	}
-	
-	
 
 	public int getNumberOfArrangementsLeft() {
 		return numberOfArrangementsLeft;

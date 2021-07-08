@@ -31,5 +31,4 @@ export class ArrangementsService {
   public removeReservationForUser(idReservation: number, idUser: number): Observable<Array<IArrangement>> {
     return this.httpClient.delete<Array<Arrangement>>(`${environment.baseHttpURL}/auth/reservation/${idReservation}/user/${idUser}`);
   }
-
 }
