@@ -11,6 +11,8 @@ export class EmailService {
 
   public send(email: string): Observable<any> {
     console.log(email);
+
     return this.httpClient.post(`${environment.baseHttpURL}/email/send`,email);
+
   }
 }

@@ -50,7 +50,9 @@ export class AddReservationComponent implements OnInit {
   reserveArrangement(){
     //smanji broj mesta na rezerviaciji
     //posalje mejl na email iz usera/username
-    this.email.send("jevtic.teodora@gmail.com");
+    this.email.send("jevtic.teodora@gmail.com").subscribe(
+      
+    );
     this.openSnackBar();
 
 
