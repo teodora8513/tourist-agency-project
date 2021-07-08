@@ -5,24 +5,24 @@
 
 
 
-    <h1>Rezervacija broj {{i+1}}</h1>
+    <h1>Reservation number {{i+1}}</h1>
 
     <div class="card-body card-wrapper">
 
     <ul class="list-group bg-light list-group-flush">
-      <li class="list-group-item">Destinacija: {{arrangement.hotel.destination.name}}</li>
-      <li class="list-group-item">Broj nocenja: {{arrangement.numberOfNights}}</li>
-      <li class="list-group-item">Datum polaska: {{arrangement.dateFrom | date: 'short'}}</li>
-      <li class="list-group-item">Datum dolaska: {{arrangement.dateTo | date: 'short'}}</li>
+      <li class="list-group-item">Destination: {{arrangement.hotel.destination.name}}</li>
+      <li class="list-group-item">Number of nights: {{arrangement.numberOfNights}}</li>
+      <li class="list-group-item">Date from: {{arrangement.dateFrom | date: 'short'}}</li>
+      <li class="list-group-item">Date to: {{arrangement.dateTo | date: 'short'}}</li>
       <li class="list-group-item">Hotel: {{arrangement.hotel.name}}</li>
-      <li class="list-group-item">Vrsta transporta: {{arrangement.transportation.type}} </li>
-      <li class="list-group-item">Max osoba: {{arrangement.people}}</li>
-      <li class="list-group-item">Ukupna cena: {{arrangement.totalPrice}} $</li>
+      <li class="list-group-item">Transportation: {{arrangement.transportation.type}} </li>
+      <li class="list-group-item">Maximum number of people: {{arrangement.people}}</li>
+      <li class="list-group-item">Total price: {{arrangement.totalPrice}} $</li>
     </ul>
     <div class="card-body">
 
 
-      <button mat-button color="warn" (click)="cancelReservation()"
+      <button mat-button color="warn" (click)="cancelReservation(arrangement.id)"
        aria-label="Show an example snack-bar">
         Cancel reservation
        </button>
@@ -33,3 +33,4 @@
   </div>
   </div>
   </div>
+</div>

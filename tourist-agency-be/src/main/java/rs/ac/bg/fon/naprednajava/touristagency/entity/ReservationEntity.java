@@ -1,10 +1,6 @@
 package rs.ac.bg.fon.naprednajava.touristagency.entity;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -104,7 +100,7 @@ public class ReservationEntity implements MyEntity {
 		this.transportation = transportation;
 		this.totalPrice = getTotalPrice();
 		this.people = people;
-		//this.destination = destination;
+		this.destination = destination;
 		this.numberOfArrangementsLeft = 1;
 	}
 
@@ -115,15 +111,7 @@ public class ReservationEntity implements MyEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-/*
-	public UserEntity getUser() {
-		return user;
-	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-*/
 	public Date getDateFrom() {
 		return dateFrom;
 	}
@@ -163,8 +151,6 @@ public class ReservationEntity implements MyEntity {
 	public void setPeople(int people) {
 		this.people = people;
 	}
-
-	
 
 	public Set<UserEntity> getUsers() {
 		return usersReservations;
@@ -216,7 +202,6 @@ public class ReservationEntity implements MyEntity {
 		this.totalPrice = totalPrice;
 	}
 	
-	
 	private int priceOfMeals(Meals meal) {
 		int mealPrice;
 		switch (meal) {
@@ -249,8 +234,6 @@ public class ReservationEntity implements MyEntity {
 	public void setDestination(DestinationEntity destination) {
 		this.destination = destination;
 	}
-	
-	
 
 	public int getNumberOfArrangementsLeft() {
 		return numberOfArrangementsLeft;
@@ -259,5 +242,17 @@ public class ReservationEntity implements MyEntity {
 	public void setNumberOfArrangementsLeft(int numberOfArrangementsLeft) {
 		this.numberOfArrangementsLeft = numberOfArrangementsLeft;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ReservationEntity that = (ReservationEntity) o;
+		return numberOfNights == that.numberOfNights && Double.compare(that.totalPrice, totalPrice) == 0 && people == that.people && numberOfArrangementsLeft == that.numberOfArrangementsLeft && Objects.equals(id, that.id) && Objects.equals(dateFrom, that.dateFrom) && Objects.equals(dateTo, that.dateTo) && Objects.equals(rooms, that.rooms) && meals == that.meals && Objects.equals(hotel, that.hotel) && Objects.equals(transportation, that.transportation) && Objects.equals(destination, that.destination) && Objects.equals(usersReservations, that.usersReservations);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, dateFrom, dateTo, numberOfNights, rooms, meals, hotel, transportation, totalPrice, people, destination, numberOfArrangementsLeft, usersReservations);
+	}
 }

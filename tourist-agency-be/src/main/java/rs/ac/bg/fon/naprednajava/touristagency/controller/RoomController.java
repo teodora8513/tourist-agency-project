@@ -7,12 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
@@ -102,7 +97,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 	@Override
 	public ResponseEntity<List<RoomDto>> findRoomsByHotelId(Long id) {
 		List<RoomDto> dto = service.findRoomsByHotelId(id);
-		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+		return ResponseEntity.status(HttpStatus.OK).body(dto);
 	}
 
 }

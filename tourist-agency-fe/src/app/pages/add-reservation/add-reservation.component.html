@@ -1,67 +1,61 @@
 <div class="row">
-<div *ngFor="let arrangement of arrangements; let i=index">
+  <div *ngFor="let arrangement of arrangements; let i=index">
     <div class="column">
-  <div class="card bg-light mb-3 border-info" style="width: 18rem;">
-  <!--<img class="card-img-top" src="..." alt="Arrangement image">-->
-    <div class="card-img-top">
-  <ngb-carousel *ngIf="images">
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="images[i]" alt="Random first slide">
+      <div class="card bg-light mb-3 border-info" style="width: 18rem;">
+        <div class="card-img-top">
+          <ngb-carousel *ngIf="images">
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="images[i]" alt="Random first slide">
+              </div>
+              <div class="carousel-caption">
+                <h1>{{arrangement.hotel.destination.name}}</h1>
+                <p>Visit an amazing hotel <b>{{arrangement.hotel.name}}</b>
+                  for just {{arrangement.totalPrice}} $</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="images[i+2]" alt="Random second slide">
+              </div>
+              <div class="carousel-caption">
+                <h1>{{arrangement.hotel.destination.name}}</h1>
+                <p>Visit an amazing hotel <b>{{arrangement.hotel.name}}</b>
+                  for just {{arrangement.totalPrice}} $</p>
+              </div>
+            </ng-template>
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="images[i+4]" alt="Random third slide">
+              </div>
+              <div class="carousel-caption">
+                <h1>{{arrangement.hotel.destination.name}}</h1>
+                <p>Visit an amazing hotel <b>{{arrangement.hotel.name}}</b>
+                  for just {{arrangement.totalPrice}} $</p>
+              </div>
+            </ng-template>
+          </ngb-carousel>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Date period for this arrangement is from {{arrangement.dateFrom | date: 'short'}}
+            to {{arrangement.dateTo | date: 'short'}}. Arrangement includes
+            {{arrangement.numberOfNights}} nights in selected hotel.
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Hotel: {{arrangement.hotel.name}}</li>
+          <li class="list-group-item">Transport: {{arrangement.transportation.type}} </li>
+          <li class="list-group-item">Maximum number of people: {{arrangement.people}}</li>
+          <li class="list-group-item">Total price: {{arrangement.totalPrice}} $</li>
+        </ul>
+        <div class="card-body">
+          <button (click)="reserveArrangement(arrangement.id)" aria-label="Show an example snack-bar"
+                  mat-stroked-button>
+            Reserve
+          </button>
+        </div>
       </div>
-      <div class="carousel-caption">
-        <h1>{{arrangement.hotel.destination.name}}</h1>
-        <p>Posetitete fenomenalan hotel <b>{{arrangement.hotel.name}}</b>
-          za samo {{arrangement.totalPrice}} $</p>
-      </div>
-</ng-template>
-<ng-template ngbSlide>
-  <div class="picsum-img-wrapper">
-    <img [src]="images[i+2]" alt="Random second slide">
+    </div>
   </div>
-  <div class="carousel-caption">
-    <h1>{{arrangement.hotel.destination.name}}</h1>
-    <p>Posetitete fenomenalan hotel <b>{{arrangement.hotel.name}}</b>
-      za samo {{arrangement.totalPrice}} $</p>
-  </div>
-</ng-template>
-<ng-template ngbSlide>
-  <div class="picsum-img-wrapper">
-    <img [src]="images[i+4]" alt="Random third slide">
-  </div>
-  <div class="carousel-caption">
-    <h1>{{arrangement.hotel.destination.name}}</h1>
-    <p>Posetitete fenomenalan hotel <b>{{arrangement.hotel.name}}</b>
-      za samo {{arrangement.totalPrice}} $</p>
-  </div>
-</ng-template>
-</ngb-carousel>
-</div>
-
-  <div class="card-body">
-    <p class="card-text">
-      Termin ovog aranzmana je od {{arrangement.dateFrom | date: 'short'}}
-      do {{arrangement.dateTo | date: 'short'}}. Aranzman obuhvata
-      {{arrangement.numberOfNights}} nocenja u odabranom smestaju.
-    </p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Hotel: {{arrangement.hotel.name}}</li>
-    <li class="list-group-item">Vrsta transporta: {{arrangement.transportation.type}} </li>
-    <li class="list-group-item">Max osoba: {{arrangement.people}}</li>
-    <li class="list-group-item">Ukupna cena: {{arrangement.totalPrice}} $</li>
-  </ul>
-  <div class="card-body">
-
-
-    <button mat-stroked-button (click)="reserveArrangement()"
-     aria-label="Show an example snack-bar">
-      Reserve
-     </button>
-
-  </div>
-
-</div>
-</div>
-</div>
 </div>

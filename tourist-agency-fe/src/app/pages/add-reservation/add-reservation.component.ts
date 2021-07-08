@@ -1,15 +1,10 @@
-import { DatePipe } from '@angular/common';
-import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IArrangement } from 'src/app/common/components/model';
-import { ArrangementsService } from 'src/app/services/arrangement/arrangements.service';
-import { ToastService } from 'src/app/services/toast/toast.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {IArrangement} from 'src/app/common/components/model';
+import {ArrangementsService} from 'src/app/services/arrangement/arrangements.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { stringify } from '@angular/compiler/src/util';
-import { AuthService } from 'src/app/services/authority/auth.service';
-import { EmailService } from 'src/app/services/email/email.service';
+import {AuthService} from 'src/app/services/authority/auth.service';
 
 @Component({
   selector: 'app-add-reservation',
@@ -18,51 +13,50 @@ import { EmailService } from 'src/app/services/email/email.service';
 })
 export class AddReservationComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService,
-     private service: ArrangementsService,
-     private email: EmailService,
-    private modalService: NgbModal,
-    private _snackBar: MatSnackBar) { }
-
   arrangements: IArrangement[];
-  //Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
-  images = [1057,944,108, 1011,100,1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-  user_id : number;
+  // Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
+  images = [1057, 944, 108, 1011, 100, 1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  userId: number;
+
+  constructor(private router: Router, private authService: AuthService,
+              private arrangementsService: ArrangementsService,
+              private modalService: NgbModal,
+              private snackBar: MatSnackBar) {
+  }
+
   ngOnInit(): void {
-    //Id je null bez auth?
-    //this.user_id = this.authService.getCurrentUserValue().id;
-    this.user_id = 1;
-    console.log(this.user_id);
+    this.userId = this.authService.getCurrentUserValue().id;
+    console.log(this.userId);
     this.loadArrangements();
 
   }
 
-  loadArrangements(){
-    this.service.getAllArrangements().subscribe(
+  public loadArrangements(): void {
+    this.arrangementsService.getAllArrangements().subscribe(
       data => {
         this.arrangements = data;
         this.arrangements.forEach(el => console.log(el));
-       //filter da ako je user_id vec rezervisao taj aranzman, ne pojavljuje se
+        // filter da ako je user_id vec rezervisao taj aranzman, ne pojavljuje se
       }
-    )
-  }
-
-  reserveArrangement(){
-    //smanji broj mesta na rezerviaciji
-    //posalje mejl na email iz usera/username
-    this.email.send("jevtic.teodora@gmail.com").subscribe(
-      
     );
-    this.openSnackBar();
-
-
   }
-  openSnackBar() {
-    const message= "You have successfuly made your reservation"
-    this._snackBar.open(message.toString(), '',
-      {duration : 3000,
-      verticalPosition: 'top',
-      horizontalPosition: 'center'});
+
+  public reserveArrangement(arrangmentId: number): void {
+    // smanji broj mesta na rezerviaciji
+    // posalje mejl na email iz usera/username
+    this.arrangementsService.addReservationForUser(arrangmentId, this.userId).subscribe((data) => {
+      this.openSnackBar();
+    });
+  }
+
+  public openSnackBar(): void{
+    const message = 'You have successfuly made your reservation';
+    this.snackBar.open(message.toString(), '',
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
   }
 
 }
