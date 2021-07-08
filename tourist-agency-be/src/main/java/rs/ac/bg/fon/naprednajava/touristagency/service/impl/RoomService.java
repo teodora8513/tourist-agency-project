@@ -1,11 +1,10 @@
 package rs.ac.bg.fon.naprednajava.touristagency.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
-import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
 import rs.ac.bg.fon.naprednajava.touristagency.mapper.HotelMapper;
@@ -33,16 +31,18 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 
 	private RoomMapper mapper;
 	private RoomRepository repository;
-	private HotelRepository HotelRepository;
+	private HotelRepository hotelRepository;
 	private HotelMapper hotelMapper;
+	private RoomMapper roomMapper;
 	
 	@Autowired
 	public RoomService(RoomMapper mapper, RoomRepository repository, 
-			HotelRepository hotelRepository, HotelMapper hotelMapper) {
+			HotelRepository hotelRepository, HotelMapper hotelMapper, RoomMapper roomMapper) {
 		this.mapper = mapper;
 		this.repository = repository;
-		this.HotelRepository = hotelRepository;
+		this.hotelRepository = hotelRepository;
 		this.hotelMapper = hotelMapper;
+		this.roomMapper = roomMapper;
 	}
 	
 	@Override
@@ -69,16 +69,12 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 			throw new MyEntityAlreadyExists("Room " + entity.get().getId() + 
 					" already exists in the system!");
 		}
-		else {
-			HotelEntity hotelEntity = HotelRepository.findById(dto.getHotel().getId()).orElseThrow(
-					() -> new MyEntityDoesntExist("Hotel with id: " + dto.getHotel().getId() + "doesn't exist!"));
-			HotelDto hotelDto = hotelMapper.toDto(hotelEntity);
-			dto.getHotel().setImage(hotelDto.getImage());
-			dto.getHotel().setImageName(hotelDto.getImageName());
-			dto.getHotel().setImageType(hotelDto.getImageType());
-			repository.save(mapper.toEntity(dto));
-			return dto;
-		}
+
+		hotelRepository.findById(dto.getHotel().getId()).orElseThrow(
+				() -> new MyEntityDoesntExist("Hotel with id: " + dto.getHotel().getId() + "doesn't exist!"));
+
+		RoomEntity roomToSave = this.roomMapper.toEntity(dto);
+		return this.roomMapper.toDto(this.repository.save(roomToSave));
 	}
 
 	@Override
@@ -96,7 +92,7 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 	public Optional<RoomDto> update(RoomDto dto) throws MyEntityDoesntExist {
 		Optional<RoomEntity> entity = repository.findById(dto.getId());
 		if(entity.isPresent()) {
-			HotelEntity hotelEntity = HotelRepository.findById(dto.getHotel().getId()).orElseThrow(
+			HotelEntity hotelEntity = hotelRepository.findById(dto.getHotel().getId()).orElseThrow(
 					() -> new MyEntityDoesntExist("Hotel with id: " + dto.getHotel().getId() + "doesn't exist!"));
 			HotelDto hotelDto = hotelMapper.toDto(hotelEntity);
 			dto.getHotel().setImage(hotelDto.getImage());
@@ -112,11 +108,11 @@ public class RoomService implements MyService<RoomDto, RoomIdentity>{
 
 	
 	public List<RoomDto> findRoomsByHotelId(Long id) {
-		List<RoomEntity> entities = repository.findRoomsByHotelId(id);
-		return entities.stream().map(en -> {
-				return mapper.toDto(en);
-		}).collect(Collectors.toList());
-		
+		// Bacamo spring exception jer spring to zna da handluje, metoda u kontroleru je overajdovana i onda morali bi svuda da menjamo
+		this.hotelRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Hotel with id: " + id + " does not exist"));
+
+		return repository.findRoomsByHotelId(id).stream().map(this.mapper::toDto).collect(Collectors.toList());
 	}
 	
 	@Override

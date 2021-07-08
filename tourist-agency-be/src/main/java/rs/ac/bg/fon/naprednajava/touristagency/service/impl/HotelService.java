@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import rs.ac.bg.fon.naprednajava.touristagency.controller.HotelController;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.HotelDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.DestinationEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.HotelEntity;
@@ -57,7 +59,7 @@ public class HotelService implements MyService<HotelDto, Long>{
 		if(entity.isPresent()) {
 			HotelDto dto = mapper.toDto(entity.get());
 			byte[] image = dto.getImage();
-			dto.setImage(decompressBytes(image));
+			dto.setImage(HotelController.decompressBytes(image));
 			return Optional.of(dto);
 		}
 		return Optional.empty();
@@ -139,23 +141,6 @@ public class HotelService implements MyService<HotelDto, Long>{
 		return hotels.stream().map((hotelEntity -> {
 			return this.mapper.toDto(hotelEntity);
 		})).collect(Collectors.toList());
-	}
-	
-	public static byte[] decompressBytes(byte[] data) {
-		Inflater inflater = new Inflater();
-		inflater.setInput(data);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		try {
-			while (!inflater.finished()) {
-				int count = inflater.inflate(buffer);
-				outputStream.write(buffer, 0, count);
-			} outputStream.close();
-		} catch (IOException ioe) {
-		} catch (DataFormatException e) {
-		}
-		
-		return outputStream.toByteArray();
 	}
 
 }
