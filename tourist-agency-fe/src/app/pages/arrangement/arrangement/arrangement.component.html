@@ -93,15 +93,6 @@
         </mat-form-field>
       </p>
 
-      <p>
-        <mat-form-field>
-          <input formControlName="price" matInput min="0" placeholder="Price" type="number">
-          <mat-error *ngIf="this.arrangementForm.controls.price">
-            {{this.fieldError}}
-          </mat-error>
-        </mat-form-field>
-      </p>
-
       <mat-error *ngIf="this.error">
         {{this.error}}
       </mat-error>

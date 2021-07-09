@@ -17,7 +17,6 @@ export interface IArrangement {
   people?: number;
   destination?: IDestination;
   numberOfArrangementsLeft?: number;
-
 }
 
 export class Arrangement implements IArrangement {

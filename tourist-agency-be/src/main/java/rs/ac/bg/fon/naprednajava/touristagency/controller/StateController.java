@@ -23,6 +23,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.StateEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
+import rs.ac.bg.fon.naprednajava.touristagency.security.authorization.IsAdminUser;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.StateService;
 
 @RestController
@@ -37,12 +38,13 @@ public class StateController implements rs.ac.bg.fon.naprednajava.touristagency.
 		this.stateService = stateService;
 	}
 
+	@IsAdminUser
 	@GetMapping
 	@Override
 	public ResponseEntity<List<StateDto>> getAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(stateService.getAll());
 	}
-	
+
 	@GetMapping(path = "/{id}")
 	@Override
 	public ResponseEntity<Object> findById(Long ID) {

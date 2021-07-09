@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.ReservationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
+import rs.ac.bg.fon.naprednajava.touristagency.security.authorization.IsAdminUser;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.ReservationService;
 
 @RestController
@@ -54,6 +55,7 @@ public class ReservationController implements rs.ac.bg.fon.naprednajava.tourista
 		
 	}
 
+	@IsAdminUser
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(ReservationDto dto) {

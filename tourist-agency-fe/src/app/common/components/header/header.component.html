@@ -1,36 +1,37 @@
 <div class="navbar-container">
-<mat-toolbar color="primary">
-    <button mat-icon-button (click)="sidenav.toggle()">
+  <mat-toolbar color="primary">
+    <button (click)="sidenav.toggle()" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
     <span>Tourist Agency</span>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-content">
-  <mat-sidenav #sidenav mode="over">
-    <mat-nav-list>
-      <!-- Milena pogledaj do koje komponente treba da vodi ova komponenta
-        <a mat-list-item routerLink="/home" (click)="sidenav.toggle()">
-        <mat-icon>hotel</mat-icon><span class="nav-caption">Reserve</span>
-      </a>-->
-      <a mat-list-item routerLink="/hotels" (click)="sidenav.toggle()">
-        <mat-icon>hotel</mat-icon><span class="nav-caption">Create hotel</span>
-      </a>
-      <a mat-list-item routerLink="/arrangement" (click)="sidenav.toggle()">
-        <mat-icon>loyalty</mat-icon><span class="nav-caption">Create arrangement</span>
-      </a>
-      <a mat-list-item routerLink="/add-reservation" (click)="sidenav.toggle()">
-        <mat-icon>airplanemode_active</mat-icon><span class="nav-caption">Add reservation</span>
-      </a>
-      <a mat-list-item routerLink="/my-reservations" (click)="sidenav.toggle()">
-        <mat-icon>card_travel</mat-icon><span class="nav-caption">My reservations</span>
-      </a>
-      <a mat-list-item (click)="sidenav.toggle()">
-        <mat-icon>logout</mat-icon><span (click)="this.logout()" class="nav-caption">Logout</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-toolbar>
+  <mat-sidenav-container class="sidenav-content">
+    <mat-sidenav #sidenav mode="over">
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" *ngIf="this.isAdmin" mat-list-item routerLink="/hotels">
+          <mat-icon>hotel</mat-icon>
+          <span class="nav-caption">Create hotel</span>
+        </a>
+        <a (click)="sidenav.toggle()" *ngIf="this.isAdmin" mat-list-item routerLink="/arrangement">
+          <mat-icon>loyalty</mat-icon>
+          <span class="nav-caption">Create arrangement</span>
+        </a>
+        <a (click)="sidenav.toggle()" mat-list-item routerLink="/add-reservation">
+          <mat-icon>airplanemode_active</mat-icon>
+          <span class="nav-caption">Arrangements</span>
+        </a>
+        <a (click)="sidenav.toggle()" *ngIf="!this.isAdmin" mat-list-item routerLink="/my-reservations">
+          <mat-icon>card_travel</mat-icon>
+          <span class="nav-caption">My arrangements</span>
+        </a>
+        <a (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>logout</mat-icon>
+          <span (click)="this.logout()" class="nav-caption">Logout</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

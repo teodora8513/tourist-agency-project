@@ -65,4 +65,23 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
+  public isAdmin(): boolean {
+    return this.checkLoggedInUser('ROLE_ADMIN');
+  }
+
+  private checkLoggedInUser(role: string): boolean {
+    const user = this.getCurrentUserValue();
+    if (user) {
+      const authorities = user.authorities;
+      if (authorities) {
+        for (const authority of authorities) {
+          if (authority.authority === role) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
 }
