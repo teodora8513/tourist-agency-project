@@ -14,8 +14,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, RoomIdentity>{
-	@Query(value = "SELECT room FROM RoomEntity room "
-			+ "WHERE room.hotel = (select hotel from HotelEntity hotel where hotel.id = ?1)")
+
 	List<RoomEntity> findRoomsByHotelId(Long id);
 }
 
