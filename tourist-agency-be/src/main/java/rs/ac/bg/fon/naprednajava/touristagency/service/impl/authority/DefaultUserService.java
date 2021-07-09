@@ -194,7 +194,11 @@ public class DefaultUserService implements UserService {
 
         // Da izbegnemo da opet loadujemo usera posto nisu updatovane rezervacije, rucno cemo dodati na njega ovu sto smo sacuvali
         userEntity.getReservations().remove(reservationEntity);
-
+        try {
+            this.mailService.sendEmail(userEntity.getUsername(), "Cancelation of reservation", "You canceled your reservation. Please let us know why.");
+        } catch (Exception e) {
+            //#TODO
+        }
         return userEntity.getReservations().stream().map(this.reservationMapper::toDto).collect(Collectors.toSet());
     }
 
