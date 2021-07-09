@@ -25,9 +25,10 @@ export class AddReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadArrangements();
     this.userId = this.authService.getCurrentUserValue().id;
     console.log(this.userId);
-    this.loadArrangements();
+
 
   }
 

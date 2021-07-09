@@ -195,7 +195,7 @@ public class ReservationEntity implements MyEntity {
 		int meal = priceOfMeals(meals);
 		int meals = numberOfNights * people * meal;
 		double transport = transportation.getPrice() * people;
-		return accommodation + meals + transport;
+		return (accommodation + meals + transport)/people;
 	}
 
 	public void setTotalPrice(double totalPrice) {
