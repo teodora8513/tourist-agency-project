@@ -20,6 +20,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import kotlin.collections.ArrayDeque;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.authority.UserEntity;
 import rs.ac.bg.fon.naprednajava.touristagency.enumeration.Meals;
 
@@ -45,7 +46,7 @@ public class ReservationEntity implements MyEntity {
 	private int numberOfNights;
 	
 	@OneToMany(mappedBy = "reservation")
-	private List<RoomEntity> rooms;
+	private List<RoomEntity> rooms = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
 	private Meals meals;

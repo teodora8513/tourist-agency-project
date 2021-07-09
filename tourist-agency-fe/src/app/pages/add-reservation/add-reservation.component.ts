@@ -16,7 +16,7 @@ export class AddReservationComponent implements OnInit {
   public arrangements: IArrangement[];
   public isAdmin!: boolean;
   // Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
-  public images = [1057, 944, 108, 1011, 100, 1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  public images = [1057, 944, 108, 1011, 100, 1061, 1015, 1039, 984, 1038, 1050, 1051, 1055].map((n) => `https://picsum.photos/id/${n}/900/500`);
   public userId: number;
 
   constructor(private router: Router, private authService: AuthService,
@@ -49,11 +49,23 @@ export class AddReservationComponent implements OnInit {
     // posalje mejl na email iz usera/username
     this.arrangementsService.addReservationForUser(arrangmentId, this.userId).subscribe((data) => {
       this.openSnackBar();
+    }, error => {
+      this.openErrorSnackBar();
     });
   }
 
   public openSnackBar(): void{
     const message = 'You have successfuly made your reservation';
+    this.snackBar.open(message.toString(), '',
+      {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
+  }
+
+  public openErrorSnackBar(): void{
+    const message = 'You have already made this reservation';
     this.snackBar.open(message.toString(), '',
       {
         duration: 3000,

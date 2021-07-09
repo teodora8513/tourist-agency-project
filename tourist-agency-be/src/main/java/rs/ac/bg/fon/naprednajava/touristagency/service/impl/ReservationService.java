@@ -81,6 +81,7 @@ public class ReservationService implements MyService<ReservationDto, Long> {
         reservationEntity.setDestination(destinationEntity);
         reservationEntity.setHotel(hotelEntity);
         reservationEntity.setTransportation(transportationEntity);
+        reservationEntity.setTotalPrice(reservationEntity.getTotalPrice());
         this.reservationRepository.save(reservationEntity);
         return dto;
     }
