@@ -96,7 +96,7 @@ export class HotelsComponent implements OnInit {
   public onDeleteHotel(hotelId: number): void {
 
     this.hotelService.deleteHotel(hotelId).subscribe(
-      (response: String) => {
+      (response: string) => {
         console.log(response);
         this.getHotels();
         this.openSnackBar(response);
@@ -122,7 +122,7 @@ export class HotelsComponent implements OnInit {
     );
   }
 
-  public hotelDetails(id: number) {
+  public hotelDetails(id: number): void {
     this.router.navigate(['details', id]);
   }
 
@@ -145,29 +145,12 @@ export class HotelsComponent implements OnInit {
     button.click();
   }
 
-  public searchHotels(key: string): void {
-    console.log(key);
-    const results: IHotel[] = [];
-    for (const hotel of this.hotels) {
-      if ((hotel.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-        || (hotel.address.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-        || (hotel.destination.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)
-        || (hotel.destination.state.name.toLowerCase().indexOf(key.toLowerCase()) !== -1)) {
-        results.push(hotel);
-      }
-    }
-    this.hotels = results;
-    if (results.length === 0 || !key) {
-      this.getHotels();
-    }
-  }
-
   // Gets called when the user selects an image
-  public onFileChanged(event) {
+  public onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
   }
 
-  public openSnackBar(message: String) {
+  public openSnackBar(message: string): void {
     this.snackBar.open(message.toString(), '',
       {
         duration: 3000,
