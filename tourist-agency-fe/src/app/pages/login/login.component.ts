@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
     if (this.authService.getCurrentUserValue()) {
       this.router.navigate(['/']);
     }
+    this.initializeFormConfiguration();
   }
 
   ngOnInit(): void {
-    this.initializeFormConfiguration();
   }
 
   public onSubmit($event: any): void {

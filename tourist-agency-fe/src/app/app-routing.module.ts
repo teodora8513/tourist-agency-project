@@ -13,9 +13,8 @@ import { MyReservationsComponent } from './pages/my-reservations/my-reservations
 
 
 const routes: Routes = [
- // { path: '', component: HeaderComponent, canActivate:[AuthGuard], children: [
-  { path: '', component: HeaderComponent, children: [
-      {path: 'home', component: AddReservationComponent},
+ { path: '', component: HeaderComponent, canActivate:[AuthGuard], children: [
+    {path: 'home', component: AddReservationComponent},
       {path: '', redirectTo: '/home', pathMatch: 'full' },
       {path: 'arrangement', component: ArrangementComponent, pathMatch: 'full'},
       {path: 'add-reservation', component: AddReservationComponent, pathMatch: 'full'},

@@ -13,15 +13,17 @@ import {AuthService} from 'src/app/services/authority/auth.service';
 })
 export class AddReservationComponent implements OnInit {
 
-  arrangements: IArrangement[];
+  public arrangements: IArrangement[];
+  public isAdmin!: boolean;
   // Img lista ako je random mora uvek da ima duplo vise slike od broja rezervacija
-  images = [1057, 944, 108, 1011, 100, 1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-  userId: number;
+  public images = [1057, 944, 108, 1011, 100, 1061, 1015, 1039, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  public userId: number;
 
   constructor(private router: Router, private authService: AuthService,
               private arrangementsService: ArrangementsService,
               private modalService: NgbModal,
               private snackBar: MatSnackBar) {
+    this.isAdmin = this.authService.isAdmin();
   }
 
   ngOnInit(): void {

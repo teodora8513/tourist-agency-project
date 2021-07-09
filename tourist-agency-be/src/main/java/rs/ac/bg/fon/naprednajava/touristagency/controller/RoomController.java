@@ -13,6 +13,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.RoomDto;
 import rs.ac.bg.fon.naprednajava.touristagency.entity.RoomIdentity;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
+import rs.ac.bg.fon.naprednajava.touristagency.security.authorization.IsAdminUser;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.HotelService;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.RoomService;
 
@@ -34,6 +35,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
 	}
 
+	@IsAdminUser
 	@GetMapping(path = "/{id}")
 	@Override
 	public ResponseEntity<Object> findById(RoomIdentity id) {
@@ -45,6 +47,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		
 	}
 
+	@IsAdminUser
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(RoomDto dto) {
@@ -64,6 +67,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		
 	}
 
+	@IsAdminUser
 	//@DeleteMapping(path="/{id}")
 	@DeleteMapping
 	@Override
@@ -77,6 +81,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		
 	}
 
+	@IsAdminUser
 	@PutMapping(path="/{id}")
 	@Override
 	public ResponseEntity<Object> update(RoomDto dto) {
@@ -93,6 +98,7 @@ public class RoomController implements rs.ac.bg.fon.naprednajava.touristagency.c
 		return null;
 	}
 
+	@IsAdminUser
 	@GetMapping(path = "/hotel/{id}")
 	@Override
 	public ResponseEntity<List<RoomDto>> findRoomsByHotelId(Long id) {

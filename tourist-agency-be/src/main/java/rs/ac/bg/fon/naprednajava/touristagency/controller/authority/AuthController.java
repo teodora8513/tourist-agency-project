@@ -24,6 +24,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.mapper.authority.UserViewMapper;
 import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.AuthUserRequest;
 import rs.ac.bg.fon.naprednajava.touristagency.requests.authority.CreateUserRequest;
 import rs.ac.bg.fon.naprednajava.touristagency.security.JwtTokenUtil;
+import rs.ac.bg.fon.naprednajava.touristagency.security.authorization.IsUser;
 import rs.ac.bg.fon.naprednajava.touristagency.service.UserService;
 
 import java.util.Set;
@@ -68,16 +69,19 @@ public class AuthController {
         return this.userService.createUser(createUserRequest);
     }
 
+    @IsUser
     @GetMapping(path="reservations/{id}")
     public ResponseEntity<Set<ReservationDto>> getReservationsByUserId(@PathVariable Long id){
     	return ResponseEntity.status(HttpStatus.OK).body(userService.getReservationsByUserId(id));
     }
-    
+
+    @IsUser
     @PostMapping("reservation/{idRes}/user/{idUser}")
     public Set<ReservationDto> addReservationToUser(@PathVariable Long idRes, @PathVariable Long idUser){
         return userService.addReservationToUser(idUser, idRes);
     }
-    
+
+    @IsUser
     @DeleteMapping("reservation/{idRes}/user/{idUser}")
     public Set<ReservationDto> removeUserFromReservation(@PathVariable Long idRes, @PathVariable Long idUser){
     	return userService.removeReservationForUser(idUser, idRes);

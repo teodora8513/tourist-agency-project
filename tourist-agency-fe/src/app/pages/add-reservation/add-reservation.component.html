@@ -50,7 +50,8 @@
           <li class="list-group-item">Total price per person: {{arrangement.totalPrice}} $ </li>
         </ul>
         <div class="card-body">
-          <button (click)="reserveArrangement(arrangement.id)" aria-label="Show an example snack-bar"
+          <button *ngIf="!this.isAdmin"
+                  (click)="reserveArrangement(arrangement.id)" aria-label="Show an example snack-bar"
                   mat-stroked-button>
             Reserve
           </button>

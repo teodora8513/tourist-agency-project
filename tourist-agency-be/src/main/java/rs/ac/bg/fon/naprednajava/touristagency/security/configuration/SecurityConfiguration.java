@@ -79,11 +79,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Set permissions on endpoints
 
 
-         httpSecurity.authorizeRequests().antMatchers("/").permitAll();
-       // httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
-
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
-     //   httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
+       // httpSecurity.authorizeRequests().antMatchers("/").permitAll();
+       httpSecurity.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
 
 
         // Add jwt token filter

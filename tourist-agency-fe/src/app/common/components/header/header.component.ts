@@ -9,7 +9,11 @@ import {AuthService} from '../../../services/authority/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  public isAdmin!: boolean;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.isAdmin = this.authService.isAdmin();
+  }
 
   ngOnInit(): void {
   }

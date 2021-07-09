@@ -22,6 +22,7 @@ import rs.ac.bg.fon.naprednajava.touristagency.dto.DestinationDto;
 import rs.ac.bg.fon.naprednajava.touristagency.dto.StateDto;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityAlreadyExists;
 import rs.ac.bg.fon.naprednajava.touristagency.exception.MyEntityDoesntExist;
+import rs.ac.bg.fon.naprednajava.touristagency.security.authorization.IsAdminUser;
 import rs.ac.bg.fon.naprednajava.touristagency.service.impl.DestinationService;
 
 @RestController
@@ -37,6 +38,7 @@ public class DestinationController implements rs.ac.bg.fon.naprednajava.tourista
 		this.destinationService = destinationService;
 	}
 
+	@IsAdminUser
 	@GetMapping
 	@Override
 	public ResponseEntity<List<DestinationDto>> getAll() {
